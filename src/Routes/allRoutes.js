@@ -240,7 +240,11 @@ import PrivecyPolicy from '../pages/Pages/PrivacyPolicy';
 import TermsCondition from '../pages/Pages/TermsCondition';
 import JobLanding from "../pages/Job_Landing/Job";
 
+import Claim from '../pages/Claim'
+
 const authProtectedRoutes = [
+
+  { path: "/claim", component: <Claim /> },
   { path: "/dashboard-analytics", component: <DashboardAnalytics /> },
   { path: "/dashboard-crm", component: <DashboardCrm /> },
   { path: "/dashboard", component: <DashboardEcommerce /> },
