@@ -23,6 +23,10 @@ function PetsPlayer({ sources }) {
         const nextSource = sources[currentSrcIndex + 1];
         player.src(nextSource);
         player.play();
+      } else {
+        const nextSource = sources[0];
+        player.src(nextSource);
+        player.play();
       }
     });
 
