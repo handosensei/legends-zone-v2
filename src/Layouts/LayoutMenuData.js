@@ -7,17 +7,28 @@ const Navdata = () => {
 
     const [iscurrentState, setIscurrentState] = useState('Dashboard');
     const [isClaim, setIsClaim] = useState(false);
+    const [isDashboard, setIsDashboard] = useState(false);
+    const [isProgress, setIsProgress] = useState(false);
+
 
     useEffect(() => {
         document.body.classList.remove('twocolumn-panel');
 
-        if (iscurrentState === 'Widgets') {
+        if (iscurrentState !== 'Dashboard') {
+            setIsDashboard(false);
+        }
+        if (iscurrentState !== 'Progress') {
+            setIsProgress(false);
+        }
+        if (iscurrentState !== 'Claim') {
             setIsClaim(false);
         }
 
     }, [
         history,
         iscurrentState,
+        isDashboard,
+        isProgress,
         isClaim
     ]);
 
@@ -25,17 +36,39 @@ const Navdata = () => {
         {
             label: "Menu",
             isHeader: true,
-        },
-        {
+        }, {
+
+            id: "dashboard",
+            label: "Dashboards",
+            icon: "ri-dashboard-2-line",
+            link: "/dashboard",
+            stateVariables: isDashboard,
+            click: function (e) {
+                e.preventDefault();
+                setIsDashboard(!isDashboard);
+                setIscurrentState('Dashboard');
+            }
+        }, {
+            id: "progress",
+            label: "Progress",
+            icon: "ri-treasure-map-line",
+            link: "/progress",
+            click: function (e) {
+                e.preventDefault();
+                setIsProgress(!isProgress);
+                setIscurrentState('Progress');
+            }
+        }, {
             id: "claim",
             label: "Claim",
             icon: "ri-medal-2-fill",
             link: "/claim",
             click: function (e) {
                 e.preventDefault();
+                setIsClaim(!isClaim);
                 setIscurrentState('Claim');
             }
-        },
+        }
     ];
     return <React.Fragment>{menuItems}</React.Fragment>;
 };
