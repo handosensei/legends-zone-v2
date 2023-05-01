@@ -15,36 +15,9 @@ import logoLight from "../../assets/images/logo-light.png";
 
 //Import config
 import withRouter from '../../Components/Common/withRouter';
+import DynamicElement from "./DynamicElement";
 
 const Login = (props) => {
-    const dispatch = useDispatch();
-
-    const onConnectWallet = () => {
-        if (!window.ethereum) {
-            return;
-        }
-        window.ethereum.request({method: 'eth_requestAccounts'})
-        .then(res => {
-            const addressTemp = res[0].toLowerCase();
-            defineUserIsHolder(addressTemp);
-            defineUserIsAdmin(addressTemp);
-
-            const user = {
-                'wallet': addressTemp,
-                'holder': true,
-                'admin': true,
-            }
-            dispatch(loginUser(user, props.router.navigate));
-        });
-    }
-
-    const defineUserIsAdmin = (addressValue) => {
-
-    }
-
-    const defineUserIsHolder = (addressValue) => {
-
-    }
 
     useEffect(() => {
         document.documentElement.setAttribute("data-body-image", "img-3");
@@ -78,30 +51,7 @@ const Login = (props) => {
                                         </div>
 
                                         <div className="text-center p-2 mt-4">
-                                            <DynamicContextProvider
-                                                settings={{
-                                                    environmentId: process.env.REACT_APP_DYNAMIC_AUTH,
-                                                    initialAuthenticationMode: 'connect-only',
-                                                    enableVisitTrackingOnConnectOnly: false,
-                                                    walletsFilter: FilterAndSortWallets(
-                                                    [
-                                                        'metamask',
-                                                        'trust',
-                                                        'coolwallet',
-                                                        'coinbase',
-                                                        'walletconnect',
-                                                        'braveevm',
-                                                        'opera',
-                                                        'ledger'
-                                                    ]),
-                                                    eventsCallbacks: {
-                                                        onAuthFlowClose: () => {
-                                                            onConnectWallet();
-                                                        }
-                                                    }
-                                                }}>
-                                                <DynamicWidget/>
-                                            </DynamicContextProvider>
+                                            <DynamicElement props={props}/>
                                         </div>
                                     </CardBody>
                                 </Card>
