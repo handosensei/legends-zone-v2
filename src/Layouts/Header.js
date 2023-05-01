@@ -13,8 +13,9 @@ import WebAppsDropdown from '../Components/Common/WebAppsDropdown';
 import NotificationDropdown from '../Components/Common/NotificationDropdown';
 import ProfileDropdown from '../Components/Common/ProfileDropdown';
 import LightDark from '../Components/Common/LightDark';
+import DynamicElement from "../pages/Authentication/DynamicElement";
 
-const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }) => {
+const Header = ({ props, onChangeLayoutMode, layoutModeType, headerClass }) => {
     const [search, setSearch] = useState(false);
     const toogleSearch = () => {
         setSearch(!search);
@@ -110,6 +111,7 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }) => {
 
                             {/* ProfileDropdown */}
                             <ProfileDropdown />
+                            <DynamicElement props={props} />
                         </div>
                     </div>
                 </div>

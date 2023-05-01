@@ -53,6 +53,9 @@ const DynamicElement = ({props}) => {
         eventsCallbacks: {
           onAuthFlowClose: () => {
             onConnectWallet();
+          },
+          onLogout: (args) => {
+            window.location = process.env.PUBLIC_URL + "/logout";
           }
         }
       }}>

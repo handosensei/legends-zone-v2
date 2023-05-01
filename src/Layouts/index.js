@@ -112,6 +112,7 @@ const Layout = (props) => {
         <React.Fragment>
             <div id="layout-wrapper">
                 <Header
+                    props={props}
                     headerClass={headerClass}
                     layoutModeType={layoutModeType}
                     onChangeLayoutMode={onChangeLayoutMode} />
