@@ -240,15 +240,20 @@ import PrivecyPolicy from '../pages/Pages/PrivacyPolicy';
 import TermsCondition from '../pages/Pages/TermsCondition';
 import JobLanding from "../pages/Job_Landing/Job";
 
-import Claim from '../pages/Claim'
+import DashboardZone from '../pages/DashboardZone';
+import Progress from '../pages/Progress';
+import Claim from '../pages/Claim';
 
 const authProtectedRoutes = [
 
   { path: "/claim", component: <Claim /> },
+  { path: "/progress", component: <Progress /> },
+  { path: "/dashboard", component: <DashboardZone /> },
+  { path: "/index", component: <DashboardZone /> },
+
   { path: "/dashboard-analytics", component: <DashboardAnalytics /> },
   { path: "/dashboard-crm", component: <DashboardCrm /> },
-  { path: "/dashboard", component: <DashboardEcommerce /> },
-  { path: "/index", component: <DashboardEcommerce /> },
+  { path: "/dashboard-ecommerce", component: <DashboardEcommerce /> },
   { path: "/dashboard-crypto", component: <DashboardCrypto /> },
   { path: "/dashboard-projects", component: <DashboardProject /> },
   { path: "/dashboard-nft", component: <DashboardNFT /> },
