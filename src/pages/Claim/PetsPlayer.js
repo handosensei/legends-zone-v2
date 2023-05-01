@@ -22,11 +22,11 @@ function PetsPlayer({ sources }) {
       if (currentSrcIndex !== sources.length - 1) {
         const nextSource = sources[currentSrcIndex + 1];
         player.src(nextSource);
-        player.play();
+        player.playbackRate(0.5);
       } else {
         const nextSource = sources[0];
         player.src(nextSource);
-        player.play();
+        player.playbackRate(0.5);
       }
     });
 
