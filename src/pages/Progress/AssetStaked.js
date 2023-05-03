@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Col, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown } from 'reactstrap';
-import { topSellers } from "../../common/data";
+import {Card, CardBody, CardFooter, CardHeader, Col} from 'reactstrap';
 import { getEstimateTokenRewards } from '../../client/ApiMetaLegends';
 import assetImgArmor from '../../assets/images/metalegends/staked-asset/ArmorRough.png';
 import assetImgPet from '../../assets/images/metalegends/staked-asset/HeavyPetRough.png';
@@ -14,12 +13,6 @@ const AssetStaked = () => {
 
   const [totalTokenRewards, setTotalTokenRewards] = useState(0);
 
-  const [armorPerkPackage, setArmorPerkPackage] = useState({quantity: 0, tokens: 0});
-  const [petPerkPackage, setPetPerkPackage] = useState({quantity: 0, tokens: 0});
-  const [vehiclePerkPackage, setVehiclePerkPackage] = useState({quantity: 0, tokens: 0});
-  const [residencePerkPackage, setResidencePerkPackage] = useState({quantity: 0, tokens: 0});
-  const [landPerkPackage, setLandPerkPackage] = useState({quantity: 0, tokens: 0});
-
   const [walletAddress, setWalletAddress] = useState('');
   const [assets, setAssets] = useState([]);
 
@@ -27,7 +20,6 @@ const AssetStaked = () => {
 
   const estimateTokenRewards = async (address) => {
     getEstimateTokenRewards(address).then((res) => {
-      console.log(res);
       const data = [
         {
           label: 'Armors',
@@ -52,7 +44,6 @@ const AssetStaked = () => {
         }
       ];
       setAssets(data);
-      console.log(data);
       setTotalTokenRewards(res['total_token_rewards'])
     });
 
@@ -73,7 +64,7 @@ const AssetStaked = () => {
 
   return (
   <React.Fragment>
-    <Col xl={3}>
+    <Col xl={4}>
       <Card className="card-height-100">
         <CardHeader className="align-items-center d-flex">
           <h4 className="card-title mb-0 flex-grow-1">Assets Staked</h4>
@@ -105,10 +96,30 @@ const AssetStaked = () => {
                 </td>
               </tr>
               ))}
+              <tr>
+                <td>
+                  <div className="d-flex align-items-center">
+                    <div className="flex-shrink-0 me-2">
+                      {/*<img src={item.img} alt="" className="avatar-sm p-2" />*/}
+                    </div>
+                    <div>
+                      <h5 className="fs-14 my-1 fw-medium"><Link to="/apps-ecommerce-seller-details" className="text-reset">Total</Link></h5>
+                    </div>
+                  </div>
+                </td>
+                <td>
+
+                </td>
+                <td>
+                  <p className="mb-0">$ {totalTokenRewards}</p>
+                  <span className="text-muted">METAL</span>
+                </td>
+              </tr>
               </tbody>
             </table>
           </div>
         </CardBody>
+
       </Card>
     </Col>
 
