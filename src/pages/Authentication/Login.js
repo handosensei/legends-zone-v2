@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Card, CardBody, Col, Container, Row } from 'reactstrap';
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
 import { Link } from "react-router-dom";
-
-//redux
-import { useDispatch } from "react-redux";
-
 
 import logoLight from "../../assets/images/logo-light.png";
 

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {DynamicContextProvider, DynamicWidget, FilterAndSortWallets} from "@dynamic-labs/sdk-react";
 import {useDispatch} from "react-redux";
 import {loginUser} from "../../store/auth/login/actions";
 
 const DynamicElement = ({props}) => {
   const dispatch = useDispatch();
+
+  const [isHolder, setIsHolder] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const onConnectWallet = () => {
     if (!window.ethereum) {
@@ -18,26 +21,26 @@ const DynamicElement = ({props}) => {
 
       const user = {
         'wallet': addressTemp,
-        'holder': true,
-        'admin': true,
+        'holder': isHolder,
+        'admin': isAdmin,
       }
       dispatch(loginUser(user, props.router.navigate));
     });
   }
 
   const defineUserIsAdmin = (addressValue) => {
-
+    setIsAdmin(false);
   }
 
   const defineUserIsHolder = (addressValue) => {
-
+    setIsHolder(true);
   }
 
   return (
     <DynamicContextProvider
       settings={{
         environmentId: process.env.REACT_APP_DYNAMIC_AUTH,
-        initialAuthenticationMode: 'connect-only',
+        // initialAuthenticationMode: 'connect-only',
         enableVisitTrackingOnConnectOnly: false,
         walletsFilter: FilterAndSortWallets(
         [
@@ -51,7 +54,7 @@ const DynamicElement = ({props}) => {
           'ledger'
         ]),
         eventsCallbacks: {
-          onAuthFlowClose: () => {
+          onAuthSuccess: (args) => {
             onConnectWallet();
           },
           onLogout: (args) => {
