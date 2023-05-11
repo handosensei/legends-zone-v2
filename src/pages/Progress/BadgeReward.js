@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import SniperBronze from "../../assets/images/metalegends/badge-reward/SniperBronze.png";
 import ArmorCyber from "../../assets/images/metalegends/badge-reward/ArmorCyber.png";
@@ -9,17 +9,25 @@ import SniperRifleCelestial from "../../assets/images/metalegends/badge-reward/S
 import {Card, CardBody, CardHeader, Col} from "reactstrap";
 import {Link} from "react-router-dom";
 
-const BadgeReward = () => {
+const BadgeReward = ({rewardBadge}) => {
 
-  const Badges = [
-    { img: SniperBronze, label: "Rough Sniper" },
-    { img: ArmorCyber, label: "Rough Armor" },
-    { img: WeaponGoldboi, label: "Goldboi Weapon" },
-    { img: CyberPet, label: "Cyber Pet" },
-    { img: GoldboiCar, label: "Goldboi Vehicle" },
-    { img: SniperRifleCelestial, label: "Celestial Sniper" }
-  ];
-  
+  const [badges, setBadges] = useState([]);
+
+  const defineBadges = (rewardBadge) => {
+    const data = [
+      { img: SniperBronze, label: "Rough Sniper", qty: rewardBadge.sniperBronze },
+      { img: ArmorCyber, label: "Rough Armor", qty: rewardBadge.armorCyber },
+      { img: WeaponGoldboi, label: "Goldboi Weapon", qty: rewardBadge.weaponGoldboi },
+      { img: CyberPet, label: "Cyber Pet", qty: rewardBadge.cyberPet },
+      { img: GoldboiCar, label: "Goldboi Vehicle", qty: rewardBadge.goldboiCar },
+      { img: SniperRifleCelestial, label: "Celestial Sniper", qty: rewardBadge.sniperRifleCelestial }
+    ];
+    setBadges(data);
+  }
+
+  useEffect(() => {
+    defineBadges(rewardBadge);
+  }, [rewardBadge]);
   return (
     <React.Fragment>
       <Col xl={4}>
@@ -32,7 +40,7 @@ const BadgeReward = () => {
             <div className="table-responsive table-card">
               <table className="table table-centered table-hover align-middle table-nowrap mb-0">
                 <tbody>
-                {Badges.map((item, key) => (
+                {badges.map((item, key) => (
                   <tr key={key}>
                     <td>
                       <div className="d-flex align-items-center">
@@ -45,7 +53,7 @@ const BadgeReward = () => {
                       </div>
                     </td>
                     <td>
-                      <p className="mb-0">0</p>
+                      <p className="mb-0">{item.qty}</p>
                     </td>
                   </tr>
                 ))}
