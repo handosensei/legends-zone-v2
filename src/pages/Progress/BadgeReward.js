@@ -48,7 +48,7 @@ const BadgeReward = ({rewardBadge}) => {
                           <img src={item.img} alt="" className="avatar-sm p-2" />
                         </div>
                         <div>
-                          <h5 className="fs-14 my-1 fw-medium"><Link to="/apps-ecommerce-seller-details" className="text-reset">{item.label}</Link></h5>
+                          <h5 className="fs-14 my-1 fw-medium">{item.label}</h5>
                         </div>
                       </div>
                     </td>

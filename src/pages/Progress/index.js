@@ -3,8 +3,35 @@ import {Col, Container, Row} from "reactstrap";
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import AssetStaked from "./AssetStaked";
 import BadgeReward from "./BadgeReward";
+import AssetUnstaked from "./AssetUnstaked";
+import {getRewardsEstimate} from "../../client/ApiMetaLegends";
 
 const Progress = () => {
+  
+  const [rewardBadge, setRewardBadge] = useState({});
+  const [totalTokenRewards, setTotalTokenRewards] = useState(0);
+  const [perkPackages, setPerkPackages] = useState({});
+  const [unstaked, setUnstaked] = useState({})
+
+  useEffect(() => {
+
+    const fetchData = async (address) => {
+      const response = await getRewardsEstimate(address);
+      setPerkPackages(response.rewards.token.perkPackages);
+      setTotalTokenRewards(response.rewards.token.totalTokenRewards);
+      setUnstaked(response.rewards.unstaked);
+      console.log('call')
+      setRewardBadge(response.rewards.badge);
+    }
+
+    if (sessionStorage.getItem("authUser")) {
+      const obj = JSON.parse(sessionStorage.getItem("authUser"));
+      fetchData(obj.wallet);
+    }
+  }, []);
+
+  document.title = "Progress | Legends Zone";
+
   return (
     <React.Fragment>
       <div className="page-content">
@@ -14,8 +41,9 @@ const Progress = () => {
             <Col>
               <div className="h-100">
                 <Row>
-                  <AssetStaked />
-                  <BadgeReward />
+                  <AssetStaked perkPackages={perkPackages} totalTokenRewards={totalTokenRewards}/>
+                  <BadgeReward rewardBadge={rewardBadge} />
+                  <AssetUnstaked unstaked={unstaked} />
                 </Row>
               </div>
             </Col>

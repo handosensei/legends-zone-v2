@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import {Card, CardBody, CardFooter, CardHeader, Col} from 'reactstrap';
-import { getEstimateTokenRewards } from '../../client/ApiMetaLegends';
 import assetImgArmor from '../../assets/images/metalegends/staked-asset/ArmorRough.png';
 import assetImgPet from '../../assets/images/metalegends/staked-asset/HeavyPetRough.png';
 import assetImgVehicle from '../../assets/images/metalegends/staked-asset/GoldboiCar.png';
@@ -9,58 +8,52 @@ import assetImgResidence from '../../assets/images/metalegends/staked-asset/Resi
 import assetImgLand from '../../assets/images/metalegends/staked-asset/Lands.png';
 
 
-const AssetStaked = () => {
-
-  const [totalTokenRewards, setTotalTokenRewards] = useState(0);
-
-  const [walletAddress, setWalletAddress] = useState('');
+const AssetStaked = ({perkPackages, totalTokenRewards}) => {
+  const [, setTotalTokenRewards] = useState(totalTokenRewards);
   const [assets, setAssets] = useState([]);
+  const [, setPerkPackages] = useState(perkPackages);
 
+  const defineAssets = () => {
+    if (!(perkPackages && perkPackages.armor)) {
+      return;
+    }
 
-
-  const estimateTokenRewards = async (address) => {
-    getEstimateTokenRewards(address).then((res) => {
-      const data = [
-        {
-          label: 'Armors',
-          img: assetImgArmor,
-          data: res['perk_packages']['armor'],
-        }, {
-          label: 'Pets',
-          img: assetImgPet,
-          data: res['perk_packages']['pet'],
-        }, {
-          label: 'Vehicles',
-          img: assetImgVehicle,
-          data: res['perk_packages']['vehicle'],
-        }, {
-          label: 'Residences',
-          img: assetImgResidence,
-          data: res['perk_packages']['residence'],
-        },{
-          label: 'Lands',
-          img: assetImgLand,
-          data: res['perk_packages']['land'],
-        }
-      ];
-      setAssets(data);
-      setTotalTokenRewards(res['total_token_rewards'])
-    });
-
+    const result = [
+      {
+        label: 'Armors',
+        img: assetImgArmor,
+        tokens: perkPackages.armor.tokens,
+        quantity: perkPackages.armor.quantity,
+      }, {
+        label: 'Pets',
+        img: assetImgPet,
+        tokens: perkPackages.pet.tokens,
+        quantity: perkPackages.pet.quantity,
+      }, {
+        label: 'Vehicles',
+        img: assetImgVehicle,
+        tokens: perkPackages.vehicle.tokens,
+        quantity: perkPackages.vehicle.quantity,
+      }, {
+        label: 'Residences',
+        img: assetImgResidence,
+        tokens: perkPackages.residence.tokens,
+        quantity: perkPackages.residence.quantity,
+      },{
+        label: 'Lands',
+        img: assetImgLand,
+        tokens: perkPackages.land.tokens,
+        quantity: perkPackages.land.quantity,
+      }
+    ];
+    setAssets(result);
   }
 
   useEffect(() => {
-
-    const fetchData = async (address) => {
-      await estimateTokenRewards(address);
-    }
-
-    if (sessionStorage.getItem("authUser")) {
-      const obj = JSON.parse(sessionStorage.getItem("authUser"));
-      setWalletAddress(obj.wallet);
-      fetchData(obj.wallet);
-    }
-  }, []);
+    setPerkPackages(perkPackages);
+    setTotalTokenRewards(totalTokenRewards);
+    defineAssets();
+  }, [perkPackages, totalTokenRewards]);
 
   return (
   <React.Fragment>
@@ -87,11 +80,11 @@ const AssetStaked = () => {
                   </div>
                 </td>
                 <td>
-                  <p className="mb-0">{item.data.quantity}</p>
+                  <p className="mb-0">{item.quantity}</p>
                   <span className="text-muted">NFT</span>
                 </td>
                 <td>
-                  <p className="mb-0">$ {item.data.tokens}</p>
+                  <p className="mb-0">$ {item.tokens}</p>
                   <span className="text-muted">METAL</span>
                 </td>
               </tr>
@@ -100,15 +93,15 @@ const AssetStaked = () => {
                 <td>
                   <div className="d-flex align-items-center">
                     <div className="flex-shrink-0 me-2">
+                      {/*LOGO METAL*/}
                       {/*<img src={item.img} alt="" className="avatar-sm p-2" />*/}
                     </div>
                     <div>
-                      <h5 className="fs-14 my-1 fw-medium"><Link to="/apps-ecommerce-seller-details" className="text-reset">Total</Link></h5>
+                      <h5 className="fs-14 my-1 fw-medium">Total</h5>
                     </div>
                   </div>
                 </td>
                 <td>
-
                 </td>
                 <td>
                   <p className="mb-0">$ {totalTokenRewards}</p>
