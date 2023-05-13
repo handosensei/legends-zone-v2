@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
-import {Card, CardBody, CardFooter, CardHeader, Col} from 'reactstrap';
+import { Card, CardBody, CardHeader, Col } from 'reactstrap';
 import assetImgArmor from '../../assets/images/metalegends/staked-asset/ArmorRough.png';
 import assetImgPet from '../../assets/images/metalegends/staked-asset/HeavyPetRough.png';
 import assetImgVehicle from '../../assets/images/metalegends/staked-asset/GoldboiCar.png';
 import assetImgResidence from '../../assets/images/metalegends/staked-asset/Residence.png';
 import assetImgLand from '../../assets/images/metalegends/staked-asset/Lands.png';
-
+import ModalAssetStaked from "./ModalAssetStaked";
 
 const AssetStaked = ({perkPackages, totalTokenRewards}) => {
   const [, setTotalTokenRewards] = useState(totalTokenRewards);
@@ -61,6 +60,7 @@ const AssetStaked = ({perkPackages, totalTokenRewards}) => {
       <Card className="card-height-100">
         <CardHeader className="align-items-center d-flex">
           <h4 className="card-title mb-0 flex-grow-1">Assets Staked</h4>
+          <ModalAssetStaked />
         </CardHeader>
 
         <CardBody>
@@ -75,7 +75,7 @@ const AssetStaked = ({perkPackages, totalTokenRewards}) => {
                       <img src={item.img} alt="" className="avatar-sm p-2" />
                     </div>
                     <div>
-                      <h5 className="fs-14 my-1 fw-medium"><Link to="/apps-ecommerce-seller-details" className="text-reset">{item.label}</Link></h5>
+                      <h5 className="fs-14 my-1 fw-medium">{item.label}</h5>
                     </div>
                   </div>
                 </td>
