@@ -58,18 +58,26 @@ const Navdata = () => {
                 setIsProgress(!isProgress);
                 setIscurrentState('Progress');
             }
-        }, {
-            id: "claim",
-            label: "Claim",
-            icon: "ri-medal-2-fill",
-            link: "/claim",
-            click: function (e) {
-                e.preventDefault();
-                setIsClaim(!isClaim);
-                setIscurrentState('Claim');
-            }
         }
     ];
+
+    const menuItemClaim = {
+        id: "claim",
+        label: "Claim",
+        icon: "ri-medal-2-fill",
+        link: "/claim",
+        click: function (e) {
+            e.preventDefault();
+            setIsClaim(!isClaim);
+            setIscurrentState('Claim');
+        }
+    }
+
+    if (process.env.REACT_APP_TF_MENU_CLAIM != 0) {
+        console.log('dans le if');
+        menuItems.push(menuItemClaim);
+    }
+
     return <React.Fragment>{menuItems}</React.Fragment>;
 };
 export default Navdata;
