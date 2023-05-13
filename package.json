@@ -5,7 +5,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^32.0.0",
     "@ckeditor/ckeditor5-react": "^4.0.0",
-    "@dynamic-labs/sdk-react": "^0.16.10",
+    "@dynamic-labs/sdk-react": "0.15.26",
     "@fullcalendar/bootstrap": "^5.11.0",
     "@fullcalendar/daygrid": "^5.11.0",
     "@fullcalendar/interaction": "^5.11.0",
@@ -70,7 +70,6 @@
     "react-leaflet": "^4.0.2",
     "react-masonry-component": "^6.3.0",
     "react-masonry-css": "^1.0.16",
-    "react-native": "^0.71.8",
     "react-perfect-scrollbar": "^1.5.8",
     "react-quilljs": "^1.2.17",
     "react-rangeslider": "^2.2.0",
