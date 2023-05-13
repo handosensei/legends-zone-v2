@@ -7,7 +7,7 @@ import CyberPet from "../../assets/images/metalegends/badge-reward/CyberPet.png"
 import GoldboiCar from "../../assets/images/metalegends/badge-reward/GoldboiCar.png";
 import SniperRifleCelestial from "../../assets/images/metalegends/badge-reward/SniperRifleCelestial.png";
 import {Card, CardBody, CardHeader, Col} from "reactstrap";
-import {Link} from "react-router-dom";
+import ModalBadgeReward from "./ModalBadgeReward";
 
 const BadgeReward = ({rewardBadge}) => {
 
@@ -34,6 +34,7 @@ const BadgeReward = ({rewardBadge}) => {
         <Card className="card-height-100">
           <CardHeader className="align-items-center d-flex">
             <h4 className="card-title mb-0 flex-grow-1">Badge Rewards</h4>
+            <ModalBadgeReward />
           </CardHeader>
 
           <CardBody>
