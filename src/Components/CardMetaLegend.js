@@ -28,12 +28,12 @@ const CardMetaLegend = () => {
         <div className="col-sm-12 text-center">
           <h3>No Meta-Legends ...</h3>
           <p className="m-5">
-          <a className="btn btn-secondary btn-label waves-effect waves-light" href="https://opensea.io/collection/meta-legends" target="_blank" rel="noopener">
+          <a className="btn btn-secondary btn-label waves-effect waves-light" href="https://opensea.io/collection/meta-legends" target="_blank" rel="noreferrer">
             <i className="ri-money-dollar-circle-line label-icon align-middle fs-16 me-2"></i> Go on OpenSea
           </a>
           </p>
           <p>
-            <a className="btn btn-warning btn-label waves-effect waves-light" href="https://blur.io/collection/meta-legends" target="_blank" rel="noopener">
+            <a className="btn btn-warning btn-label waves-effect waves-light" href="https://blur.io/collection/meta-legends" target="_blank" rel="noreferrer">
               <i className="ri-money-dollar-circle-line label-icon align-middle fs-16 me-2"></i> Go on Blur
             </a>
           </p>

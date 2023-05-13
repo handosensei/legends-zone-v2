@@ -39,7 +39,7 @@ const ModalBadgeReward = () => {
           </ul>
 
         </p>
-        <p className="text-muted"><a href="https://discord.com/channels/889533275545149440/1020275734641651744/1064598939128561754" target="_blank" rel="noopener">-> Go to post discord</a></p>
+        <p className="text-muted"><a href="https://discord.com/channels/889533275545149440/1020275734641651744/1064598939128561754" target="_blank" rel="noreferrer">-> Go to post discord</a></p>
       </ModalBody>
 
       <div className="modal-footer">
