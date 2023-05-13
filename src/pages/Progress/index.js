@@ -5,6 +5,7 @@ import AssetStaked from "./AssetStaked";
 import BadgeReward from "./BadgeReward";
 import AssetUnstaked from "./AssetUnstaked";
 import HoldingReward from "./HoldingReward";
+import LegendaryStone from './LegendaryStone';
 import {getRewardsEstimate} from "../../client/ApiMetaLegends";
 
 const Progress = () => {
@@ -43,12 +44,14 @@ const Progress = () => {
             <Col>
               <div className="h-100">
                 <Row>
-                  <AssetStaked perkPackages={perkPackages} totalTokenRewards={totalTokenRewards}/>
                   <BadgeReward rewardBadge={rewardBadge} />
+                  <AssetStaked perkPackages={perkPackages} totalTokenRewards={totalTokenRewards}/>
                   <AssetUnstaked unstaked={unstaked} />
                 </Row>
                 <Row>
                   <HoldingReward legends={legends} />
+
+                  <LegendaryStone legends={legends} />
                 </Row>
               </div>
             </Col>
