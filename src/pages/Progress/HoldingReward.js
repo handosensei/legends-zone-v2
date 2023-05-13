@@ -9,6 +9,7 @@ import Hold_HealingDrone from "../../assets/images/metalegends/holding-reward/He
 
 import moment from "moment";
 import {Card, CardBody, CardHeader, Col} from "reactstrap";
+import ModalHoldingReward from "./ModalHoldingReward";
 
 
 export const MINPERIOD_HOLD_CYBER_WEAPON = 1;
@@ -74,6 +75,7 @@ const HoldingReward = ({legends}) => {
         <Card className="card-height-100">
           <CardHeader className="align-items-center d-flex">
             <h4 className="card-title mb-0 flex-grow-1">Holding rewards</h4>
+            <ModalHoldingReward />
           </CardHeader>
 
           <CardBody>

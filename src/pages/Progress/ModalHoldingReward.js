@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import {Button, Modal, ModalBody, ModalHeader} from 'reactstrap';
 
-const ModalAssetStaked = () => {
+const ModalHoldingReward = () => {
 
   const [modal_standard, setmodal_standard] = useState(false);
   function tog_standard() {
@@ -16,24 +16,25 @@ const ModalAssetStaked = () => {
         <i className="ri-questionnaire-line align-middle"></i>
       </button>
     </div>
-    <Modal id="modalAssetStaked" isOpen={modal_standard} toggle={() => { tog_standard(); }} >
+    <Modal id="modalHoldingReward" isOpen={modal_standard} toggle={() => { tog_standard(); }} >
 
       <ModalHeader className="modal-title" id="myModalLabel" toggle={() => { tog_standard(); }}>
-        How to become eligible
+        Holders rewards
       </ModalHeader>
 
       <ModalBody>
-        <h5 className="fs-15">You had to have minted</h5>
+        <h5 className="fs-15">Reward per Legend</h5>
         <p className="text-muted">
           <ul>
-            <li>0.5 ETH: Armor package</li>
-            <li>1 ETH: Pet package</li>
-            <li>1.5 ETH: Vehicle package</li>
-            <li>2 ETH: Residence package</li>
-            <li>2.5 ETH: Land package</li>
+            <li>Month 1 : Cyber Weapon</li>
+            <li>Month 3 : Cyber Armor</li>
+            <li>Month 6 : Rough Heavy Pet (Exclusive Skin)</li>
+            <li>Month 9 : Roboter Weapon (Exclusive Skin)</li>
+            <li>Month 12 : Matrix Angel Vehicule (Exclusive Skin)</li>
+            <li>Month 15 : Healing Drone (Legend Zone exclusivity)</li>
           </ul>
         </p>
-        <p className="text-muted"><a href="https://medium.com/@metalegends/meta-legends-public-mint-11th-december-86353b5dd7c0" target="_blank">@medium</a></p>
+        <p className="text-muted"><a href="https://discord.com/channels/889533275545149440/1020275734641651744/1064598939128561754" target="_blank">-> Go to post discord</a></p>
       </ModalBody>
 
       <div className="modal-footer">
@@ -45,4 +46,4 @@ const ModalAssetStaked = () => {
   );
 }
 
-export default ModalAssetStaked;
+export default ModalHoldingReward;
