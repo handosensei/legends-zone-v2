@@ -7,7 +7,7 @@ import GoldboiCar from "../../assets/images/metalegends/unstaked-asset/GoldboiCa
 import Residence from "../../assets/images/metalegends/unstaked-asset/Residence.png";
 import Lands from "../../assets/images/metalegends/unstaked-asset/Lands.png";
 import {Card, CardBody, CardHeader, Col} from "reactstrap";
-import {Link} from "react-router-dom";
+import ModalUnstakedAsset from "./ModalUnstakedAsset";
 
 const AssetUnstaked = ({unstaked}) => {
   const [, setUnstaked] = useState(unstaked);
@@ -31,7 +31,8 @@ const AssetUnstaked = ({unstaked}) => {
       <Col xl={4}>
         <Card className="card-height-100">
           <CardHeader className="align-items-center d-flex">
-            <h4 className="card-title mb-0 flex-grow-1">Unstake assets</h4>
+            <h4 className="card-title mb-0 flex-grow-1">Unstaked assets</h4>
+            <ModalUnstakedAsset />
           </CardHeader>
 
           <CardBody>
