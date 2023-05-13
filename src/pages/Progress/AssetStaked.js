@@ -8,50 +8,70 @@ import assetImgLand from '../../assets/images/metalegends/staked-asset/Lands.png
 import ModalAssetStaked from "./ModalAssetStaked";
 
 const AssetStaked = ({perkPackages, totalTokenRewards}) => {
-  const [, setTotalTokenRewards] = useState(totalTokenRewards);
+  const [, setTotalTokenRewards] = useState(0);
   const [assets, setAssets] = useState([]);
-  const [, setPerkPackages] = useState(perkPackages);
 
-  const defineAssets = () => {
-    if (!(perkPackages && perkPackages.armor)) {
-      return;
-    }
+  const [tokenArmor, setTokenArmor] = useState(0);
+  const [quantityArmor, setQuantityArmor] = useState(0);
+  const [tokenPet, setTokenPet] = useState(0);
+  const [quantityPet, setQuantityPet] = useState(0);
+  const [tokenVehicle, setTokenVehicle] = useState(0);
+  const [quantityVehicle, setQuantityVehicle] = useState(0);
+  const [tokenResidence, setTokenResidence] = useState(0);
+  const [quantityResidence, setQuantityResidence] = useState(0);
+  const [tokenLand, setTokenLand] = useState(0);
+  const [quantityLand, setQuantityLand] = useState(0);
 
+  const defineAssets = (perkPackages) => {
     const result = [
       {
         label: 'Armors',
         img: assetImgArmor,
-        tokens: perkPackages.armor.tokens,
-        quantity: perkPackages.armor.quantity,
+        tokens: tokenArmor,
+        quantity: quantityArmor,
       }, {
         label: 'Pets',
         img: assetImgPet,
-        tokens: perkPackages.pet.tokens,
-        quantity: perkPackages.pet.quantity,
+        tokens: tokenPet,
+        quantity: quantityPet,
       }, {
         label: 'Vehicles',
         img: assetImgVehicle,
-        tokens: perkPackages.vehicle.tokens,
-        quantity: perkPackages.vehicle.quantity,
+        tokens: tokenVehicle,
+        quantity: quantityVehicle,
       }, {
         label: 'Residences',
         img: assetImgResidence,
-        tokens: perkPackages.residence.tokens,
-        quantity: perkPackages.residence.quantity,
+        tokens: tokenResidence,
+        quantity: quantityResidence,
       },{
         label: 'Lands',
         img: assetImgLand,
-        tokens: perkPackages.land.tokens,
-        quantity: perkPackages.land.quantity,
+        tokens: tokenLand,
+        quantity: quantityLand,
       }
     ];
+    if (perkPackages && perkPackages.armor) {
+      result[0]['quantity'] = perkPackages.armor.quantity;
+      result[1]['quantity'] = perkPackages.pet.quantity;
+      result[2]['quantity'] = perkPackages.vehicle.quantity;
+      result[3]['quantity'] = perkPackages.residence.quantity;
+      result[4]['quantity'] = perkPackages.land.quantity;
+
+      result[0]['tokens'] = perkPackages.armor.tokens;
+      result[1]['tokens'] = perkPackages.pet.tokens;
+      result[2]['tokens'] = perkPackages.vehicle.tokens;
+      result[3]['tokens'] = perkPackages.residence.tokens;
+      result[4]['tokens'] = perkPackages.land.tokens;
+    }
     setAssets(result);
   }
 
   useEffect(() => {
-    setPerkPackages(perkPackages);
+
     setTotalTokenRewards(totalTokenRewards);
-    defineAssets();
+    console.log(perkPackages);
+    defineAssets(perkPackages);
   }, [perkPackages, totalTokenRewards]);
 
   return (

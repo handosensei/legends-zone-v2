@@ -74,7 +74,6 @@ const Navdata = () => {
     }
 
     if (process.env.REACT_APP_TF_MENU_CLAIM != 0) {
-        console.log('dans le if');
         menuItems.push(menuItemClaim);
     }
 

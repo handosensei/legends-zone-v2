@@ -1,8 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card, CardBody, CardHeader, Col} from "reactstrap";
 import LegendaryStoneImg from "../../assets/images/metalegends/LegendaryStone.png";
 
 const LegendaryStone = ({legends}) => {
+
+  const [countLegendaryStone, setCountLegendaryStone] = useState(0);
+
+  useEffect(() => {
+  if (legends.length > 0) {
+      setCountLegendaryStone(legends.length);
+    }
+  }, [legends]);
+
   return (
   <React.Fragment>
     <Col xl={4}>
@@ -28,15 +37,9 @@ const LegendaryStone = ({legends}) => {
                       </div>
                     </div>
                   </td>
-
                   <td>
-
-                  </td>
-                  <td>
-                    <td>
-                      <p className="mb-0">{legends.length}</p>
-                      <span className="text-muted">NFTs</span>
-                    </td>
+                    <p className="mb-0">{countLegendaryStone}</p>
+                    <span className="text-muted">NFTs</span>
                   </td>
                 </tr>
 

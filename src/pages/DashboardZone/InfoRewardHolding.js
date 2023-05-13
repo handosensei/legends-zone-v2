@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card, Col, Row} from "reactstrap";
 import Hold_WeaponCyber from "../../assets/images/metalegends/holding-reward/WeaponCyber.png";
 import Hold_ArmorCyber from "../../assets/images/metalegends/holding-reward/ArmorCyber.png";
@@ -8,6 +8,25 @@ import Hold_MatrixAngelCar from "../../assets/images/metalegends/holding-reward/
 import Hold_HealingDrone from "../../assets/images/metalegends/holding-reward/HealingDrone.png";
 
 const InfoRewardHolding = () => {
+  const [assets, setAssets] = useState([]);
+  const defineInfo = () => {
+    const data = [
+      {img: Hold_WeaponCyber, item: 'Weapon', typeClass: 'Cyber', period: '1 month'},
+      {img: Hold_ArmorCyber, item: 'Armor', typeClass: 'Cyber', period: '3 months'},
+      {img: Hold_CyberPet, item: 'Pet', typeClass: 'Cyber', period: '6 months'},
+      {img: Hold_WeaponRoboter, item: 'Weapon', typeClass: 'Roboter', period: '9 months'},
+      {img: Hold_MatrixAngelCar, item: 'Car', typeClass: 'Matrix Angel', period: '12 months'},
+      {img: Hold_HealingDrone, item: 'Healing drone', typeClass: '', period: '15 months'},
+    ];
+
+    setAssets(data);
+  }
+
+  useEffect(() => {
+    defineInfo();
+  }, []);
+
+
   return (
     <Row className="mb-4">
       <Col xxl={12}>
@@ -15,102 +34,28 @@ const InfoRewardHolding = () => {
           <div className="card-body text-muted">
             <span className="ribbon-three ribbon-three-info"><span>Info</span></span>
             <h5 className="fs-14 mb-3">Holding reward information</h5>
-            <p className="mb-0">
+
               <Col className="col-12">
                 <Row className="row-cols-xxl-6 row-cols-lg-3 row-cols-1">
-
-                  <Col>
-                    <Card className="card-body">
-                      <div className="d-flex mb-4 align-items-center">
-                        <div className="flex-shrink-0">
-                          <img src={Hold_WeaponCyber} alt="" className="avatar-sm rounded" />
+                  {assets.map((element, key) => (
+                    <Col key={key}>
+                      <Card className="card-body">
+                        <div className="d-flex mb-4 align-items-center">
+                          <div className="flex-shrink-0">
+                            <img src={element.img} alt="" className="avatar-sm rounded" />
+                          </div>
+                          <div className="flex-grow-1 ms-2">
+                            <h5 className="card-title mb-1">{element.item}</h5>
+                            <p className="text-muted mb-0">{element.typeClass}</p>
+                          </div>
                         </div>
-                        <div className="flex-grow-1 ms-2">
-                          <h5 className="card-title mb-1">Weapon</h5>
-                          <p className="text-muted mb-0">Cyber</p>
-                        </div>
-                      </div>
-                      <h6 className="mb-1">1 month</h6>
-                    </Card>
-                  </Col>
-
-                  <Col>
-                    <Card className="card-body">
-                      <div className="d-flex mb-4 align-items-center">
-                        <div className="flex-shrink-0">
-                          <img src={Hold_ArmorCyber} alt="" className="avatar-sm rounded" />
-                        </div>
-                        <div className="flex-grow-1 ms-2">
-                          <h5 className="card-title mb-1">Armor</h5>
-                          <p className="text-muted mb-0">Cyber</p>
-                        </div>
-                      </div>
-                      <h6 className="mb-1">3 months</h6>
-                    </Card>
-                  </Col>
-
-                  <Col>
-                    <Card className="card-body">
-                      <div className="d-flex mb-4 align-items-center">
-                        <div className="flex-shrink-0">
-                          <img src={Hold_CyberPet} alt="" className="avatar-sm rounded" />
-                        </div>
-                        <div className="flex-grow-1 ms-2">
-                          <h5 className="card-title mb-1">Pet</h5>
-                          <p className="text-muted mb-0">Cyber</p>
-                        </div>
-                      </div>
-                      <h6 className="mb-1">6 months</h6>
-                    </Card>
-                  </Col>
-
-                  <Col>
-                    <Card className="card-body">
-                      <div className="d-flex mb-4 align-items-center">
-                        <div className="flex-shrink-0">
-                          <img src={Hold_WeaponRoboter} alt="" className="avatar-sm rounded" />
-                        </div>
-                        <div className="flex-grow-1 ms-2">
-                          <h5 className="card-title mb-1">Weapon</h5>
-                          <p className="text-muted mb-0">Roboter</p>
-                        </div>
-                      </div>
-                      <h6 className="mb-1">9 months</h6>
-                    </Card>
-                  </Col>
-
-                  <Col>
-                    <Card className="card-body">
-                      <div className="d-flex mb-4 align-items-center">
-                        <div className="flex-shrink-0">
-                          <img src={Hold_MatrixAngelCar} alt="" className="avatar-sm rounded" />
-                        </div>
-                        <div className="flex-grow-1 ms-2">
-                          <h5 className="card-title mb-1">Car</h5>
-                          <p className="text-muted mb-0">Matrix Angel</p>
-                        </div>
-                      </div>
-                      <h6 className="mb-1">12 months</h6>
-                    </Card>
-                  </Col>
-
-                  <Col>
-                    <Card className="card-body">
-                      <div className="d-flex mb-4 align-items-center">
-                        <div className="flex-shrink-0">
-                          <img src={Hold_HealingDrone} alt="" className="avatar-sm rounded" />
-                        </div>
-                        <div className="flex-grow-1 ms-2">
-                          <h5 className="card-title mb-1">Healing drone</h5>
-                        </div>
-                      </div>
-                      <h6 className="mb-1">15 months</h6>
-                    </Card>
-                  </Col>
-
+                        <h6 className="mb-1">{element.period}</h6>
+                      </Card>
+                    </Col>
+                  ))}
                 </Row>
               </Col>
-            </p>
+
           </div>
         </div>
       </Col>

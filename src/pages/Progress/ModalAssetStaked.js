@@ -33,7 +33,7 @@ const ModalAssetStaked = () => {
             <li>2.5 ETH: Land package</li>
           </ul>
         </p>
-        <p className="text-muted"><a href="https://medium.com/@metalegends/meta-legends-public-mint-11th-december-86353b5dd7c0" target="_blank">@medium</a></p>
+        <p className="text-muted"><a href="https://medium.com/@metalegends/meta-legends-public-mint-11th-december-86353b5dd7c0" target="_blank" rel="noopener">@medium</a></p>
       </ModalBody>
 
       <div className="modal-footer">

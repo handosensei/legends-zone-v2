@@ -10,20 +10,40 @@ import {Card, CardBody, CardHeader, Col} from "reactstrap";
 import ModalUnstakedAsset from "./ModalUnstakedAsset";
 
 const AssetUnstaked = ({unstaked}) => {
-  const [, setUnstaked] = useState(unstaked);
+
+  const [unstakedWeapons, setUnstakedWeapons] = useState(0);
+  const [unstakedArmors, setUnstakedArmors] = useState(0);
+  const [unstakedPets, setUnstakedPets] = useState(0);
+  const [unstakedVehicles, setUnstakedVehicles] = useState(0);
+  const [unstakedResidences, setUnstakedResidences] = useState(0);
+  const [unstakedLands, setUnstakedLands] = useState(0);
   const [assets, setAssets] = useState([]);
 
-  useEffect(() => {
-    setUnstaked(unstaked);
+  const defineUnstakedAssets = () => {
+
     const data = [
-      { label: 'Weapons', quantity: unstaked.weapon, img: SniperRough },
-      { label: 'Armors', quantity: unstaked.armor, img: ArmorRough },
-      { label: 'Pets', quantity: unstaked.pet, img: HeavyPetRough },
-      { label: 'Vehicles', quantity: unstaked.vehicle, img: GoldboiCar },
-      { label: 'Residences', quantity: unstaked.residence, img: Residence },
-      { label: 'Lands', quantity: unstaked.land, img: Lands },
+      { label: 'Weapons', quantity: unstakedWeapons, img: SniperRough },
+      { label: 'Armors', quantity: unstakedArmors, img: ArmorRough },
+      { label: 'Pets', quantity: unstakedPets, img: HeavyPetRough },
+      { label: 'Vehicles', quantity: unstakedVehicles, img: GoldboiCar },
+      { label: 'Residences', quantity: unstakedResidences, img: Residence },
+      { label: 'Lands', quantity: unstakedLands, img: Lands },
     ];
+
+    if (Object.keys(unstaked).length > 0) {
+      data[0]['quantity'] = unstaked.weapon;
+      data[1]['quantity'] = unstaked.armor;
+      data[2]['quantity'] = unstaked.pet;
+      data[3]['quantity'] = unstaked.vehicle;
+      data[4]['quantity'] = unstaked.residence;
+      data[5]['quantity'] = unstaked.land;
+    }
+
     setAssets(data);
+  }
+
+  useEffect(() => {
+    defineUnstakedAssets(unstaked);
   }, [unstaked]);
 
   return (

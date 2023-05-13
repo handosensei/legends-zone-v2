@@ -1,9 +1,6 @@
 import React from "react";
 import { Col, Container, Row } from "reactstrap";
 import BreadCrumb from "../../Components/Common/BreadCrumb";
-
-import { Link } from 'react-router-dom';
-
 import InfoRewardHolding from "./InfoRewardHolding";
 import CardMetaLegend from "../../Components/CardMetaLegend";
 

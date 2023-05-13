@@ -11,7 +11,6 @@ import moment from "moment";
 import {Card, CardBody, CardHeader, Col} from "reactstrap";
 import ModalHoldingReward from "./ModalHoldingReward";
 
-
 export const MINPERIOD_HOLD_CYBER_WEAPON = 1;
 export const MINPERIOD_HOLD_CYBER_ARMOR = 2;
 export const MINPERIOD_HOLD_ROUGH_PETS = 5;
@@ -24,15 +23,23 @@ const HoldingReward = ({legends}) => {
   const [, setLegends] = useState([]);
   const [assets, setAssets] = useState([]);
 
+  const [quantityCyberWeapons, setQuantityCyberWeapons] = useState(0);
+  const [quantityCyberArmors, setQuantityCyberArmors] = useState(0);
+  const [quantityRoughPets, setQuantityRoughPets] = useState(0);
+  const [quantityRoboberWeapons, setQuantityRoboberWeapons] = useState(0);
+  const [quantityMatrixAngelVehicle, setQuantityMatrixAngel] = useState(0);
+  const [quantityHealingDrones, setQuantityHealingDrones] = useState(0);
+
   const defineAssets = () => {
     const data = [
-      { label: 'Cyber Weapons', period: '1 month', quantity: 0, img: Hold_WeaponCyber},
-      { label: 'Cyber Armors', period: '3 months', quantity: 0, img: Hold_ArmorCyber},
-      { label: 'Rough Pets', period: '6 months', quantity: 0, img: Hold_CyberPet},
-      { label: 'Robober Weapons', period: '9 months', quantity: 0, img: Hold_WeaponRoboter},
-      { label: 'Matrix Angel Vehicles', period: '12 months', quantity: 0, img: Hold_MatrixAngelCar},
-      { label: 'Healing Drones', period: '15 months', quantity: 0, img: Hold_HealingDrone},
+      { label: 'Cyber Weapons', period: '1 month', quantity: quantityCyberWeapons, img: Hold_WeaponCyber},
+      { label: 'Cyber Armors', period: '3 months', quantity: quantityCyberArmors, img: Hold_ArmorCyber},
+      { label: 'Rough Pets', period: '6 months', quantity: quantityRoughPets, img: Hold_CyberPet},
+      { label: 'Robober Weapons', period: '9 months', quantity: quantityRoboberWeapons, img: Hold_WeaponRoboter},
+      { label: 'Matrix Angel Vehicles', period: '12 months', quantity: quantityMatrixAngelVehicle, img: Hold_MatrixAngelCar},
+      { label: 'Healing Drones', period: '15 months', quantity: quantityHealingDrones, img: Hold_HealingDrone},
     ];
+
     legends.map((item) => {
       const now = moment();
       const purchasedOn = moment(item.purchasedOn);
@@ -62,11 +69,7 @@ const HoldingReward = ({legends}) => {
 
   useEffect(() => {
     setLegends(legends);
-
-
-    if (legends.length > 0) {
-      defineAssets(legends);
-    }
+    defineAssets(legends);
   }, [legends]);
 
   return (

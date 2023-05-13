@@ -16,7 +16,6 @@ const ProfileDropdown = () => {
     }));
 
     const defineRank = (countMLNFTs) => {
-        console.log('defineRank')
         if (countMLNFTs === 0) {
             return;
         }
