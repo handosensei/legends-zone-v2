@@ -12,11 +12,9 @@ const getUrlLegends = (address) => {
 
 export const getRewardsEstimate = async (address) => {
   try {
-    const fake = '0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd';
     return await axios({
       method: 'get',
-      // url: getUrlTokenRewardsGet(address),
-      url: getUrlRewardsEstimate(fake),
+      url: getUrlRewardsEstimate(address),
       headers: { 'x-api-key': apiKey }
     });
   } catch (error) {
@@ -26,11 +24,9 @@ export const getRewardsEstimate = async (address) => {
 
 export const getLegends = async (address) => {
   try {
-    const fake = '0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd';
     return await axios({
       method: 'get',
-      // url: getUrlTokenRewardsGet(address),
-      url: getUrlLegends(fake),
+      url: getUrlLegends(address),
       headers: { 'x-api-key': apiKey }
     });
   } catch (error) {
