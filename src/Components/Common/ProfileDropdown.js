@@ -1,22 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import {getLegends} from "../../client/ApiMetaLegends";
 
 //import images
 import avatar1 from "../../assets/images/ml-avatar.png";
 
 const ProfileDropdown = () => {
-
+    const [countMLNFTs, setCountMLNFTs] = useState(0);
+    const [userName, setUserName] = useState("Admin");
+    const [rank, setRank] = useState('Warender');
+    
     const { user } = useSelector(state => ({
         user: state.Profile.user,
     }));
 
-    const [userName, setUserName] = useState("Admin");
+    const defineRank = (countMLNFTs) => {
+        console.log('defineRank')
+        if (countMLNFTs === 0) {
+            return;
+        }
+        else if (countMLNFTs < 3) {
+            setRank('Holders');
+        }
+        else if (2 < countMLNFTs && countMLNFTs < 6) {
+            setRank('Legend Investor');
+        }
+        else if (5 < countMLNFTs && countMLNFTs < 11) {
+            setRank('Virtual Conservative');
+        }
+        else if (10 < countMLNFTs && countMLNFTs < 21) {
+            setRank('Legendary Holder');
+        }
+        else if (20 < countMLNFTs && countMLNFTs < 51) {
+            setRank("Legend's Museum");
+        }
+        else if (50 < countMLNFTs) {
+            setRank("Legend's Whale");
+        }
+    }
 
     useEffect(() => {
+
+        defineRank();
+
+        const fetchData = async (address) => {
+            const result = await getLegends(address);
+            setCountMLNFTs(result.length);
+            defineRank(result.length);
+        }
+
         if (sessionStorage.getItem("authUser")) {
             const obj = JSON.parse(sessionStorage.getItem("authUser"));
-            setUserName('fake_username');
+            fetchData(obj.wallet.toLowerCase());
         }
     }, [userName, user]);
 
@@ -33,8 +69,9 @@ const ProfileDropdown = () => {
                         <img className="rounded-circle header-profile-user" src={avatar1}
                             alt="Header Avatar" />
                         <span className="text-start ms-xl-2">
-                            <span className="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{userName}</span>
-                            <span className="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
+                            <span className="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{rank}</span>
+                            {/*<span className="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{userName}</span>*/}
+                            {/*<span className="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>*/}
                         </span>
                     </span>
                 </DropdownToggle>
