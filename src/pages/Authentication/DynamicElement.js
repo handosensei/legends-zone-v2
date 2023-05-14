@@ -58,7 +58,7 @@ const DynamicElement = ({props}) => {
             onConnectWallet();
           },
           onLogout: (args) => {
-            window.location = process.env.PUBLIC_URL + "/logout";
+            window.location = process.env.PUBLIC_URL + "/";
           }
         }
       }}>
