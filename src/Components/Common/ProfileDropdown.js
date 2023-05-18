@@ -9,7 +9,7 @@ import avatar1 from "../../assets/images/ml-avatar.png";
 const ProfileDropdown = () => {
     const [countMLNFTs, setCountMLNFTs] = useState(0);
     const [userName, setUserName] = useState("Admin");
-    const [rank, setRank] = useState('Warender');
+    const [rank, setRank] = useState('Wanderer');
     
     const { user } = useSelector(state => ({
         user: state.Profile.user,
