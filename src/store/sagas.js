@@ -30,9 +30,6 @@ import invoiceSaga from "./invoice/saga";
 //mailbox
 import mailboxSaga from "./mailbox/saga";
 
-// Dashboard Analytics
-import dashboardAnalyticsSaga from "./dashboardAnalytics/saga";
-
 // Dashboard CRM
 import dashboardCrmSaga from "./dashboardCRM/saga";
 
@@ -81,7 +78,6 @@ export default function* rootSaga() {
     fork(crmSaga),
     fork(invoiceSaga),
     fork(mailboxSaga),
-    fork(dashboardAnalyticsSaga),
     fork(dashboardCrmSaga),
     fork(dashboardEcommerceSaga),
     fork(dashboardCryptoSaga),

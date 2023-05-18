@@ -2,7 +2,6 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 // //Dashboard
-// import DashboardAnalytics from "../pages/DashboardAnalytics";
 // import DashboardCrm from "../pages/DashboardCrm";
 // import DashboardEcommerce from "../pages/DashboardEcommerce";
 // import DashboardJob from "../pages/DashboardJob/";
@@ -253,7 +252,6 @@ const authProtectedRoutes = [
   { path: "/dashboard", component: <DashboardZone /> },
   { path: "/index", component: <DashboardZone /> },
   //
-  // { path: "/dashboard-analytics", component: <DashboardAnalytics /> },
   // { path: "/dashboard-crm", component: <DashboardCrm /> },
   // { path: "/dashboard-ecommerce", component: <DashboardEcommerce /> },
   // { path: "/dashboard-crypto", component: <DashboardCrypto /> },

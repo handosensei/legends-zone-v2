@@ -38,9 +38,6 @@ import Invoice from "./invoice/reducer";
 //Mailbox
 import Mailbox from "./mailbox/reducer";
 
-// Dashboard Analytics
-import DashboardAnalytics from "./dashboardAnalytics/reducer";
-
 // Dashboard CRM
 import DashboardCRM from "./dashboardCRM/reducer";
 
@@ -89,7 +86,6 @@ const rootReducer = combineReducers({
     Crm,
     Invoice,
     Mailbox,
-    DashboardAnalytics,
     DashboardCRM,
     DashboardEcommerce,
     DashboardCrypto,
