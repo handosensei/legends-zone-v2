@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Card, Col, Row} from "reactstrap";
 import Hold_WeaponCyber from "../../assets/images/metalegends/holding-reward/WeaponCyber.png";
 import Hold_ArmorCyber from "../../assets/images/metalegends/holding-reward/ArmorCyber.png";
-import Hold_CyberPet from "../../assets/images/metalegends/holding-reward/CyberPet.png";
+import Hold_PetRough from "../../assets/images/metalegends/holding-reward/PetRough.png";
 import Hold_WeaponRoboter from "../../assets/images/metalegends/holding-reward/WeaponRoboter.png";
 import Hold_MatrixAngelCar from "../../assets/images/metalegends/holding-reward/MatrixAngelCar.png";
 import Hold_HealingDrone from "../../assets/images/metalegends/holding-reward/HealingDrone.png";
@@ -13,7 +13,7 @@ const InfoRewardHolding = () => {
     const data = [
       {img: Hold_WeaponCyber, item: 'Weapon', typeClass: 'Cyber', period: '1 month'},
       {img: Hold_ArmorCyber, item: 'Armor', typeClass: 'Cyber', period: '3 months'},
-      {img: Hold_CyberPet, item: 'Pet', typeClass: 'Cyber', period: '6 months'},
+      {img: Hold_PetRough, item: 'Pet', typeClass: 'Rough', period: '6 months'},
       {img: Hold_WeaponRoboter, item: 'Weapon', typeClass: 'Roboter', period: '9 months'},
       {img: Hold_MatrixAngelCar, item: 'Car', typeClass: 'Matrix Angel', period: '12 months'},
       {img: Hold_HealingDrone, item: 'Healing drone', typeClass: '', period: '15 months'},

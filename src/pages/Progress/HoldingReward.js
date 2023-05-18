@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import Hold_WeaponCyber from "../../assets/images/metalegends/holding-reward/WeaponCyber.png";
 import Hold_ArmorCyber from "../../assets/images/metalegends/holding-reward/ArmorCyber.png";
-import Hold_CyberPet from "../../assets/images/metalegends/holding-reward/CyberPet.png";
+import Hold_PetRough from "../../assets/images/metalegends/holding-reward/PetRough.png";
 import Hold_WeaponRoboter from "../../assets/images/metalegends/holding-reward/WeaponRoboter.png";
 import Hold_MatrixAngelCar from "../../assets/images/metalegends/holding-reward/MatrixAngelCar.png";
 import Hold_HealingDrone from "../../assets/images/metalegends/holding-reward/HealingDrone.png";
@@ -34,7 +34,7 @@ const HoldingReward = ({legends}) => {
     const data = [
       { label: 'Cyber Weapons', period: '1 month', quantity: quantityCyberWeapons, img: Hold_WeaponCyber},
       { label: 'Cyber Armors', period: '3 months', quantity: quantityCyberArmors, img: Hold_ArmorCyber},
-      { label: 'Rough Pets', period: '6 months', quantity: quantityRoughPets, img: Hold_CyberPet},
+      { label: 'Rough Pets', period: '6 months', quantity: quantityRoughPets, img: Hold_PetRough},
       { label: 'Robober Weapons', period: '9 months', quantity: quantityRoboberWeapons, img: Hold_WeaponRoboter},
       { label: 'Matrix Angel Vehicles', period: '12 months', quantity: quantityMatrixAngelVehicle, img: Hold_MatrixAngelCar},
       { label: 'Healing Drones', period: '15 months', quantity: quantityHealingDrones, img: Hold_HealingDrone},
