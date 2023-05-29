@@ -43,16 +43,13 @@ const ProfileDropdown = () => {
 
         defineRank();
 
-        const fetchData = async (address) => {
-            const result = await getLegends(address);
+        const fetchData = async () => {
+            const result = await getLegends();
             setCountMLNFTs(result.length);
             defineRank(result.length);
         }
 
-        if (sessionStorage.getItem("authUser")) {
-            const obj = JSON.parse(sessionStorage.getItem("authUser"));
-            fetchData(obj.wallet.toLowerCase());
-        }
+        fetchData();
     }, [userName, user]);
 
     //Dropdown Toggle

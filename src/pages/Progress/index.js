@@ -18,8 +18,8 @@ const Progress = () => {
 
   useEffect(() => {
 
-    const fetchData = async (address) => {
-      const response = await getRewardsEstimate(address);
+    const fetchData = async () => {
+      const response = await getRewardsEstimate();
       setPerkPackages(response.rewards.token.perkPackages);
       setTotalTokenRewards(response.rewards.token.totalTokenRewards);
       setUnstaked(response.rewards.unstaked);
@@ -28,8 +28,7 @@ const Progress = () => {
     }
 
     if (sessionStorage.getItem("authUser")) {
-      const obj = JSON.parse(sessionStorage.getItem("authUser"));
-      fetchData(obj.wallet);
+      fetchData();
     }
   }, []);
 

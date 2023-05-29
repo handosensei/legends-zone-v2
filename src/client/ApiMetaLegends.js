@@ -2,48 +2,51 @@ import axios from 'axios';
 const apiUrl = process.env.REACT_APP_ML_API_URL;
 const apiKey = process.env.REACT_APP_ML_API_KEY;
 
-const getUrlRewardsEstimate = (address) => {
-  return `${apiUrl}rewards/${address}/estimate`;
+const getUrlRewardsEstimate = () => {
+  return `${apiUrl}rewards`;
 }
 
-const getUrlLegends = (address) => {
-  return `${apiUrl}legends/${address}`;
+const getUrlLegends = () => {
+  return `${apiUrl}legends`;
 }
 
-const getUrlEligibilityOgPet = (address) => {
-  return `${apiUrl}eligibility/og-pets/${address}/estimate`;
+const getUrlEligibilityOgPet = () => {
+  return `${apiUrl}eligibility/og-pets`;
 }
 
-export const getRewardsEstimate = async (address) => {
+export const getRewardsEstimate = async () => {
+  const user = JSON.parse(sessionStorage.getItem("authUser"));
   try {
     return await axios({
       method: 'get',
-      url: getUrlRewardsEstimate(address),
-      headers: { 'x-api-key': apiKey }
+      url: getUrlRewardsEstimate(),
+      headers: { 'x-api-key': apiKey, 'Authorization': `Bearer ${user.jwt}` }
     });
   } catch (error) {
     console.log(error)
   }
 }
 
-export const getLegends = async (address) => {
+export const getLegends = async () => {
+  const user = JSON.parse(sessionStorage.getItem("authUser"));
   try {
     return await axios({
       method: 'get',
-      url: getUrlLegends(address),
-      headers: { 'x-api-key': apiKey }
+      url: getUrlLegends(),
+      headers: { 'x-api-key': apiKey, 'Authorization': `Bearer ${user.jwt}` }
     });
   } catch (error) {
     console.log(error)
   }
 }
 
-export const getEligibilityOgPets = async (address) => {
+export const getEligibilityOgPets = async () => {
+  const user = JSON.parse(sessionStorage.getItem("authUser"));
   try {
     return await axios({
       method: 'get',
-      url: getUrlEligibilityOgPet(address),
-      headers: { 'x-api-key': apiKey }
+      url: getUrlEligibilityOgPet(),
+      headers: { 'x-api-key': apiKey, 'Authorization': `Bearer ${user.jwt}` }
     });
   } catch (error) {
     console.log(error)

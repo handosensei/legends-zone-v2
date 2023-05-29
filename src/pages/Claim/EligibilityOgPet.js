@@ -48,16 +48,13 @@ const EligibilityOgPet = () => {
   }
 
   useEffect(() => {
-    const fetchData = async (address) => {
-      const result = await getEligibilityOgPets(address);
+    const fetchData = async () => {
+      const result = await getEligibilityOgPets();
       setOgPet(result);
       defineTotal(result)
     }
 
-    if (sessionStorage.getItem("authUser")) {
-      const obj = JSON.parse(sessionStorage.getItem("authUser"));
-      fetchData(obj.wallet.toLowerCase());
-    }
+    fetchData();
   }, []);
 
   return (

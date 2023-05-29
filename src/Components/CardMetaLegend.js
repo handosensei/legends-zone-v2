@@ -84,8 +84,8 @@ const CardMetaLegend = () => {
 
   useEffect(() => {
 
-    const fetchData = async (address) => {
-      const result = await getLegends(address);
+    const fetchData = async () => {
+      const result = await getLegends();
       setLegends(result);
       setIsLoading(true);
     }

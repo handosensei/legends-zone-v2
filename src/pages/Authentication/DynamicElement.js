@@ -3,8 +3,6 @@ import {DynamicContextProvider, DynamicWidget, FilterAndSortWallets} from "@dyna
 import {useDispatch, useSelector} from "react-redux";
 import {loginUser} from "../../store/auth/login/actions";
 import { logoutUser } from "../../store/actions";
-import PropTypes from "prop-types";
-import withRouter from "../../Components/Common/withRouter";
 
 const DynamicElement = ({props}) => {
   const dispatch = useDispatch();
@@ -16,7 +14,7 @@ const DynamicElement = ({props}) => {
     isUserLogout: state.Login.isUserLogout,
   }));
 
-  const onConnectWallet = () => {
+  const onConnectWallet = (authToken) => {
     if (!window.ethereum) {
       return;
     }
@@ -30,6 +28,7 @@ const DynamicElement = ({props}) => {
         'wallet': addressTemp,
         'holder': isHolder,
         'admin': isAdmin,
+        'jwt': authToken,
       }
       dispatch(loginUser(user, props.router.navigate));
     });
@@ -71,7 +70,7 @@ const DynamicElement = ({props}) => {
         ]),
         eventsCallbacks: {
           onAuthSuccess: (args) => {
-            onConnectWallet();
+            onConnectWallet(args['authToken']);
           },
           onLogout: (args) => {
             dispatch(logoutUser());
