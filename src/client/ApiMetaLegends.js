@@ -34,3 +34,8 @@ export const isHolder = async () => {
   const url = `${apiUrl}users/is-holder`;
   return get(url);
 }
+
+export const getMintOrderOgPets = async () => {
+  const url = `${apiUrl}mint-orders/og-pets`;
+  return get(url);
+}
