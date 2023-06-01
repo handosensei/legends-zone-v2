@@ -31,8 +31,6 @@ export * from "./mailbox/action";
 export * from "./dashboardCRM/action";
 // Dashboard Ecommerce
 export * from "./dashboardEcommerce/action";
-// Dashboard Crypto
-export * from "./dashboardCrypto/action";
 // Dashboard Project
 export * from "./dashboardProject/action";
 // Dashboard NFT
