@@ -3,50 +3,32 @@ import {DynamicContextProvider, DynamicWidget, FilterAndSortWallets} from "@dyna
 import {useDispatch, useSelector} from "react-redux";
 import {loginUser} from "../../store/auth/login/actions";
 import { logoutUser } from "../../store/actions";
+import {getRewardsEstimate, isHolder} from "../../client/ApiMetaLegends";
 
 const DynamicElement = ({props}) => {
   const dispatch = useDispatch();
-
-  const [isHolder, setIsHolder] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
 
   const { isUserLogout } = useSelector((state) => ({
     isUserLogout: state.Login.isUserLogout,
   }));
 
-  const onConnectWallet = (authToken) => {
+  const onConnectWallet = async (authToken) => {
     if (!window.ethereum) {
       return;
     }
     window.ethereum.request({method: 'eth_requestAccounts'})
     .then(res => {
       const addressTemp = res[0].toLowerCase();
-      defineUserIsHolder(addressTemp);
-      defineUserIsAdmin(addressTemp);
-
       const user = {
         'wallet': addressTemp,
-        'holder': isHolder,
-        'admin': isAdmin,
         'jwt': authToken,
       }
       dispatch(loginUser(user, props.router.navigate));
     });
   }
 
-  const defineUserIsAdmin = (addressValue) => {
-    setIsAdmin(false);
-  }
-
-  const defineUserIsHolder = (addressValue) => {
-    setIsHolder(true);
-  }
-
   useEffect(() => {
-
   }, [dispatch]);
-
-
 
   return (
     <DynamicContextProvider
@@ -69,8 +51,13 @@ const DynamicElement = ({props}) => {
           'ledger'
         ]),
         eventsCallbacks: {
-          onAuthSuccess: (args) => {
-            onConnectWallet(args['authToken']);
+          onAuthSuccess: async (args) => {
+            const response = await isHolder(args.primaryWallet.address.toLowerCase());
+            if (response.isHolderOfCollection) {
+              onConnectWallet(args['authToken']);
+            } else {
+              console.log('no holder');
+            }
           },
           onLogout: (args) => {
             dispatch(logoutUser());

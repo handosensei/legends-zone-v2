@@ -4,11 +4,17 @@ const apiKey = process.env.REACT_APP_ML_API_KEY;
 
 const get = async (url) => {
   const user = JSON.parse(sessionStorage.getItem("authUser"));
+
+  const headers = { 'x-api-key': apiKey }
+  if (user != null) {
+    headers['Authorization'] = `Bearer ${user.jwt}`;
+  }
+
   try {
     return await axios({
       method: 'get',
       url: url,
-      headers: { 'x-api-key': apiKey, 'Authorization': `Bearer ${user.jwt}` }
+      headers: headers,
     });
   } catch (error) {
     console.log(error)
@@ -30,8 +36,8 @@ export const getEligibilityOgPets = async () => {
   return get(url);
 }
 
-export const isHolder = async () => {
-  const url = `${apiUrl}users/is-holder`;
+export const isHolder = async (address) => {
+  const url = `${apiUrl}users/${address}/is-holder`;
   return get(url);
 }
 
