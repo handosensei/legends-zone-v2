@@ -66,7 +66,6 @@ const DynamicElement = ({props}) => {
               if (response.isHolderOfCollection) {
                 onConnectWallet(args['authToken']);
               } else {
-                console.log('no holder');
                 setDisplayNoHolderMessage(true);
               }
             },

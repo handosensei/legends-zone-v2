@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Card, CardBody, Col, Container, Row } from 'reactstrap';
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
-import { Link } from "react-router-dom";
+import {Link, Navigate, redirect, Route } from "react-router-dom";
 
 import logoLight from "../../assets/images/logo-light.png";
 
@@ -11,9 +11,17 @@ import DynamicElement from "./DynamicElement";
 
 const Login = (props) => {
 
+    const redirectUser = () => {
+        // redirect("/dashboard");
+        // return <Route path="/dashboard" element={ <Navigate to="/dashboard" /> } />
+    }
+
     useEffect(() => {
         document.documentElement.setAttribute("data-body-image", "img-3");
         document.documentElement.setAttribute("data-layout-mode", "dark");
+        if (sessionStorage.getItem("authUser")) {
+            redirectUser();
+        }
     }, []);
 
     document.title = "Connect to Legends Zone";
@@ -42,11 +50,13 @@ const Login = (props) => {
 
                                         <div className="text-center p-2 mt-4">
                                             <table>
-                                                <tr>
-                                                    <td width="25%"></td>
-                                                    <td width="50%"><DynamicElement props={props}/></td>
-                                                    <td width="25%"></td>
-                                                </tr>
+                                                <tbody>
+                                                    <tr key={1}>
+                                                        <td width="25%"></td>
+                                                        <td width="50%"><DynamicElement props={props}/></td>
+                                                        <td width="25%"></td>
+                                                    </tr>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </CardBody>
