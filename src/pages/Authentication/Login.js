@@ -20,7 +20,7 @@ const Login = (props) => {
         document.documentElement.setAttribute("data-body-image", "img-3");
         document.documentElement.setAttribute("data-layout-mode", "dark");
         if (sessionStorage.getItem("authUser")) {
-            redirectUser();
+            window.location = process.env.PUBLIC_URL + "/dashboard";
         }
     }, []);
 

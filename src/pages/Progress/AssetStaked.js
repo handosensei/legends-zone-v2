@@ -70,7 +70,6 @@ const AssetStaked = ({perkPackages, totalTokenRewards}) => {
   useEffect(() => {
 
     setTotalTokenRewards(totalTokenRewards);
-    console.log(perkPackages);
     defineAssets(perkPackages);
   }, [perkPackages, totalTokenRewards]);
 
