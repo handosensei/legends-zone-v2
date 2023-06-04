@@ -3,8 +3,15 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import './video.css';
 
-function PetsPlayer({ sources }) {
+function PetsPlayer() {
   const videoRef = useRef(null);
+
+  const sources = [
+    {src: 'https://meta-life.io/img/gallery/wildlife/video/4.mp4', type: 'video/mp4'},
+    {src: 'https://meta-life.io/img/gallery/wildlife/video/5.mp4', type: 'video/mp4'},
+    {src: 'https://meta-life.io/img/gallery/wildlife/video/6.mp4', type: 'video/mp4'},
+    {src: 'https://meta-life.io/img/gallery/wildlife/video/7.mp4', type: 'video/mp4'},
+  ];
 
   useEffect(() => {
     const player = videojs(videoRef.current, {
@@ -33,7 +40,7 @@ function PetsPlayer({ sources }) {
     return () => {
       player.dispose();
     };
-  }, [sources]);
+  }, []);
 
   return (
     <div className="video-container">
