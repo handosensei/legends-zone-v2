@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Card, CardBody, Col, Input} from "reactstrap";
 import PreviewCardSimpleHeader from "../../Components/Common/PreviewCardSimpleHeader";
-import {getEligibilityOgPets} from "../../client/ApiMetaLegends";
 
-const EligibilityOgPet = () => {
+const EligibilityOgPet = ({ogPet}) => {
 
-
-  const [defaultCounter, setdefaultCounter] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [ogPet, setOgPet] = useState({});
+  const [defaultCounter, setDefaultCounter] = useState(0);
+  const [total, setTotal] = useState('0');
 
   function countUP(id, prev_data_attr) {
     if (prev_data_attr < total) {
@@ -20,18 +17,6 @@ const EligibilityOgPet = () => {
     if (prev_data_attr >= 1) {
       id(prev_data_attr - 1);
     }
-  }
-
-  function defineTotal(ogPet) {
-    let value = 0;
-    value += Number(ogPet.council);
-    value += Number(ogPet.guardian);
-    value += Number(ogPet.honorary);
-    value += Number(ogPet.judge);
-    value += Number(ogPet.mint);
-    value += Number(ogPet.whale);
-    value += Number(ogPet.og);
-    setTotal(value);
   }
 
   const DisplayEligibility = ({nbEligibility}) => {
@@ -48,14 +33,16 @@ const EligibilityOgPet = () => {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await getEligibilityOgPets();
-      setOgPet(result);
-      defineTotal(result)
-    }
-
-    fetchData();
-  }, []);
+    setTotal(Number(
+      ogPet.council+
+      ogPet.guardian+
+      ogPet.honorary+
+      ogPet.judge+
+      ogPet.mint+
+      ogPet.whale+
+      ogPet.og
+    ));
+  }, [ogPet]);
 
   return (
   <Col xl={3}>
@@ -107,34 +94,15 @@ const EligibilityOgPet = () => {
           </ul>
           <div className="d-grid gap-2 mt-3">
             <div className="input-step full-width">
-              <button
-              type="button"
-              className="minus"
-              onClick={() => {
-                countDown(setdefaultCounter, defaultCounter);
-              }}
-              >
+              <button type="button" className="minus" onClick={() => { countDown(setDefaultCounter, defaultCounter); }} >
                 –
               </button>
-              <Input
-              type="number"
-              className="product-quantity"
-              value={defaultCounter}
-              min="0"
-              max="100"
-              readOnly
-              />
-              <button
-              type="button"
-              className="plus"
-              onClick={() => {
-                countUP(setdefaultCounter, defaultCounter);
-              }}
-              >
+              <Input type="number" className="product-quantity" value={defaultCounter} min="0" max="20" readOnly />
+              <button type="button" className="plus" onClick={() => { countUP(setDefaultCounter, defaultCounter); }} >
                 +
               </button>
             </div>
-            <button className="btn btn-primary" onClick={() => {setdefaultCounter(total)}}>Max</button>
+            <button className="btn btn-primary" onClick={() => {setDefaultCounter(total)}}>Max</button>
             <button className="btn btn-light">Claim</button>
           </div>
         </div>
