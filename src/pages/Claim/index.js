@@ -17,11 +17,11 @@ const Claim = () => {
   document.title = "Claim \"OG Pets\" | Legends Zone";
 
   const DiplayMintOrder = () => {
-    if (countRandomMint === 0 || countSpecificMint === 0) {
+    if (countSpecificMint === 0) {
       return (<></>);
     }
 
-    if (countRandomMint > 0 && countSpecificMint > 0) {
+    if (countSpecificMint > 1 || (countSpecificMint > 0 && countRandomMint > 0)) {
       return (
         <>
           <MintOgPetOrder mintOrders={mintOrders} />
