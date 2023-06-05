@@ -87,10 +87,10 @@ const EligibilityOgPet = ({ogPet}) => {
                 <span className="text-success">0/{total}</span>
               </div>
             </li>
-            <li className="list-group-item d-flex justify-content-between align-items-center">
-              Remains to be claimed
-              <DisplayEligibility nbEligibility={total} />
-            </li>
+            {/*<li className="list-group-item d-flex justify-content-between align-items-center">*/}
+            {/*  Remains to be claimed*/}
+            {/*  <DisplayEligibility nbEligibility={total} />*/}
+            {/*</li>*/}
           </ul>
           <div className="d-grid gap-2 mt-3">
             <div className="input-step full-width">
