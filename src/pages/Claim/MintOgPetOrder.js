@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Card, CardBody, CardHeader, Col } from 'reactstrap';
-// import './MintOgPetOrder2.scss';
+import { patchMintOrdersOgPets } from "../../client/ApiMetaLegends";
+import {toast, ToastContainer} from "react-toastify";
 
 const initialDnDState = {
   draggedFrom: null,
@@ -69,6 +70,10 @@ const MintOgPetOrder = ({mintOrders}) => {
       draggedTo: null,
       isDragging: false
     });
+
+    patchMintOrdersOgPets(dragAndDrop.updatedOrder).then((res) => {
+      toast("Mint order updated Legend !", { position: "top-right", hideProgressBar: true, className: 'bg-success text-white' });
+    })
   }
 
   const onDragLeave = () => {
@@ -121,7 +126,9 @@ const MintOgPetOrder = ({mintOrders}) => {
 
           </CardBody>
         </Card>
+        <ToastContainer />
       </Col>
+
     </React.Fragment>
   );
 }
