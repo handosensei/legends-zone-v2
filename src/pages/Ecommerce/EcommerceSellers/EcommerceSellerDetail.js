@@ -29,7 +29,7 @@ import {
   Price,
 } from "../EcommerceProducts/EcommerceProductCol";
 
-import Revenue from "../../DashboardEcommerce/Revenue";
+
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -441,7 +441,6 @@ document.title ="Sellers Details | Velzon - React Admin & Dashboard Template";
             </div>
 
             <div className="col-xxl-9">
-              <Revenue />
 
               <Row className="g-4 mb-3">
                 <div className="col-sm-auto">
