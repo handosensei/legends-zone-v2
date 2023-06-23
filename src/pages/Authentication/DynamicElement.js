@@ -7,6 +7,38 @@ import {loginUser} from "../../store/auth/login/actions";
 import {logoutUser} from "../../store/actions";
 import { isHolder} from "../../client/ApiMetaLegends";
 import logoSm from "../../assets/images/head-logo.svg";
+const evmNetworks = [
+  {
+    blockExplorerUrls: ['https://etherscan.io/'],
+    chainId: 1,
+    chainName: 'Ethereum Mainnet',
+    iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
+    nativeCurrency: {
+      decimals: 18,
+      name: 'Ether',
+      symbol: 'ETH',
+    },
+    networkId: 1,
+    shortName: 'eth',
+    rpcUrls: ['https://mainnet.infura.io/v3/'],
+    vanityName: 'ETH Mainnet',
+  },
+  {
+    blockExplorerUrls: ['https://sepolia.etherscan.io/'],
+    chainId: 11155111,
+    chainName: 'Ethereum Sepolia',
+    iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
+    nativeCurrency: {
+      decimals: 18,
+      name: 'SepoliaEther',
+      symbol: 'SepoliaETH',
+    },
+    networkId: 11155111,
+    rpcUrls: ['https://sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
+    shortName: 'eth',
+    vanityName: 'Sepolia',
+  },
+];
 
 const DynamicElement = ({props}) => {
   const dispatch = useDispatch();
@@ -73,7 +105,8 @@ const DynamicElement = ({props}) => {
               dispatch(logoutUser());
               window.location = process.env.PUBLIC_URL + "/";
             }
-          }
+          },
+          evmNetworks: evmNetworks
         }}>
         <DynamicWidget/>
       </DynamicContextProvider>
