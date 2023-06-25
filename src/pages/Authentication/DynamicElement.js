@@ -109,12 +109,12 @@ const DynamicElement = ({props}) => {
             ]),
           eventsCallbacks: {
             onAuthSuccess: async (args) => {
-              const response = await isHolder(args.user.verifiedCredentials[0].address.toLowerCase());
-              if (response.isHolderOfCollection) {
+              // const response = await isHolder(args.user.verifiedCredentials[0].address.toLowerCase());
+              // if (response.isHolderOfCollection) {
                 onConnectWallet(args['authToken']);
-              } else {
-                setDisplayNoHolderMessage(true);
-              }
+              // } else {
+              //   setDisplayNoHolderMessage(true);
+              // }
             },
             onLogout: (args) => {
               dispatch(logoutUser());
