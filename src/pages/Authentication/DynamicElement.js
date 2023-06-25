@@ -34,10 +34,25 @@ const evmNetworks = [
       symbol: 'SepoliaETH',
     },
     networkId: 11155111,
-    rpcUrls: ['https://sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
+    rpcUrls: ['https://sepolia.infura.io/v3/f4de269d1ac746019178a62a6bf20009'],
     shortName: 'eth',
     vanityName: 'Sepolia',
+  },{
+    blockExplorerUrls: ['https://goerli.etherscan.io/'],
+    chainId: 5,
+    chainName: 'Ethereum goerli',
+    iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
+    nativeCurrency: {
+      decimals: 18,
+      name: 'GoerliEther',
+      symbol: 'GoerliETH',
+    },
+    networkId: 5,
+    rpcUrls: ['https://goerli.infura.io/v3/f4de269d1ac746019178a62a6bf20009'],
+    shortName: 'eth',
+    vanityName: 'Goerli',
   },
+
 ];
 
 const DynamicElement = ({props}) => {
