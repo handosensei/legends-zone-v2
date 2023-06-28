@@ -1,26 +1,104 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {Card, CardBody, CardHeader, Col, Input} from "reactstrap";
+import Web3 from "web3";
+import MetaLifeOgPets from "../../contracts/testnet/sepolia/og-pets/MetaLifeOgPets.json";
 
-const ClaimAsset = ({claimable, title, func}) => {
+const ClaimAsset = ({claimable, title, func, contract, account}) => {
 
   const [counter, setCounter] = useState(0);
+  const [remainingToClaim, setRemainingToClaim] = useState(0);
 
-  function claim() {
+  const getRemainingToClaimRandom = () => {
+    if (contract.methods != undefined) {
+      contract.methods.addressClaimbleRandom(account).call()
+        .then((res) => {
+          setRemainingToClaim(res);
+        });
+      return remainingToClaim;
+    }
+    return 0;
+  }
 
+  const getRemainingToClaimCouncil = () => {
+    if (contract.methods != undefined) {
+      contract.methods.addressClaimbleCouncil(account).call()
+      .then((res) => {
+        setRemainingToClaim(res);
+      });
+      return remainingToClaim;
+    }
+    return 0;
+  }
+
+  const getRemainingToClaim = () => {
     switch (func) {
-      case 'random': break;
-      case 'council': break;
-      case 'whale': break;
-      case 'judge': break;
-      case 'guardian': break;
-      case 'honorary': break;
+      case 'random':
+        return getRemainingToClaimRandom();
+      case 'council':
+        return getRemainingToClaimCouncil();
       default:
         console.log(`Sorry, ${func} unknown.`);
     }
   }
 
+  const RemainingToClaim = () => {
+    const restToClaim = getRemainingToClaim();
+    if (restToClaim > 0) {
+      return (<span className="text-success">{restToClaim}</span>)
+
+    }
+    return (
+      <span className="text-muted">{restToClaim}</span>
+    );
+  }
+
+  const claim = () => {
+    console.log(func);
+    switch (func) {
+      case 'random':
+        mintRandom();
+        break;
+      case 'council':
+        mintCouncil();
+        break;
+      default:
+        console.log(`Sorry, ${func} unknown.`);
+    }
+  }
+
+  const mintCouncil = async () => {
+    if (contract.methods == undefined) {
+      return;
+    }
+
+    contract.methods.mintCouncil(counter).send({ from: account })
+    .then((res) => {
+      console.log(res);
+      setCounter(0);
+    })
+    .catch((err) => {
+      console.log('Add item failed','Error');
+      console.log(err)
+    });
+  }
+
+  const mintRandom = async () => {
+    if (contract.methods == undefined) {
+      return;
+    }
+
+    contract.methods.mintRandom(counter).send({ from: account })
+    .then((res) => {
+      setCounter(0);
+    })
+    .catch((err) => {
+      console.log('Add item failed','Error');
+      console.log(err)
+    });
+  }
+
   function countUp(prev_data_attr) {
-    if (prev_data_attr < claimable) {
+    if (prev_data_attr < remainingToClaim) {
       setCounter(prev_data_attr + 1);
     }
   }
@@ -32,7 +110,7 @@ const ClaimAsset = ({claimable, title, func}) => {
   }
 
   const ClaimButton = () => {
-    if (claimable > 0) {
+    if (remainingToClaim > 0) {
       return (<button className="btn btn-primary" onClick={() => { claim(); }}>Claim</button>);
     }
 
@@ -40,15 +118,21 @@ const ClaimAsset = ({claimable, title, func}) => {
   }
 
   return (
-    <Col xl="4">
+    <Col xl="6">
       <Card>
         <CardHeader>{title}</CardHeader>
         <CardBody>
           <div className="list-group-item d-flex justify-content-between align-items-center">
-            Total claimed
-
+            Eligible
             <div className="flex-shrink-0">
-              <span className={claimable > 0 ? "text-success": "text-muted"}>0/{claimable}</span>
+              <span className={claimable > 0 ? "text-success": "text-muted"}>{claimable}</span>
+            </div>
+          </div>
+
+          <div className="list-group-item d-flex justify-content-between align-items-center">
+            Remaining to be claim
+            <div className="flex-shrink-0">
+              <RemainingToClaim />
             </div>
           </div>
 
@@ -62,7 +146,7 @@ const ClaimAsset = ({claimable, title, func}) => {
                 +
               </button>
             </div>
-            <ClaimButton />
+            <ClaimButton onClick={() => { claim(); }}/>
           </div>
         </CardBody>
       </Card>
