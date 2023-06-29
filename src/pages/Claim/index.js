@@ -43,10 +43,6 @@ const Claim = () => {
     getWeb3Data().then((data) => {
       setContractOgPets(data[0]);
       setAccount(data[1]);
-      //console.log(data[1]);
-      console.log('==============')
-      //console.log(data[0].methods.addressClaimbleRandom(data[1]).call().then((res) => {console.log(res)}));
-      console.log(data[0]);
     }).catch((err) => {
       console.error(err)
     });
