@@ -1,9 +1,26 @@
-import React, {useEffect, useState} from "react";
-import {Card, CardBody, CardHeader, Col } from "reactstrap";
+import React, { useState } from "react";
+import {Button, Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalHeader} from "reactstrap";
 
 const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
 
   const [remainingToClaim, setRemainingToClaim] = useState(0);
+  const [tokenIdMinted, setTokenIdMinted] = useState(null);
+
+  const [modalMinted, setModalMinted] = useState(false);
+  const [modalMintInProgress, setModalMintInProgress] = useState(false);
+
+  function minted() {
+    setModalMinted(!modalMinted);
+    setModalMintInProgress(false);
+  }
+
+  function mintInProgress() {
+    setModalMintInProgress(true);
+  }
+
+  function mintCancel() {
+    setModalMintInProgress(false);
+  }
 
   const getRemainingToClaimWhale = () => {
     if (contract.methods != undefined) {
@@ -65,62 +82,59 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
   }
 
   const mintWhale = async () => {
-    if (contract.methods == undefined) {
-      return;
-    }
     contract.methods.mintWhale().send({ from: account })
     .then((res) => {
-      console.log(res);
+      setTokenIdMinted(res.events.MintedWhale.returnValues.tokenId);
+      minted();
     })
     .catch((err) => {
-      console.log('Add item failed','Error');
+      mintCancel();
       console.log(err)
     });
   }
 
   const mintJudge = async () => {
-    if (contract.methods == undefined) {
-      return;
-    }
     contract.methods.mintJudge().send({ from: account })
     .then((res) => {
-      console.log(res);
+      setTokenIdMinted(res.events.MintedJudge.returnValues.tokenId);
+      minted();
     })
     .catch((err) => {
-      console.log('Add item failed','Error');
+      mintCancel();
       console.log(err)
     });
   }
 
   const mintGuardian = async () => {
-    if (contract.methods == undefined) {
-      return;
-    }
     contract.methods.mintGuardian().send({ from: account })
     .then((res) => {
-      console.log(res);
+      setTokenIdMinted(res.events.MintedGuardian.returnValues.tokenId);
+      minted();
     })
     .catch((err) => {
-      console.log('Add item failed','Error');
+      mintCancel();
       console.log(err)
     });
   }
 
   const mintHonorary = async () => {
-    if (contract.methods == undefined) {
-      return;
-    }
     contract.methods.mintHonorary().send({ from: account })
     .then((res) => {
-      console.log(res);
+      setTokenIdMinted(res.events.MintedHonorary.returnValues.tokenId);
+      minted();
     })
     .catch((err) => {
-      console.log('Add item failed','Error');
+      mintCancel();
       console.log(err)
     });
   }
 
   function claim() {
+    mintInProgress();
+    if (contract.methods === undefined) {
+      return;
+    }
+
     switch (func) {
       case 'whale':
         mintWhale();
@@ -146,7 +160,7 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
 
     }
     return (
-    <span className="text-muted">{restToClaim}</span>
+      <span className="text-muted">{restToClaim}</span>
     );
   }
 
@@ -159,6 +173,37 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
   }
 
   return (
+  <React.Fragment>
+
+    <Modal size="lg" id="flipModalInProgress" isOpen={modalMintInProgress} toggle={() => { mintInProgress(); }} modalClassName="zoomIn" centered >
+      <ModalHeader className="modal-title" id="flipModalLabel">
+        Mint {func.toUpperCase()} OG Pets in progress
+      </ModalHeader>
+      <ModalBody className="text-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </ModalBody>
+    </Modal>
+
+    <Modal size="lg" id="flipModalMinted" isOpen={modalMinted} toggle={() => { minted(); }} modalClassName="zoomIn" centered >
+      <ModalHeader className="modal-title" id="flipModalLabel" toggle={() => { minted(); }}>
+      </ModalHeader>
+      <ModalBody className="text-center">
+        <h5 className="fs-16">
+          Congrats ! {func.toUpperCase()} OG Pets minted
+        </h5>
+        <figure className="figure mt-5">
+          <a target="_blank" href={process.env.REACT_APP_OPENSEA_ITEM_OG_PETS + tokenIdMinted}>
+            <img width="300" className="figure-img img-fluid rounded m-2" src={"https://metalegends.mypinata.cloud/ipfs/"+ process.env.REACT_APP_OG_PETS_CID_GIF + '/' + tokenIdMinted + ".gif"} alt="Card cap" />
+          </a>
+        </figure>
+      </ModalBody>
+      <div className="modal-footer">
+        <Button color="light" onClick={() => { minted(); }}> Close </Button>
+      </div>
+    </Modal>
+
     <Col xl="6">
       <Card>
         <CardHeader>{title}</CardHeader>
@@ -183,6 +228,8 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
         </CardBody>
       </Card>
     </Col>
+
+  </React.Fragment>
   );
 }
 

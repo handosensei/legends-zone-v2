@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import { Button, Card, CardBody, CardHeader, Col, Input, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
-import Web3 from "web3";
-import MetaLifeOgPets from "../../contracts/testnet/sepolia/og-pets/MetaLifeOgPets.json";
 
 const ClaimAsset = ({claimable, title, func, contract, account}) => {
 
@@ -10,9 +8,19 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
   const [remainingToClaim, setRemainingToClaim] = useState(0);
 
   const [modalMinted, setModalMinted] = useState(false);
+  const [modalMintInProgress, setModalMintInProgress] = useState(false);
 
   function minted() {
     setModalMinted(!modalMinted);
+    setModalMintInProgress(false);
+  }
+
+  function mintInProgress() {
+    setModalMintInProgress(true);
+  }
+
+  function mintCancel() {
+    setModalMintInProgress(false);
   }
 
   const getRemainingToClaimRandom = () => {
@@ -59,6 +67,7 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
   }
 
   const claim = async () => {
+    mintInProgress();
     if (counter === 0) {
       return;
     }
@@ -66,7 +75,6 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
       return;
     }
 
-    let tokenIds = [];
     switch (func) {
       case 'random':
         mintRandom();
@@ -77,46 +85,31 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
       default:
         console.log(`Sorry, ${func} unknown.`);
     }
-    //   // save mint in BDD
-    //   setCounterMinted(counter);
-    //   setCounter(0);
-    //   minted()
   }
 
   const mintCouncil = async () => {
     contract.methods.mintCouncil(counter).send({ from: account })
     .then((res) => {
       setCounter(0);
-      console.log(res.from);
-      console.log(res.transactionHash);
       setTokenIdsMinted(res.events.MintedCouncil.returnValues.tokenIds);
       minted();
       // save mint in BDD
     })
     .catch((err) => {
-      console.log('Mint item failed','Error');
+      mintCancel();
       console.log(err);
     });
-
-    // .then((res) => {
-    //   console.log(res);
-    //   setCounterMinted(counter);
-    //   setCounter(0);
-    //   minted()
-    // })
   }
 
   const mintRandom = async () => {
     contract.methods.mintRandom(counter).send({ from: account })
     .then((res) => {
       setCounter(0);
-      console.log(res.from);
-      console.log(res.transactionHash);
       setTokenIdsMinted(res.events.MintedRandom.returnValues.tokenIds);
       minted();
     })
     .catch((err) => {
-      console.log('Add item failed','Error');
+      mintCancel();
       console.log(err)
     });
   }
@@ -142,6 +135,17 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
 
   return (
   <>
+    <Modal size="lg" id="flipModalInProgress" isOpen={modalMintInProgress} toggle={() => { mintInProgress(); }} modalClassName="zoomIn" centered >
+      <ModalHeader className="modal-title" id="flipModalLabel">
+        Mint {func.toUpperCase()} OG Pets in progress
+      </ModalHeader>
+      <ModalBody className="text-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </ModalBody>
+    </Modal>
+
     <Modal size="xl" id="flipModal" isOpen={modalMinted} toggle={() => { minted(); }} modalClassName="zoomIn" centered >
       <ModalHeader className="modal-title" id="flipModalLabel" toggle={() => { minted(); }}>
       </ModalHeader>
