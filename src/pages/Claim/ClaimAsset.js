@@ -67,14 +67,13 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
   }
 
   const claim = async () => {
-    mintInProgress();
     if (counter === 0) {
       return;
     }
     if (contract.methods === undefined) {
       return;
     }
-
+    mintInProgress();
     switch (func) {
       case 'random':
         mintRandom();
@@ -155,7 +154,9 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
         </h5>
         <figure className="figure mt-5">
           {tokenIdsMinted.map((element, key) => (
+          <a key={key} target="_blank" href={'https://testnets.opensea.io/fr/assets/sepolia/0x27aC54b02E513fb1a25426027EE5D5EDd038fcb1/' + element}>
             <img key={key} width="300" className="figure-img img-fluid rounded m-2" src={"https://metalegends.mypinata.cloud/ipfs/QmQ7awqZAj5q7KMZYkZpf5Kerpr1eTsKNdi2zKAUrQqojP/" + element + ".gif"} alt="Card cap" />
+          </a>
           ))}
         </figure>
       </ModalBody>
