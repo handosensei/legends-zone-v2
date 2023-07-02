@@ -104,7 +104,11 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
     contract.methods.mintRandom(counter).send({ from: account })
     .then((res) => {
       setCounter(0);
-      setTokenIdsMinted(res.events.MintedRandom.returnValues.tokenIds);
+      let ids = [];
+      res.events.Transfer.map((transfer) => {
+        ids.push(transfer.returnValues.id);
+      });
+      setTokenIdsMinted(ids);
       minted();
     })
     .catch((err) => {
