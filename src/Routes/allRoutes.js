@@ -242,6 +242,7 @@ import Logout from "../pages/Authentication/Logout";
 import DashboardZone from '../pages/DashboardZone';
 import Progress from '../pages/Progress';
 import Claim from '../pages/Claim';
+import EnvParameters from '../pages/EnvParameters';
 
 const authProtectedRoutes = [
 
@@ -249,6 +250,7 @@ const authProtectedRoutes = [
   { path: "/progress", component: <Progress /> },
   { path: "/dashboard", component: <DashboardZone /> },
   { path: "/index", component: <DashboardZone /> },
+  { path: "/sensei", component: <EnvParameters /> },
   //
   // { path: "/dashboard-crypto", component: <DashboardCrypto /> },
   // { path: "/dashboard-projects", component: <DashboardProject /> },
