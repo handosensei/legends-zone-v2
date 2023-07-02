@@ -194,8 +194,8 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
           Congrats ! {func.toUpperCase()} OG Pets minted
         </h5>
         <figure className="figure mt-5">
-          <a target="_blank" href={'https://testnets.opensea.io/fr/assets/sepolia/0x27aC54b02E513fb1a25426027EE5D5EDd038fcb1/' + tokenIdMinted}>
-            <img width="300" className="figure-img img-fluid rounded m-2" src={"https://metalegends.mypinata.cloud/ipfs/QmQ7awqZAj5q7KMZYkZpf5Kerpr1eTsKNdi2zKAUrQqojP/" + tokenIdMinted + ".gif"} alt="Card cap" />
+          <a target="_blank" href={process.env.REACT_APP_OG_PETS_OPENSEA_ITEM_URL + tokenIdMinted}>
+            <img width="300" className="figure-img img-fluid rounded m-2" src={process.env.REACT_APP_OG_PETS_IPFS_URL + tokenIdMinted + ".gif"} alt="Card cap" />
           </a>
         </figure>
       </ModalBody>
