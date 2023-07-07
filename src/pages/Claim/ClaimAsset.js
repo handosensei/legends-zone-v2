@@ -164,7 +164,7 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
         <figure className="figure mt-5">
           {tokenIdsMinted.map((element, key) => (
             <a key={key} target="_blank" href={process.env.REACT_APP_OG_PETS_OPENSEA_ITEM_URL + element}>
-              <img key={key} width="300" className="figure-img img-thumbnail img-fluid rounded m-2" src={process.env.REACT_APP_OG_PETS_IPFS_URL + element + ".gif"} alt="Card cap" />
+              <img key={key} width="300" className="figure-img img-thumbnail img-fluid rounded m-2" src={process.env.REACT_APP_OG_PETS_IPFS_GIF_URL + element + ".gif"} alt="Card cap" />
             </a>
           ))}
         </figure>
