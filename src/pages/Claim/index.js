@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 import ClaimAsset from "./ClaimAsset";
 import ClaimAssetSingle from "./ClaimAssetSingle";
 import Web3 from "web3";
-import MetaLifeOgPets from "../../contracts/testnet/sepolia/og-pets/MetaLifeOgPets.json";
+import MetaLifeOgPets from "../../contracts/mainnet/og-pets/MetaLifeOgPets.json";
 
 const Claim = () => {
 
