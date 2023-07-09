@@ -105,7 +105,8 @@ const DynamicElement = ({props}) => {
               'walletconnect',
               'braveevm',
               'opera',
-              'ledger'
+              'ledger',
+              'arculuswallet'
             ]),
           eventsCallbacks: {
             onAuthSuccess: async (args) => {
