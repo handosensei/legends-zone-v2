@@ -29,8 +29,6 @@ export * from "./invoice/action";
 export * from "./mailbox/action";
 // Dashboard Analytics
 export * from "./dashboardCRM/action";
-// Dashboard Project
-export * from "./dashboardProject/action";
 // Dashboard NFT
 export * from "./dashboardNFT/action";
 // Pages > Team

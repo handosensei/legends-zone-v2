@@ -41,9 +41,6 @@ import Mailbox from "./mailbox/reducer";
 // Dashboard CRM
 import DashboardCRM from "./dashboardCRM/reducer";
 
-// Dashboard Cryto
-import DashboardProject from "./dashboardProject/reducer";
-
 // Dashboard NFT
 import DashboardNFT from "./dashboardNFT/reducer";
 
@@ -81,7 +78,6 @@ const rootReducer = combineReducers({
     Invoice,
     Mailbox,
     DashboardCRM,
-    DashboardProject,
     DashboardNFT,
     Team,
     FileManager,

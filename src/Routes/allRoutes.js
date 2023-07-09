@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 // //Dashboard
 // import DashboardJob from "../pages/DashboardJob/";
 // import DashboardCrypto from "../pages/DashboardCrypto";
-// import DashboardProject from "../pages/DashboardProject";
+
 // import DashboardNFT from "../pages/DashboardNFT";
 //
 // //Calendar
@@ -16,7 +16,6 @@ import { Navigate } from "react-router-dom";
 // //Chat
 // import Chat from "../pages/Chat";
 // import Calendar from "../pages/Calendar";
-//
 // // Project
 // import ProjectList from "../pages/Projects/ProjectList";
 // import ProjectOverview from "../pages/Projects/ProjectOverview";
@@ -253,7 +252,7 @@ const authProtectedRoutes = [
   { path: "/sensei", component: <EnvParameters /> },
   //
   // { path: "/dashboard-crypto", component: <DashboardCrypto /> },
-  // { path: "/dashboard-projects", component: <DashboardProject /> },
+
   // { path: "/dashboard-nft", component: <DashboardNFT /> },
   // { path : "/dashboard-job", component : <DashboardJob /> },
   // { path: "/apps-calendar", component: <Calendar /> },
