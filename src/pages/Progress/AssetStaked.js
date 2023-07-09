@@ -103,7 +103,7 @@ const AssetStaked = ({perkPackages, totalTokenRewards}) => {
                   <span className="text-muted">NFT</span>
                 </td>
                 <td>
-                  <p className="mb-0">$ {item.tokens}</p>
+                  <p className="mb-0">$ {Number(item.tokens).toFixed(2)}</p>
                   <span className="text-muted">METAL</span>
                 </td>
               </tr>

@@ -51,7 +51,7 @@ const CardMetaLegend = () => {
               ML <span className="text-secondary">#{legend.tokenId}</span>
             </h6>
           </CardBody>
-          <img className="img-fluid" src={legend.media.thumbnail} alt="Card cap" />
+          <img className="img-fluid" src={legend.media.thumbnail} alt={`Legend #${legend.tokenId}`} />
           <div className="card-footer">
             {/*<Link to="#" className="link-success float-end">Detail</Link>*/}
             <MonthHolding purchasedOnDate={legend.purchasedOn} />
