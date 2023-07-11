@@ -10,6 +10,9 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
   const [modalMinted, setModalMinted] = useState(false);
   const [modalMintInProgress, setModalMintInProgress] = useState(false);
 
+  const OPENSEA_OG_PETS_ITEM_URL = "https://opensea.io/assets/ethereum/0xfc634bfc0f00a2d3dcc93ceb4558da9de840fdbc/";
+  const PINATA_OG_PETS_IPFS_GIF_URL="https://metalegends.mypinata.cloud/ipfs/QmWHMpnbc6mpCxZSaU797FV6q3gb7LKPusbyHL5iUATXNA/"
+
   function minted() {
     setModalMinted(!modalMinted);
     setModalMintInProgress(false);
@@ -163,8 +166,8 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
         </h5>
         <figure className="figure mt-5">
           {tokenIdsMinted.map((element, key) => (
-            <a key={key} target="_blank" href={process.env.REACT_APP_OG_PETS_OPENSEA_ITEM_URL + element}>
-              <img key={key} width="300" className="figure-img img-thumbnail img-fluid rounded m-2" src={process.env.REACT_APP_OG_PETS_IPFS_GIF_URL + element + ".gif"} alt="Card cap" />
+            <a key={key} target="_blank" href={OPENSEA_OG_PETS_ITEM_URL + element}>
+              <img key={key} width="300" className="figure-img img-thumbnail img-fluid rounded m-2" src={PINATA_OG_PETS_IPFS_GIF_URL + element + ".gif"} alt="Card cap" />
             </a>
           ))}
         </figure>
