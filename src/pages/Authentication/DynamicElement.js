@@ -5,8 +5,10 @@ import { Modal, ModalBody } from 'reactstrap';
 
 import {loginUser} from "../../store/auth/login/actions";
 import {logoutUser} from "../../store/actions";
-import { isHolder} from "../../client/ApiMetaLegends";
+import {isHolder} from "../../client/ApiMetaLegends";
 import logoSm from "../../assets/images/head-logo.svg";
+import Web3 from "web3";
+import MetaLifeOgPets from "../../contracts/mainnet/og-pets/MetaLifeOgPets.json";
 const evmNetworks = [
   {
     blockExplorerUrls: ['https://etherscan.io/'],
@@ -37,28 +39,16 @@ const evmNetworks = [
     rpcUrls: ['https://sepolia.infura.io/v3/f4de269d1ac746019178a62a6bf20009'],
     shortName: 'eth',
     vanityName: 'Sepolia',
-  },{
-    blockExplorerUrls: ['https://goerli.etherscan.io/'],
-    chainId: 5,
-    chainName: 'Ethereum goerli',
-    iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
-    nativeCurrency: {
-      decimals: 18,
-      name: 'GoerliEther',
-      symbol: 'GoerliETH',
-    },
-    networkId: 5,
-    rpcUrls: ['https://goerli.infura.io/v3/f4de269d1ac746019178a62a6bf20009'],
-    shortName: 'eth',
-    vanityName: 'Goerli',
   },
-
 ];
 
 const DynamicElement = ({props}) => {
   const dispatch = useDispatch();
 
   const [displayNoHolderMessage, setDisplayNoHolderMessage] = useState(false);
+  const [contractOgPets, setContractOgPets] = useState({});
+  const [account, setAccount] = useState('');
+  const [remainingToClaim, setRemainingToClaim] = useState(0);
 
   const {isUserLogout} = useSelector((state) => ({
     isUserLogout: state.Login.isUserLogout,
@@ -82,6 +72,49 @@ const DynamicElement = ({props}) => {
         dispatch(loginUser(user, props.router.navigate));
       });
   }
+
+  const getReminingToClaim = () => {
+    if (contractOgPets.methods != undefined) {
+      contractOgPets.methods.addressClaimbleRandom(account).call()
+      .then((res) => {
+        setRemainingToClaim(res);
+      });
+
+      return remainingToClaim;
+    }
+    return 0;
+  }
+
+  const getWeb3Data = async () => {
+    try {
+      const web3 = new Web3(window.ethereum);
+
+      const accounts = await web3.eth.getAccounts()
+      const networkId = await web3.eth.net.getId();
+
+      const contractDeployed = MetaLifeOgPets.networks[networkId];
+      const instanceContractOgPets = new web3.eth.Contract(MetaLifeOgPets.abi, contractDeployed && contractDeployed.address);
+
+      return [instanceContractOgPets, accounts[0]];
+
+    } catch (error) {
+      // Catch any errors for any of the above operations.
+      console.log(
+      `Failed to load web3, accounts, or contract. Check console for details.`,
+      );
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+
+    getWeb3Data().then((data) => {
+      setContractOgPets(data[0]);
+      setAccount(data[1]);
+    }).catch((err) => {
+      console.error(err)
+    });
+  }, []);
 
   useEffect(() => {
   }, [dispatch]);
@@ -111,10 +144,10 @@ const DynamicElement = ({props}) => {
           eventsCallbacks: {
             onAuthSuccess: async (args) => {
               const response = await isHolder(args.user.verifiedCredentials[0].address.toLowerCase());
-              if (response.isHolderOfCollection) {
+              if (response.isHolderOfCollection || getReminingToClaim() > 0) {
                 onConnectWallet(args['authToken']);
               } else {
-                 setDisplayNoHolderMessage(true);
+                setDisplayNoHolderMessage(true);
               }
             },
             onLogout: (args) => {
