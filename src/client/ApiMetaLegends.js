@@ -37,6 +37,19 @@ const patch = async (url, payload) => {
   }
 }
 
+const post = async (url, payload) => {
+  try {
+    return await axios({
+      method: 'post',
+      url: url,
+      headers: buildHeader(),
+      data: payload
+    });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const getRewardsEstimate = async () => {
   const url = `${apiUrl}rewards`;
   return get(url);
@@ -65,4 +78,9 @@ export const getMintOrderOgPets = async () => {
 export const patchMintOrdersOgPets = async (payload) => {
   const url = `${apiUrl}mint-orders/og-pets`;
   return patch(url, payload);
+}
+
+export const upsertUser = async (address) => {
+  const url = `${apiUrl}users/${address}`;
+  return post(url, {});
 }

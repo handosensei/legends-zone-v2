@@ -5,7 +5,7 @@ import { Modal, ModalBody } from 'reactstrap';
 
 import {loginUser} from "../../store/auth/login/actions";
 import {logoutUser} from "../../store/actions";
-import {isHolder} from "../../client/ApiMetaLegends";
+import {isHolder, upsertUser} from "../../client/ApiMetaLegends";
 import logoSm from "../../assets/images/head-logo.svg";
 import Web3 from "web3";
 import MetaLifeOgPets from "../../contracts/mainnet/og-pets/MetaLifeOgPets.json";
@@ -25,21 +25,21 @@ const evmNetworks = [
     rpcUrls: ['https://mainnet.infura.io/v3/'],
     vanityName: 'ETH Mainnet',
   },
-  {
-    blockExplorerUrls: ['https://sepolia.etherscan.io/'],
-    chainId: 11155111,
-    chainName: 'Ethereum Sepolia',
-    iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
-    nativeCurrency: {
-      decimals: 18,
-      name: 'SepoliaEther',
-      symbol: 'SepoliaETH',
-    },
-    networkId: 11155111,
-    rpcUrls: ['https://sepolia.infura.io/v3/f4de269d1ac746019178a62a6bf20009'],
-    shortName: 'eth',
-    vanityName: 'Sepolia',
-  },
+  // {
+  //   blockExplorerUrls: ['https://sepolia.etherscan.io/'],
+  //   chainId: 11155111,
+  //   chainName: 'Ethereum Sepolia',
+  //   iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
+  //   nativeCurrency: {
+  //     decimals: 18,
+  //     name: 'SepoliaEther',
+  //     symbol: 'SepoliaETH',
+  //   },
+  //   networkId: 11155111,
+  //   rpcUrls: ['https://sepolia.infura.io/v3/f4de269d1ac746019178a62a6bf20009'],
+  //   shortName: 'eth',
+  //   vanityName: 'Sepolia',
+  // },
 ];
 
 const DynamicElement = ({props}) => {
@@ -146,6 +146,7 @@ const DynamicElement = ({props}) => {
               const response = await isHolder(args.user.verifiedCredentials[0].address.toLowerCase());
               if (response.isHolderOfCollection || getReminingToClaim() > 0) {
                 onConnectWallet(args['authToken']);
+                upsertUser(args.user.verifiedCredentials[0].address.toLowerCase());
               } else {
                 setDisplayNoHolderMessage(true);
               }
