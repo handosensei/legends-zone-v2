@@ -82,8 +82,17 @@ const Navdata = () => {
             },
             stateVariables: isClaim,
             subItems: [
-                { id: "ogpets", label: "OG Pets", link: "/claim/og-pets", parentId: "claim" },
-                { id: "holdingrewards", label: "Holding rewards", link: "/claim/holding-rewards", parentId: "claim" },
+                {
+                    id: "ogpets",
+                    label: "OG Pets",
+                    link: "/claim/og-pets",
+                    parentId: "claim"
+                }, {
+                    id: "holdingrewards",
+                    label: "Holding rewards",
+                    link: "/claim/holding-rewards",
+                    parentId: "claim"
+                },
             ]
         }
     ];

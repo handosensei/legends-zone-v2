@@ -242,10 +242,13 @@ import DashboardZone from '../pages/DashboardZone';
 import Progress from '../pages/Progress';
 import Claim from '../pages/Claim';
 import EnvParameters from '../pages/EnvParameters';
+import HoldingRewards from "../pages/HoldingRewards";
 
 const authProtectedRoutes = [
 
   { path: "/claim", component: <Claim /> },
+  { path: "/claim/og-pets", component: <Claim /> },
+  { path: "/claim/holding-rewards", component: <HoldingRewards /> },
   { path: "/progress", component: <Progress /> },
   { path: "/dashboard", component: <DashboardZone /> },
   { path: "/index", component: <DashboardZone /> },
