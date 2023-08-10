@@ -17,6 +17,9 @@ export const MINPERIOD_HOLD_ROUGH_PETS = 5;
 export const MINPERIOD_HOLD_ROBOTER_WEAPON = 8;
 export const MINPERIOD_HOLD_MA_VEHICLE = 12 ;
 export const MINPERIOD_HOLD_HEALING_DRONE = 15;
+export const MINPERIOD_HOLD_ML_NETWORK_PASS = 18;
+export const MINPERIOD_HOLD_COSMETIC_EFFECT = 21;
+export const MINPERIOD_HOLD_SHADOW_GEM = 24;
 
 
 const HoldingReward = ({legends}) => {

@@ -242,7 +242,7 @@ import DashboardZone from '../pages/DashboardZone';
 import Progress from '../pages/Progress';
 import Claim from '../pages/Claim';
 import EnvParameters from '../pages/EnvParameters';
-import HoldingRewards from "../pages/HoldingRewards";
+import HoldingRewards from "../pages/Claim/HoldingRewards";
 
 const authProtectedRoutes = [
 
