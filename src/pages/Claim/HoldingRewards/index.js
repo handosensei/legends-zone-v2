@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Container, Row} from "reactstrap";
+import {Button, Col, Container, Modal, ModalBody, ModalHeader, Row, CardBody, Card} from "reactstrap";
 import BreadCrumb from "../../../Components/Common/BreadCrumb";
 import Hold_WeaponCyber from "../../../assets/images/metalegends/holding-reward/WeaponCyber.png";
 import Hold_ArmorCyber from "../../../assets/images/metalegends/holding-reward/ArmorCyber.png";
@@ -20,12 +20,24 @@ import {
   MINPERIOD_HOLD_ROBOTER_WEAPON,
   MINPERIOD_HOLD_ROUGH_PETS, MINPERIOD_HOLD_SHADOW_GEM
 } from "../../Progress/HoldingReward";
+import {wait} from "@testing-library/user-event/dist/utils";
 
 const HoldingRewards = () => {
 
   document.title = "Holding rewards | Legends Zone";
   const [assets, setAssets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [modalExecuteInProgress, setModalExecuteInProgress] = useState(false);
+  const [modalExecuted, setModalExecuted] = useState(false);
+
+  const toggleModalExecuteInProgress = () => {
+     setModalExecuteInProgress(!modalExecuteInProgress);
+  }
+
+  const executed = () => {
+    setModalExecuted(!modalExecuted);
+    setModalExecuteInProgress(!modalExecuteInProgress);
+  }
 
   const defineInfo = (legends) => {
     const data = [
@@ -35,16 +47,16 @@ const HoldingRewards = () => {
       { img: Hold_WeaponRoboter, code:'roboter-weapon', item: 'Weapon', typeClass: 'Roboter', period: '9 months', quantity: 0},
       { img: Hold_MatrixAngelCar, code: 'matrix-angel-car', item: 'Car', typeClass: 'Matrix Angel', period: '12 months', quantity: 0},
       { img: Hold_HealingDrone, code: 'healing-drone', item: 'Healing drone', typeClass: '', period: '15 months', quantity: 0},
-      { img: '', code: 'ml-network-pass', item: 'ML Network pass', typeClass: '', period: '18 months', quantity: 0},
-      { img: '', code: 'particles-cosmetic-effect', item: 'Particles cosmetic effect', typeClass: '', period: '21 months', quantity: 0},
-      { img: '', code: 'shadow-gem', item: 'Shadow gem', typeClass: '', period: '24 months', quantity: 0},
+      // { img: '', code: 'ml-network-pass', item: 'ML Network pass', typeClass: '', period: '18 months', quantity: 0},
+      // { img: '', code: 'particles-cosmetic-effect', item: 'Particles cosmetic effect', typeClass: '', period: '21 months', quantity: 0},
+      // { img: '', code: 'shadow-gem', item: 'Shadow gem', typeClass: '', period: '24 months', quantity: 0},
     ];
 
     legends.map((item) => {
       const now = moment();
       const purchasedOn = moment(item.purchasedOn);
       const monthsDiff = now.diff(purchasedOn, 'months');
-        if (MINPERIOD_HOLD_CYBER_WEAPON <= monthsDiff) {
+      if (MINPERIOD_HOLD_CYBER_WEAPON <= monthsDiff) {
         data[0]['quantity']++;
       }
       if (MINPERIOD_HOLD_CYBER_ARMOR <= monthsDiff) {
@@ -62,15 +74,15 @@ const HoldingRewards = () => {
       if (MINPERIOD_HOLD_HEALING_DRONE <= monthsDiff) {
         data[5]['quantity']++;
       }
-      if (MINPERIOD_HOLD_ML_NETWORK_PASS <= monthsDiff) {
-        data[6]['quantity']++;
-      }
-      if (MINPERIOD_HOLD_COSMETIC_EFFECT <= monthsDiff) {
-        data[7]['quantity']++;
-      }
-      if (MINPERIOD_HOLD_SHADOW_GEM <= monthsDiff) {
-        data[8]['quantity']++;
-      }
+      // if (MINPERIOD_HOLD_ML_NETWORK_PASS <= monthsDiff) {
+      //   data[6]['quantity']++;
+      // }
+      // if (MINPERIOD_HOLD_COSMETIC_EFFECT <= monthsDiff) {
+      //   data[7]['quantity']++;
+      // }
+      // if (MINPERIOD_HOLD_SHADOW_GEM <= monthsDiff) {
+      //   data[8]['quantity']++;
+      // }
     });
     setAssets(data);
   }
@@ -87,15 +99,65 @@ const HoldingRewards = () => {
       fetchData(obj.wallet.toLowerCase());
     }
 
-
   }, []);
 
   return (
   <React.Fragment>
+    <Modal size="lg" id="flipModalInProgress" isOpen={modalExecuteInProgress} toggle={() => { toggleModalExecuteInProgress(); }} modalClassName="zoomIn" centered >
+      <ModalHeader className="modal-title" id="flipModalLabel">
+        Estimation in progress
+      </ModalHeader>
+      <ModalBody className="text-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </ModalBody>
+    </Modal>
+
+    <Modal size="lg" id="flipModal" isOpen={modalExecuted} toggle={() => { executed(); }} modalClassName="zoomIn" centered >
+      <ModalHeader className="modal-title" id="flipModalLabel" toggle={() => { executed(); }}>
+      </ModalHeader>
+      <ModalBody className="text-center">
+        <h5 className="fs-16">
+          Claim request saved
+        </h5>
+        <Card className="mt-5">
+          <CardBody>
+            <div className="table-responsive table-card">
+              <table className="table table-centered table-hover align-middle table-nowrap mb-0">
+                <tbody>
+                  {assets.map((asset, key) => (
+                    <tr key={key}>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <div className="flex-shrink-0 me-2">
+                            <img src={asset.img} alt="" className="avatar-sm p-2" />
+                          </div>
+                          <div className="text-start">
+                            <h5 className="fs-14 my-1 fw-medium">{asset.typeClass} {asset.item}</h5>
+                            <span className="text-muted">{asset.period}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <p className="mb-0">{asset.quantity}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardBody>
+        </Card>
+      </ModalBody>
+      <div className="modal-footer">
+        <Button color="light" onClick={() => { executed(); }}> Close </Button>
+      </div>
+    </Modal>
+
     <div className="page-content">
       <Container fluid>
         <BreadCrumb title="Holding rewards" pageTitle="Claim"/>
-
 
         <Row className="mb-4">
           <Col xxl={12}>
@@ -117,7 +179,12 @@ const HoldingRewards = () => {
                   </ul>
                 </p>
                 <div className="hstack gap-2">
-                  <Button color="primary" className="">Estimate next claim</Button>
+                  <Button color="primary" onClick={() => {
+                    toggleModalExecuteInProgress();
+                    wait(1000).then(() => {
+                      executed();
+                    });
+                  }}>Estimate next claim</Button>
                 </div>
               </div>
             </div>

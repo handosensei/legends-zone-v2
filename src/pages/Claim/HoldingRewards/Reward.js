@@ -11,10 +11,7 @@ const Reward = ({asset}) => {
   console.log(asset);
   const [counter, setCounter] = useState(0);
   const [claimable, ] = useState(0);
-  const [title, setTitle] = useState('');
   const [remainingToClaim, setRemainingToClaim] = useState(0);
-
-
 
   const claim = async () => {
 
@@ -67,8 +64,9 @@ const Reward = ({asset}) => {
             <div className="flex-shrink-0">
               <img src={asset.img} alt="" className="avatar-md rounded" />
             </div>
-            <div className="flex-grow-1 ms-2">
+            <div className="flex-grow-1 ms-2 text-start">
               <h5 className="card-title mb-1">{asset.typeClass} {asset.item}</h5>
+              <span className="text-muted">{asset.period}</span>
             </div>
           </div>
 
