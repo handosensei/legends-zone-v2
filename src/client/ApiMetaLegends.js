@@ -85,7 +85,12 @@ export const upsertUser = async (address) => {
   return post(url, {});
 }
 
-export const holdingRewardEstimate = async (holdingRewardCode) => {
-  const url = `${apiUrl}holding-rewards/${holdingRewardCode}/estimate`;
+export const holdingRewardEstimate = async () => {
+  const url = `${apiUrl}holding-rewards/estimate`;
   return post(url, {});
+}
+
+export const holdingRewards = async () => {
+  const url = `${apiUrl}holding-rewards`;
+  return get(url);
 }
