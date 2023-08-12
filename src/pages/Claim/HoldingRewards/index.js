@@ -7,6 +7,10 @@ import Hold_PetRough from "../../../assets/images/metalegends/holding-reward/Pet
 import Hold_WeaponRoboter from "../../../assets/images/metalegends/holding-reward/WeaponRoboter.png";
 import Hold_MatrixAngelCar from "../../../assets/images/metalegends/holding-reward/MatrixAngelCar.png";
 import Hold_HealingDrone from "../../../assets/images/metalegends/holding-reward/HealingDrone.png";
+import Hold_ParticlesCosmeticEffect from "../../../assets/images/metalegends/holding-reward/ParticlesCosmeticEffect.png";
+import Hold_ShadowGem from "../../../assets/images/metalegends/holding-reward/ShadowGem.png";
+import Hold_MLNetworkPass from "../../../assets/images/metalegends/holding-reward/MLNetworkPass.png";
+
 import Reward from "./Reward";
 import {getLegends} from "../../../client/ApiMetaLegends";
 import moment from "moment/moment";
@@ -47,9 +51,9 @@ const HoldingRewards = () => {
       { img: Hold_WeaponRoboter, code:'roboter-weapon', item: 'Weapon', typeClass: 'Roboter', period: '9 months', quantity: 0},
       { img: Hold_MatrixAngelCar, code: 'matrix-angel-car', item: 'Car', typeClass: 'Matrix Angel', period: '12 months', quantity: 0},
       { img: Hold_HealingDrone, code: 'healing-drone', item: 'Healing drone', typeClass: '', period: '15 months', quantity: 0},
-      // { img: '', code: 'ml-network-pass', item: 'ML Network pass', typeClass: '', period: '18 months', quantity: 0},
-      // { img: '', code: 'particles-cosmetic-effect', item: 'Particles cosmetic effect', typeClass: '', period: '21 months', quantity: 0},
-      // { img: '', code: 'shadow-gem', item: 'Shadow gem', typeClass: '', period: '24 months', quantity: 0},
+      { img: Hold_MLNetworkPass, code: 'ml-network-pass', item: 'ML Network pass', typeClass: '', period: '18 months', quantity: 0},
+      { img: Hold_ParticlesCosmeticEffect, code: 'particles-cosmetic-effect', item: 'Particles cosmetic effect', typeClass: '', period: '21 months', quantity: 0},
+      { img: Hold_ShadowGem, code: 'shadow-gem', item: 'Shadow gem', typeClass: '', period: '24 months', quantity: 0},
     ];
 
     legends.map((item) => {
@@ -74,15 +78,15 @@ const HoldingRewards = () => {
       if (MINPERIOD_HOLD_HEALING_DRONE <= monthsDiff) {
         data[5]['quantity']++;
       }
-      // if (MINPERIOD_HOLD_ML_NETWORK_PASS <= monthsDiff) {
-      //   data[6]['quantity']++;
-      // }
-      // if (MINPERIOD_HOLD_COSMETIC_EFFECT <= monthsDiff) {
-      //   data[7]['quantity']++;
-      // }
-      // if (MINPERIOD_HOLD_SHADOW_GEM <= monthsDiff) {
-      //   data[8]['quantity']++;
-      // }
+      if (MINPERIOD_HOLD_ML_NETWORK_PASS <= monthsDiff) {
+        data[6]['quantity']++;
+      }
+      if (MINPERIOD_HOLD_COSMETIC_EFFECT <= monthsDiff) {
+        data[7]['quantity']++;
+      }
+      if (MINPERIOD_HOLD_SHADOW_GEM <= monthsDiff) {
+        data[8]['quantity']++;
+      }
     });
     setAssets(data);
   }
