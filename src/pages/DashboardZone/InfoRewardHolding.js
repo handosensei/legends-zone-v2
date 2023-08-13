@@ -6,19 +6,24 @@ import Hold_PetRough from "../../assets/images/metalegends/holding-reward/PetRou
 import Hold_WeaponRoboter from "../../assets/images/metalegends/holding-reward/WeaponRoboter.png";
 import Hold_MatrixAngelCar from "../../assets/images/metalegends/holding-reward/MatrixAngelCar.png";
 import Hold_HealingDrone from "../../assets/images/metalegends/holding-reward/HealingDrone.png";
+import Hold_MLNetworkPass from "../../assets/images/metalegends/holding-reward/MLNetworkPass.png";
+import Hold_ParticlesCosmeticEffect from "../../assets/images/metalegends/holding-reward/ParticlesCosmeticEffect.png";
+import Hold_ShadowGem from "../../assets/images/metalegends/holding-reward/ShadowGem.png";
 
 const InfoRewardHolding = () => {
   const [assets, setAssets] = useState([]);
   const defineInfo = () => {
     const data = [
-      {img: Hold_WeaponCyber, item: 'Weapon', typeClass: 'Cyber', period: '1 month'},
-      {img: Hold_ArmorCyber, item: 'Armor', typeClass: 'Cyber', period: '3 months'},
-      {img: Hold_PetRough, item: 'Pet', typeClass: 'Rough', period: '6 months'},
-      {img: Hold_WeaponRoboter, item: 'Weapon', typeClass: 'Roboter', period: '9 months'},
-      {img: Hold_MatrixAngelCar, item: 'Car', typeClass: 'Matrix Angel', period: '12 months'},
-      {img: Hold_HealingDrone, item: 'Healing drone', typeClass: '', period: '15 months'},
+      { img: Hold_WeaponCyber, code:'cyber-weapon', item: 'Weapon', typeClass: 'Cyber', period: '1 month', quantity: 0, quantitySaved: 0},
+      { img: Hold_ArmorCyber, code:'cyber-armor', item: 'Armor', typeClass: 'Cyber', period: '3 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_PetRough, code:'rough-pet', item: 'Pet', typeClass: 'Rough', period: '6 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_WeaponRoboter, code:'roboter-weapon', item: 'Weapon', typeClass: 'Roboter', period: '9 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_MatrixAngelCar, code: 'matrix-angel-car', item: 'Car', typeClass: 'Matrix Angel', period: '12 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_HealingDrone, code: 'healing-drone', item: 'Healing drone', typeClass: '', period: '15 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_MLNetworkPass, code: 'ml-network-pass', item: 'ML Network pass', typeClass: '', period: '18 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_ParticlesCosmeticEffect, code: 'particles-cosmetic-effect', item: 'Particles cosmetic effect', typeClass: '', period: '21 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_ShadowGem, code: 'shadow-gem', item: 'Shadow gem', typeClass: '', period: '24 months', quantity: 0, quantitySaved: 0},
     ];
-
     setAssets(data);
   }
 
@@ -36,7 +41,7 @@ const InfoRewardHolding = () => {
             <h5 className="fs-14 mb-3">Holding reward information</h5>
 
               <Col className="col-12">
-                <Row className="row-cols-xxl-6 row-cols-lg-3 row-cols-1">
+                <Row className="row-cols-xxl-5 row-cols-lg-3 row-cols-1">
                   {assets.map((element, key) => (
                     <Col key={key}>
                       <Card className="card-body">

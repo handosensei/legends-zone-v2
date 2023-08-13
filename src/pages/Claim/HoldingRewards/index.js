@@ -220,3 +220,6 @@ const HoldingRewards = () => {
 }
 
 export default HoldingRewards;
+
+export class getInitHoldingRewards {
+}

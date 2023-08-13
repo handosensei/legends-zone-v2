@@ -10,6 +10,9 @@ import Hold_HealingDrone from "../../assets/images/metalegends/holding-reward/He
 import moment from "moment";
 import {Card, CardBody, CardHeader, Col} from "reactstrap";
 import ModalHoldingReward from "./ModalHoldingReward";
+import Hold_MLNetworkPass from "../../assets/images/metalegends/holding-reward/MLNetworkPass.png";
+import Hold_ParticlesCosmeticEffect from "../../assets/images/metalegends/holding-reward/ParticlesCosmeticEffect.png";
+import Hold_ShadowGem from "../../assets/images/metalegends/holding-reward/ShadowGem.png";
 
 export const MINPERIOD_HOLD_CYBER_WEAPON = 1;
 export const MINPERIOD_HOLD_CYBER_ARMOR = 2;
@@ -26,21 +29,18 @@ const HoldingReward = ({legends}) => {
   const [, setLegends] = useState([]);
   const [assets, setAssets] = useState([]);
 
-  const [quantityCyberWeapons, setQuantityCyberWeapons] = useState(0);
-  const [quantityCyberArmors, setQuantityCyberArmors] = useState(0);
-  const [quantityRoughPets, setQuantityRoughPets] = useState(0);
-  const [quantityRoboberWeapons, setQuantityRoboberWeapons] = useState(0);
-  const [quantityMatrixAngelVehicle, setQuantityMatrixAngel] = useState(0);
-  const [quantityHealingDrones, setQuantityHealingDrones] = useState(0);
 
   const defineAssets = () => {
     const data = [
-      { label: 'Cyber Weapons', period: '1 month', quantity: quantityCyberWeapons, img: Hold_WeaponCyber},
-      { label: 'Cyber Armors', period: '3 months', quantity: quantityCyberArmors, img: Hold_ArmorCyber},
-      { label: 'Rough Pets', period: '6 months', quantity: quantityRoughPets, img: Hold_PetRough},
-      { label: 'Robober Weapons', period: '9 months', quantity: quantityRoboberWeapons, img: Hold_WeaponRoboter},
-      { label: 'Matrix Angel Vehicles', period: '12 months', quantity: quantityMatrixAngelVehicle, img: Hold_MatrixAngelCar},
-      { label: 'Healing Drones', period: '15 months', quantity: quantityHealingDrones, img: Hold_HealingDrone},
+      { img: Hold_WeaponCyber, code:'cyber-weapon', item: 'Weapon', typeClass: 'Cyber', period: '1 month', quantity: 0, quantitySaved: 0},
+      { img: Hold_ArmorCyber, code:'cyber-armor', item: 'Armor', typeClass: 'Cyber', period: '3 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_PetRough, code:'rough-pet', item: 'Pet', typeClass: 'Rough', period: '6 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_WeaponRoboter, code:'roboter-weapon', item: 'Weapon', typeClass: 'Roboter', period: '9 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_MatrixAngelCar, code: 'matrix-angel-car', item: 'Car', typeClass: 'Matrix Angel', period: '12 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_HealingDrone, code: 'healing-drone', item: 'Healing drone', typeClass: '', period: '15 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_MLNetworkPass, code: 'ml-network-pass', item: 'ML Network pass', typeClass: '', period: '18 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_ParticlesCosmeticEffect, code: 'particles-cosmetic-effect', item: 'Particles cosmetic effect', typeClass: '', period: '21 months', quantity: 0, quantitySaved: 0},
+      { img: Hold_ShadowGem, code: 'shadow-gem', item: 'Shadow gem', typeClass: '', period: '24 months', quantity: 0, quantitySaved: 0},
     ];
 
     legends.map((item) => {
