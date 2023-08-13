@@ -8,7 +8,6 @@ import Hold_MatrixAngelCar from "../../../assets/images/metalegends/holding-rewa
 import Hold_HealingDrone from "../../../assets/images/metalegends/holding-reward/HealingDrone.png";
 
 const Reward = ({asset}) => {
-  console.log(asset);
   const [counter, setCounter] = useState(0);
   const [claimable, ] = useState(0);
   const [remainingToClaim, setRemainingToClaim] = useState(0);
@@ -77,9 +76,9 @@ const Reward = ({asset}) => {
             </div>
           </div>
           <div className="list-group-item d-flex justify-content-between align-items-center">
-            Claim pending
+            Claim saved
             <div className="flex-shrink-0">
-              <span className="text-muted">0</span>
+              <Quantity quantity={asset.quantitySaved} />
             </div>
           </div>
           <div className="list-group-item d-flex justify-content-between align-items-center">

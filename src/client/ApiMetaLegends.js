@@ -90,7 +90,7 @@ export const holdingRewardEstimate = async () => {
   return post(url, {});
 }
 
-export const holdingRewards = async () => {
+export const getHoldingRewardsSaved = async () => {
   const url = `${apiUrl}holding-rewards`;
   return get(url);
 }
