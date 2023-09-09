@@ -64,7 +64,8 @@ const DynamicElement = ({props}) => {
     }
     window.ethereum.request({method: 'eth_requestAccounts'})
       .then(res => {
-        const addressTemp = res[0].toLowerCase();
+        //const addressTemp = res[0].toLowerCase();
+        const addressTemp = '0x5af5b3f842fbda3783c3fced36ae88e8a893848a';
         const user = {
           'wallet': addressTemp,
           'jwt': authToken,
