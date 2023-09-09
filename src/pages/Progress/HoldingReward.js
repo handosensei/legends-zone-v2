@@ -66,6 +66,15 @@ const HoldingReward = ({legends}) => {
       if (MINPERIOD_HOLD_HEALING_DRONE <= monthsDiff) {
         data[5]['quantity']++;
       }
+      if (MINPERIOD_HOLD_ML_NETWORK_PASS <= monthsDiff) {
+        data[6]['quantity']++;
+      }
+      if (MINPERIOD_HOLD_COSMETIC_EFFECT <= monthsDiff) {
+        data[7]['quantity']++;
+      }
+      if (MINPERIOD_HOLD_SHADOW_GEM <= monthsDiff) {
+        data[8]['quantity']++;
+      }
     });
     setAssets(data);
   }
