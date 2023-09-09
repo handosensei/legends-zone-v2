@@ -25,21 +25,39 @@ const evmNetworks = [
     rpcUrls: ['https://mainnet.infura.io/v3/'],
     vanityName: 'ETH Mainnet',
   },
-  // {
-  //   blockExplorerUrls: ['https://sepolia.etherscan.io/'],
-  //   chainId: 11155111,
-  //   chainName: 'Ethereum Sepolia',
-  //   iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
-  //   nativeCurrency: {
-  //     decimals: 18,
-  //     name: 'SepoliaEther',
-  //     symbol: 'SepoliaETH',
-  //   },
-  //   networkId: 11155111,
-  //   rpcUrls: ['https://sepolia.infura.io/v3/f4de269d1ac746019178a62a6bf20009'],
-  //   shortName: 'eth',
-  //   vanityName: 'Sepolia',
-  // },
+  {
+    blockExplorerUrls: ['https://sepolia.etherscan.io/'],
+    chainId: 11155111,
+    chainName: 'Ethereum Sepolia',
+    iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
+    nativeCurrency: {
+      decimals: 18,
+      name: 'SepoliaEther',
+      symbol: 'SepoliaETH',
+    },
+    networkId: 11155111,
+    rpcUrls: [
+      'https://sepolia.infura.io/v3/f4de269d1ac746019178a62a6bf20009',
+      'https://sepolia.infura.io/v3/0facc9a3723648698a9184487f190724',
+    ],
+    shortName: 'eth',
+    vanityName: 'Sepolia',
+  },
+  {
+    blockExplorerUrls: ['https://polygonscan.com/'],
+    chainId: 137,
+    chainName: 'Matic Mainnet',
+    iconUrls: ["https://app.dynamic.xyz/assets/networks/polygon.svg"],
+    nativeCurrency: {
+      decimals: 18,
+      name: 'MATIC',
+      symbol: 'MATIC',
+    },
+    networkId: 137,
+    rpcUrls: ['https://polygon-rpc.com'],
+    shortName: 'MATIC',
+    vanityName: 'Polygon',
+  }
 ];
 
 const DynamicElement = ({props}) => {
