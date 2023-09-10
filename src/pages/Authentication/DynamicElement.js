@@ -25,24 +25,24 @@ const evmNetworks = [
     rpcUrls: ['https://mainnet.infura.io/v3/'],
     vanityName: 'Ethereum',
   },
-  {
-    blockExplorerUrls: ['https://sepolia.etherscan.io/'],
-    chainId: 11155111,
-    chainName: 'Ethereum Sepolia',
-    iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
-    nativeCurrency: {
-      decimals: 18,
-      name: 'SepoliaEther',
-      symbol: 'SepoliaETH',
-    },
-    networkId: 11155111,
-    rpcUrls: [
-      'https://sepolia.infura.io/v3/f4de269d1ac746019178a62a6bf20009',
-      'https://sepolia.infura.io/v3/0facc9a3723648698a9184487f190724',
-    ],
-    shortName: 'eth',
-    vanityName: 'Sepolia',
-  },
+  // {
+  //   blockExplorerUrls: ['https://sepolia.etherscan.io/'],
+  //   chainId: 11155111,
+  //   chainName: 'Ethereum Sepolia',
+  //   iconUrls: ['https://app.dynamic.xyz/assets/networks/eth.svg'],
+  //   nativeCurrency: {
+  //     decimals: 18,
+  //     name: 'SepoliaEther',
+  //     symbol: 'SepoliaETH',
+  //   },
+  //   networkId: 11155111,
+  //   rpcUrls: [
+  //     'https://sepolia.infura.io/v3/f4de269d1ac746019178a62a6bf20009',
+  //     'https://sepolia.infura.io/v3/0facc9a3723648698a9184487f190724',
+  //   ],
+  //   shortName: 'eth',
+  //   vanityName: 'Sepolia',
+  // },
   {
     blockExplorerUrls: ['https://polygonscan.com/'],
     chainId: 137,
@@ -82,8 +82,7 @@ const DynamicElement = ({props}) => {
     }
     window.ethereum.request({method: 'eth_requestAccounts'})
       .then(res => {
-        //const addressTemp = res[0].toLowerCase();
-        const addressTemp = '0x5af5b3f842fbda3783c3fced36ae88e8a893848a';
+        const addressTemp = res[0].toLowerCase();
         const user = {
           'wallet': addressTemp,
           'jwt': authToken,
