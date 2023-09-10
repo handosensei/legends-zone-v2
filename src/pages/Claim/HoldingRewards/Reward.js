@@ -68,13 +68,17 @@ const Reward = ({asset, contract, account}) => {
     if (contract.methods == undefined) {
       return 0;
     }
-    contract.methods.remaining(account, asset.tokenId).call()
+    
+    if ('remaining' in contract.methods) {
+      contract.methods.remaining(account, asset.tokenId).call()
       .then((res) => {
         setRemainingToClaim(res);
       })
       .catch((err) => {
         console.log(err)
       });
+    }
+
     return remainingToClaim;
   }
 
