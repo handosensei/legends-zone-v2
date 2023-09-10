@@ -1,0 +1,3 @@
+export const CONTRACT_ML = '0xf9c362cdd6eeba080dd87845e88512aa0a18c615';
+export const CONTRACT_OG_PETS = '0xfc634bfc0f00a2d3dcc93ceb4558da9de840fdbc';
+export const CONTRACT_LZ_REWARD = '0x805b7Ff6BDBbAE8E3443D3E94A6bA6c3f6077e09';
