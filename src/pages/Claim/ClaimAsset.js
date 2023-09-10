@@ -27,6 +27,9 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
   }
 
   const getRemainingToClaimRandom = () => {
+    if (contract == null) {
+      return 0;
+    }
     if (contract.methods != undefined) {
       contract.methods.addressClaimbleRandom(account).call()
         .then((res) => {
@@ -38,6 +41,9 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
   }
 
   const getRemainingToClaimCouncil = () => {
+    if (contract == null) {
+      return 0;
+    }
     if (contract.methods != undefined) {
       contract.methods.addressClaimbleCouncil(account).call()
       .then((res) => {

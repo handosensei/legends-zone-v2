@@ -26,6 +26,9 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
   }
 
   const getRemainingToClaimWhale = () => {
+    if (contract == null) {
+      return 0;
+    }
     if (contract.methods != undefined) {
       contract.methods.addressClaimbleWhale(account).call()
       .then((res) => {
@@ -37,6 +40,9 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
   }
 
   const getRemainingToClaimJudge = () => {
+    if (contract == null) {
+      return 0;
+    }
     if (contract.methods != undefined) {
       contract.methods.addressClaimbleJudge(account).call()
       .then((res) => {
@@ -48,6 +54,9 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
   }
 
   const getRemainingToClaimGuardian = () => {
+    if (contract == null) {
+      return 0;
+    }
     if (contract.methods != undefined) {
       contract.methods.addressClaimbleGuardian(account).call()
       .then((res) => {
@@ -59,6 +68,9 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
   }
 
   const getRemainingToClaimHonorary = () => {
+    if (contract == null) {
+      return 0;
+    }
     if (contract.methods != undefined) {
       contract.methods.addressClaimbleHonorary(account).call()
       .then((res) => {
