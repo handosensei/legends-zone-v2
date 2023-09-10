@@ -64,6 +64,9 @@ const Reward = ({asset, contract, account}) => {
     if (asset.quantitySaved == 0) {
        return 0;
     }
+    if (contract == null) {
+      return 0;
+    }
     if (!('methods' in contract)) {
       return 0;
     }    
