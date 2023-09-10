@@ -9,7 +9,7 @@ import Hold_MatrixAngelCar from "../../../assets/images/metalegends/holding-rewa
 import Hold_ParticlesCosmeticEffect from "../../../assets/images/metalegends/holding-reward/ParticlesCosmeticEffect.png";
 import Hold_ShadowGem from "../../../assets/images/metalegends/holding-reward/ShadowGem.png";
 import Hold_MLNetworkPass from "../../../assets/images/metalegends/holding-reward/MLNetworkPass.png";
-import Networks from "../../../assets/images/metalegends/networks.png";
+import IMG_NETWORKS_POLYGON from "../../../assets/images/metalegends/networks_polygon.png";
 
 import Reward from "./Reward";
 import {getLegends, holdingRewardEstimate, getHoldingRewardsSaved} from "../../../client/ApiMetaLegends";
@@ -167,11 +167,12 @@ const HoldingRewards = () => {
 
     <Modal size="lg" id="flipModalInformation" isOpen={modalInformation} toggle={() => {setModalInformation(false) }} modalClassName="zoomIn" centered >
       <ModalHeader className="modal-title" id="flipModalInformationLabel">
-        Warning: Select "Polygon" network on top right corner please
+        Warning !
       </ModalHeader>
       <ModalBody className="text-center">
+        <p className="text-white">Select "Polygon" network on top right corner. You could log in again to mint reward.</p>
         <figure className="figure mt-5">
-          <img width="350" className="figure-img img-thumbnail img-fluid rounded m-2" src={Networks}  />
+          <img width="350" className="figure-img img-thumbnail img-fluid rounded m-2" src={IMG_NETWORKS_POLYGON}  />
         </figure>
       </ModalBody>
     </Modal>
