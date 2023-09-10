@@ -1,24 +1,85 @@
 import React, { useState } from "react";
-import { Button, Card, CardBody, CardHeader, Col, Input, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
-import Hold_WeaponCyber from "../../../assets/images/metalegends/holding-reward/WeaponCyber.png";
-import Hold_ArmorCyber from "../../../assets/images/metalegends/holding-reward/ArmorCyber.png";
-import Hold_PetRough from "../../../assets/images/metalegends/holding-reward/PetRough.png";
-import Hold_WeaponRoboter from "../../../assets/images/metalegends/holding-reward/WeaponRoboter.png";
-import Hold_MatrixAngelCar from "../../../assets/images/metalegends/holding-reward/MatrixAngelCar.png";
-import Hold_HealingDrone from "../../../assets/images/metalegends/holding-reward/HealingDrone.png";
+import { Button, Input, Modal, ModalBody, ModalHeader } from "reactstrap";
 
-const Reward = ({asset}) => {
+import {LZREWARD_PATH_GIF} from "../../../enum/IPFS";
+import {CONTRACT_LZ_REWARD} from "../../../enum/Contract";
+
+const OPENSEA_HREWARD_ITEM_URL = `https://opensea.io/assets/matic/${CONTRACT_LZ_REWARD}/`;
+
+const Reward = ({asset, contract, account}) => {
   const [counter, setCounter] = useState(0);
-  const [claimable, ] = useState(0);
   const [remainingToClaim, setRemainingToClaim] = useState(0);
+  const [quantityMinted, setQuantityMinted] = useState(0);
+  const [tokenIdMinted, setTokenIdMinted] = useState(null);
+  const [modalMinted, setModalMinted] = useState(false);
+  const [modalMintInProgress, setModalMintInProgress] = useState(false);
+
+  function minted() {
+    setModalMinted(!modalMinted);
+    setModalMintInProgress(false);
+  }
+
+  function mintInProgress() {
+    setModalMintInProgress(true);
+  }
+
+  function mintCancel() {
+    setModalMintInProgress(false);
+  }
 
   const claim = async () => {
+    if (counter === 0) {
+      return;
+    }
+    if (contract.methods === undefined) {
+      return;
+    }
+    mintInProgress();
+    contract.methods.mint(asset.tokenId, counter).send({ from: account })
+    .then((res) => {
+      setCounter(0);
 
+      if (res.events.Minted !== undefined) {
+        setQuantityMinted(res.events.Minted.returnValues.quantity);
+        setTokenIdMinted(res.events.Minted.returnValues.tokenId);
+        minted()
+      } else {
+        console.log(res);
+        setModalMintInProgress(false);
+      }
+    })
+    .catch((err) => {
+      mintCancel();
+      console.log(err)
+    });
   };
 
+  const max = () => {
+    if (remainingToClaim > 0) {
+      setCounter(remainingToClaim);
+    }
+  }
+
+  const getRemainingToken = () => {
+    if (contract == null) {
+      return 0;
+    }
+
+    if (contract.methods == undefined) {
+      return 0;
+    }
+    contract.methods.remaining(account, asset.tokenId).call()
+      .then((res) => {
+        setRemainingToClaim(res);
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+    return remainingToClaim;
+  }
+
   const RemainingToClaim = () => {
-    // todo
-    const restToClaim = 0;
+    const restToClaim = getRemainingToken();
     if (restToClaim > 0) {
       return (<span className="text-success">{restToClaim}</span>)
     }
@@ -39,10 +100,22 @@ const Reward = ({asset}) => {
     }
   }
 
+  const isOpen = () => {
+    if (contract.methods != undefined) {
+      contract.methods.remaining(account, asset.tokenId).call()
+      .then((res) => {
+        setRemainingToClaim(res);
+      });
+      return remainingToClaim;
+    }
+    return 0;
+  }
+
   const ClaimButton = () => {
-    if (remainingToClaim > 0) {
+    if (remainingToClaim > 0 && isOpen()) {
       return (<button className="btn btn-primary" onClick={() => { claim(); }}>Claim</button>);
     }
+
     return (<button className="btn btn-light">Claim</button>);
   }
 
@@ -54,11 +127,50 @@ const Reward = ({asset}) => {
     return (<span className="text-white">{quantity}</span>)
   }
 
+  const HasRibbon = ({asset}) => {
+    if (asset.ribbon !== undefined) {
+      return (<div className="ribbon-two ribbon-two-info"><span>{asset.ribbon}</span></div>);
+    }
+
+    return '';
+  }
+
   return (
+    <>
+      <Modal size="sm" id="flipModalInProgress" isOpen={modalMintInProgress} toggle={() => { mintInProgress(); }} modalClassName="zoomIn" centered >
+        <ModalHeader className="modal-title" id="flipModalLabel">
+          Mint {counter} Holding reward in progress
+        </ModalHeader>
+        <ModalBody className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </ModalBody>
+      </Modal>
 
-      <Card>
+      <Modal size="sm" id="flipModal" isOpen={modalMinted} toggle={() => { minted(); }} modalClassName="zoomIn" centered >
+        <ModalHeader className="modal-title" id="flipModalLabel" toggle={() => { minted(); }}>
+        </ModalHeader>
+        <ModalBody className="text-center">
+          <h5 className="fs-16">
+            Congrats ! {quantityMinted} Holding reward minted
+          </h5>
+          <figure className="figure mt-5">
 
-        <CardBody>
+            <a target="_blank" href={OPENSEA_HREWARD_ITEM_URL + tokenIdMinted}>
+              <img width="300" className="figure-img img-thumbnail img-fluid rounded m-2" src={LZREWARD_PATH_GIF + asset.code + ".gif"} alt="holding reward minted" />
+            </a>
+
+          </figure>
+        </ModalBody>
+        <div className="modal-footer">
+          <Button color="light" onClick={() => { minted(); }}> Close </Button>
+        </div>
+      </Modal>
+
+      <div className="card ribbon-box border shadow-none right">
+        <div className="card-body text-muted">
+          <HasRibbon asset={asset}/>
           <div className="d-flex mb-4 align-items-center">
             <div className="flex-shrink-0">
               <img src={asset.img} alt="" className="avatar-md rounded" />
@@ -98,12 +210,12 @@ const Reward = ({asset}) => {
                 +
               </button>
             </div>
-            <button className="btn btn-light">Max</button>
-            <ClaimButton onClick={() => { claim(); }}/>
+            <button className="btn btn-light" onClick={() => { max() }}>Max</button>
+            <ClaimButton asset={asset} />
           </div>
-        </CardBody>
-      </Card>
-
+        </div>
+      </div>
+    </>
   );
 }
 

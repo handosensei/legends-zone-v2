@@ -6,23 +6,68 @@ import Hold_ArmorCyber from "../../../assets/images/metalegends/holding-reward/A
 import Hold_PetRough from "../../../assets/images/metalegends/holding-reward/PetRough.png";
 import Hold_WeaponRoboter from "../../../assets/images/metalegends/holding-reward/WeaponRoboter.png";
 import Hold_MatrixAngelCar from "../../../assets/images/metalegends/holding-reward/MatrixAngelCar.png";
-import Hold_HealingDrone from "../../../assets/images/metalegends/holding-reward/HealingDrone.png";
 import Hold_ParticlesCosmeticEffect from "../../../assets/images/metalegends/holding-reward/ParticlesCosmeticEffect.png";
 import Hold_ShadowGem from "../../../assets/images/metalegends/holding-reward/ShadowGem.png";
 import Hold_MLNetworkPass from "../../../assets/images/metalegends/holding-reward/MLNetworkPass.png";
+import Networks from "../../../assets/images/metalegends/networks.png";
 
 import Reward from "./Reward";
 import {getLegends, holdingRewardEstimate, getHoldingRewardsSaved} from "../../../client/ApiMetaLegends";
 import {wait} from "@testing-library/user-event/dist/utils";
+import Web3 from "web3";
+import MetaLifeHoldingReward from "../../../contracts/testnet/holding-reward/MetaLifeHoldingReward.json";
+import {
+  LZREWARD_RIBBON_CYBER_WEAPON,
+  LZREWARD_RIBBON_CYBER_ARMOR,
+  LZREWARD_RIBBON_ROUGH_PET,
+  LZREWARD_RIBBON_ROBOTER_WEAPON,
+  LZREWARD_RIBBON_MATRIX_ANGEL_CAR,
+  LZREWARD_RIBBON_ML_NETWORK_PASS,
+  LZREWARD_RIBBON_PARTICLES_COSMETIC_EFFECT,
+  LZREWARD_RIBBON_SHADOW_GEM
+} from "../../../enum/HoldingReward";
 
 const HoldingRewards = () => {
 
   document.title = "Holding rewards | Legends Zone";
+
   const [assets, setAssets] = useState([]);
   const [modalExecuteInProgress, setModalExecuteInProgress] = useState(false);
   const [modalExecuted, setModalExecuted] = useState(false);
   const [modalNoUpdate, setModalNoUpdate] = useState(false);
+  const [modalInformation, setModalInformation] = useState(false);
   const [assetsProcessed, setAssetsProcessed] = useState([]);
+
+  const [contractHoldingRewards, setContractHoldingRewards] = useState({});
+  const [account, setAccount] = useState('');
+
+  const getWeb3Data = async () => {
+    const web3 = new Web3(window.ethereum);
+    const networkId = await web3.eth.net.getId();
+    const accounts = await web3.eth.getAccounts()
+    // Polygon
+    if (networkId !== 137 && networkId !== 11155111) {
+      toggleChangeNetworkNotification();
+      return [null, accounts[0]];
+    } else {
+      try {
+        const contractDeployed = MetaLifeHoldingReward.networks[networkId];
+        const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeHoldingReward.abi, contractDeployed && contractDeployed.address);
+
+        return [instanceContractHoldingReward, accounts[0]];
+      } catch (error) {
+        // Catch any errors for any of the above operations.
+        console.log(
+        `Failed to load web3, accounts, or contract. Check console for details.`,
+        );
+        console.error(error);
+      }
+    }
+  };
+
+  const toggleChangeNetworkNotification = () => {
+    setModalInformation(true);
+  }
 
   const processNextClaim = () => {
     const assetsBeingUpdated = assets;
@@ -40,7 +85,6 @@ const HoldingRewards = () => {
       assetsBeingUpdated.forEach((holdingReward) => {
         holdingReward.quantitySaved += res[holdingReward.code].length
       });
-      console.log(countUpdated);
       setModalExecuteInProgress(false);
       if (countUpdated > 0) {
         setModalExecuted(true);
@@ -53,15 +97,14 @@ const HoldingRewards = () => {
 
   const getInitHoldingRewards = () => {
     return [
-      { img: Hold_WeaponCyber, code:'cyber-weapon', item: 'Weapon', typeClass: 'Cyber', period: '1 month', quantity: 0, quantitySaved: 0},
-      { img: Hold_ArmorCyber, code:'cyber-armor', item: 'Armor', typeClass: 'Cyber', period: '3 months', quantity: 0, quantitySaved: 0},
-      { img: Hold_PetRough, code:'rough-pet', item: 'Pet', typeClass: 'Rough', period: '6 months', quantity: 0, quantitySaved: 0},
-      { img: Hold_WeaponRoboter, code:'roboter-weapon', item: 'Weapon', typeClass: 'Roboter', period: '9 months', quantity: 0, quantitySaved: 0},
-      { img: Hold_MatrixAngelCar, code: 'matrix-angel-car', item: 'Car', typeClass: 'Matrix Angel', period: '12 months', quantity: 0, quantitySaved: 0},
-      { img: Hold_HealingDrone, code: 'healing-drone', item: 'Healing drone', typeClass: '', period: '15 months', quantity: 0, quantitySaved: 0},
-      { img: Hold_MLNetworkPass, code: 'ml-network-pass', item: 'ML Network pass', typeClass: '', period: '18 months', quantity: 0, quantitySaved: 0},
-      { img: Hold_ParticlesCosmeticEffect, code: 'particles-cosmetic-effect', item: 'Particles cosmetic effect', typeClass: '', period: '21 months', quantity: 0, quantitySaved: 0},
-      { img: Hold_ShadowGem, code: 'shadow-gem', item: 'Shadow gem', typeClass: '', period: '24 months', quantity: 0, quantitySaved: 0},
+      { tokenId: 1, ribbon: LZREWARD_RIBBON_CYBER_WEAPON, img: Hold_WeaponCyber, code:'cyber-weapon', item: 'Weapon', typeClass: 'Cyber', period: '1 month', quantity: 0, quantitySaved: 0},
+      { tokenId: 2, ribbon: LZREWARD_RIBBON_CYBER_ARMOR, img: Hold_ArmorCyber, code:'cyber-armor', item: 'Armor', typeClass: 'Cyber', period: '3 months', quantity: 0, quantitySaved: 0},
+      { tokenId: 3, ribbon: LZREWARD_RIBBON_ROUGH_PET, img: Hold_PetRough, code:'rough-pet', item: 'Pet', typeClass: 'Rough', period: '6 months', quantity: 0, quantitySaved: 0},
+      { tokenId: 4, ribbon: LZREWARD_RIBBON_ROBOTER_WEAPON, img: Hold_WeaponRoboter, code:'roboter-weapon', item: 'Weapon', typeClass: 'Roboter', period: '9 months', quantity: 0, quantitySaved: 0},
+      { tokenId: 5, ribbon: LZREWARD_RIBBON_MATRIX_ANGEL_CAR, img: Hold_MatrixAngelCar, code: 'matrix-angel-car', item: 'Car', typeClass: 'Matrix Angel', period: '12 months', quantity: 0, quantitySaved: 0},
+      { tokenId: 6, ribbon: LZREWARD_RIBBON_ML_NETWORK_PASS, img: Hold_MLNetworkPass, code: 'ml-network-pass', item: 'ML Network pass', typeClass: '', period: '18 months', quantity: 0, quantitySaved: 0},
+      { tokenId: 7, ribbon: LZREWARD_RIBBON_PARTICLES_COSMETIC_EFFECT, img: Hold_ParticlesCosmeticEffect, code: 'particles-cosmetic-effect', item: 'Particles cosmetic effect', typeClass: '', period: '21 months', quantity: 0, quantitySaved: 0},
+      { tokenId: 8, ribbon: LZREWARD_RIBBON_SHADOW_GEM, img: Hold_ShadowGem, code: 'shadow-gem', item: 'Shadow gem', typeClass: '', period: '24 months', quantity: 0, quantitySaved: 0},
     ];
   }
 
@@ -94,6 +137,13 @@ const HoldingRewards = () => {
   }
 
   useEffect(() => {
+    getWeb3Data().then((data) => {
+      setContractHoldingRewards(data[0]);
+      setAccount(data[1]);
+    }).catch((err) => {
+      console.error(err)
+    });
+
     const fetchData = async () => {
       defineAssets();
     }
@@ -106,6 +156,18 @@ const HoldingRewards = () => {
 
   return (
   <React.Fragment>
+
+    <Modal size="lg" id="flipModalInformation" isOpen={modalInformation} toggle={() => {setModalInformation(false) }} modalClassName="zoomIn" centered >
+      <ModalHeader className="modal-title" id="flipModalInformationLabel">
+        Warning: Select "Polygon" network on top right corner please
+      </ModalHeader>
+      <ModalBody className="text-center">
+        <figure className="figure mt-5">
+          <img width="350" className="figure-img img-thumbnail img-fluid rounded m-2" src={Networks}  />
+        </figure>
+      </ModalBody>
+    </Modal>
+
     <Modal size="lg" id="flipModalInProgress" isOpen={modalExecuteInProgress} toggle={() => {setModalExecuteInProgress(false) }} modalClassName="zoomIn" centered >
       <ModalHeader className="modal-title" id="flipModalLabel">
         Estimation in progress
@@ -190,6 +252,9 @@ const HoldingRewards = () => {
                   <li>
                     Remaining to be claim: Eligibility recorded in the smart contract
                   </li>
+                  <li>
+                    To claim, you must use Polygon network (top right corner of your screen) and have some $MATIC in your wallet
+                  </li>
                 </ul>
 
                 <div className="hstack gap-2">
@@ -208,7 +273,7 @@ const HoldingRewards = () => {
         <Row>
           {assets.map((asset, key) => (
             <Col key={key} xl={4}>
-              <Reward asset={asset} />
+              <Reward asset={asset} contract={contractHoldingRewards} account={account}/>
             </Col>
           ))}
         </Row>
