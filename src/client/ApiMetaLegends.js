@@ -60,6 +60,11 @@ export const getLegends = async () => {
   return get(url);
 }
 
+export const getPerkArmors = async () => {
+  const url = `${apiUrl}perk-armors`;
+  return get(url);
+}
+
 export const getEligibilityOgPets = async () => {
   const url = `${apiUrl}eligibility/og-pets`;
   return get(url);
