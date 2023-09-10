@@ -23,7 +23,7 @@ const evmNetworks = [
     networkId: 1,
     shortName: 'eth',
     rpcUrls: ['https://mainnet.infura.io/v3/'],
-    vanityName: 'ETH Mainnet',
+    vanityName: 'Ethereum',
   },
   {
     blockExplorerUrls: ['https://sepolia.etherscan.io/'],
