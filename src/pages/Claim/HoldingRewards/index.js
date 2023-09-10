@@ -16,6 +16,7 @@ import {getLegends, holdingRewardEstimate, getHoldingRewardsSaved} from "../../.
 import {wait} from "@testing-library/user-event/dist/utils";
 import Web3 from "web3";
 import MetaLifeHoldingReward from "../../../contracts/testnet/holding-reward/MetaLifeHoldingReward.json";
+import MetaLifeLZReward from "../../../contracts/mainnet/lz-rewards/LegendsZoneRewards.json";
 import {
   LZREWARD_RIBBON_CYBER_WEAPON,
   LZREWARD_RIBBON_CYBER_ARMOR,
@@ -45,23 +46,30 @@ const HoldingRewards = () => {
     const web3 = new Web3(window.ethereum);
     const networkId = await web3.eth.net.getId();
     const accounts = await web3.eth.getAccounts()
-    // Polygon
+
     if (networkId !== 137 && networkId !== 11155111) {
       toggleChangeNetworkNotification();
       return [null, accounts[0]];
-    } else {
-      try {
+    }
+
+    try {
+      if (networkId == 11155111) {
         const contractDeployed = MetaLifeHoldingReward.networks[networkId];
         const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeHoldingReward.abi, contractDeployed && contractDeployed.address);
 
         return [instanceContractHoldingReward, accounts[0]];
-      } catch (error) {
-        // Catch any errors for any of the above operations.
-        console.log(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
-        );
-        console.error(error);
       }
+      // Mainnet: Polygon
+      const contractDeployed = MetaLifeLZReward.networks[networkId];
+      const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeLZReward.abi, contractDeployed && contractDeployed.address);
+
+      return [instanceContractHoldingReward, accounts[0]];
+    } catch (error) {
+      // Catch any errors for any of the above operations.
+      console.log(
+        `Failed to load web3, accounts, or contract. Check console for details.`,
+      );
+      console.error(error);
     }
   };
 
