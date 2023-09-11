@@ -105,8 +105,7 @@ const Reward = ({asset, contract, account}) => {
 
   const ClaimButton = () => {
     if (remainingToClaim > 0) {
-      // return (<button className="btn btn-primary" onClick={() => { claim(); }}>Claim</button>);
-      return (<button className="btn btn-primary">Claim</button>);
+      return (<button className="btn btn-primary" onClick={() => { claim(); }}>Claim</button>);
     }
 
     return (<button className="btn btn-light">Claim</button>);
