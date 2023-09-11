@@ -103,19 +103,8 @@ const Reward = ({asset, contract, account}) => {
     }
   }
 
-  const isOpen = () => {
-    if (contract.methods != undefined) {
-      contract.methods.remaining(account, asset.tokenId).call()
-      .then((res) => {
-        setRemainingToClaim(res);
-      });
-      return remainingToClaim;
-    }
-    return 0;
-  }
-
   const ClaimButton = () => {
-    if (remainingToClaim > 0 && isOpen()) {
+    if (remainingToClaim > 0) {
       return (<button className="btn btn-primary" onClick={() => { claim(); }}>Claim</button>);
     }
 
