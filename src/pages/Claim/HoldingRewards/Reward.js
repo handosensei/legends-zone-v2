@@ -116,7 +116,8 @@ const Reward = ({asset, contract, account}) => {
 
   const ClaimButton = () => {
     if (remainingToClaim > 0 && isOpen()) {
-      return (<button className="btn btn-primary" onClick={() => { claim(); }}>Claim</button>);
+      // return (<button className="btn btn-primary" onClick={() => { claim(); }}>Claim</button>);
+      return (<button className="btn btn-primary" onClick={() => {  }}>Claim</button>);
     }
 
     return (<button className="btn btn-light">Claim</button>);
