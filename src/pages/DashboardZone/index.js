@@ -4,6 +4,7 @@ import BreadCrumb from "../../Components/Common/BreadCrumb";
 import InfoRewardHolding from "./InfoRewardHolding";
 import CardMetaLegend from "../../Components/CardMetaLegend";
 import CardPerkArmor from "../../Components/CardPerkArmor";
+import CardOgPet from "../../Components/CardOgPet";
 
 const DashboardZone = () => {
 
@@ -27,6 +28,8 @@ const DashboardZone = () => {
                 <CardMetaLegend />
 
                 <CardPerkArmor />
+
+                <CardOgPet />
 
               </div>
             </Col>

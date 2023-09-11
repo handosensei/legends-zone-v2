@@ -65,6 +65,11 @@ export const getPerkArmors = async () => {
   return get(url);
 }
 
+export const getPerkOgPets = async () => {
+  const url = `${apiUrl}perk-og-pets`;
+  return get(url);
+}
+
 export const getEligibilityOgPets = async () => {
   const url = `${apiUrl}eligibility/og-pets`;
   return get(url);
@@ -72,11 +77,6 @@ export const getEligibilityOgPets = async () => {
 
 export const isHolder = async (address) => {
   const url = `${apiUrl}users/${address}/is-holder`;
-  return get(url);
-}
-
-export const getMintOrderOgPets = async () => {
-  const url = `${apiUrl}mint-orders/og-pets`;
   return get(url);
 }
 
