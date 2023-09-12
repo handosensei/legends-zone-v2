@@ -8,7 +8,7 @@ import {logoutUser} from "../../store/actions";
 import {isHolder, upsertUser} from "../../client/ApiMetaLegends";
 import logoSm from "../../assets/images/head-logo.svg";
 import Web3 from "web3";
-import MetaLifeOgPets from "../../contracts/mainnet/og-pets/MetaLifeOgPets.json";
+
 const evmNetworks = [
   {
     blockExplorerUrls: ['https://etherscan.io/'],
@@ -64,9 +64,6 @@ const DynamicElement = ({props}) => {
   const dispatch = useDispatch();
 
   const [displayNoHolderMessage, setDisplayNoHolderMessage] = useState(false);
-  const [contractOgPets, setContractOgPets] = useState({});
-  const [account, setAccount] = useState('');
-  const [remainingToClaim, setRemainingToClaim] = useState(0);
 
   const {isUserLogout} = useSelector((state) => ({
     isUserLogout: state.Login.isUserLogout,
@@ -82,57 +79,29 @@ const DynamicElement = ({props}) => {
     }
     window.ethereum.request({method: 'eth_requestAccounts'})
       .then(res => {
-        const addressTemp = res[0].toLowerCase();
+        keepHolderWallets(res);
         const user = {
-          'wallet': addressTemp,
+          'wallet': res[0].toLowerCase(),
           'jwt': authToken,
         }
         dispatch(loginUser(user, props.router.navigate));
       });
+
   }
 
-  const getReminingToClaim = () => {
-    if (contractOgPets.methods != undefined) {
-      contractOgPets.methods.addressClaimbleRandom(account).call()
-      .then((res) => {
-        setRemainingToClaim(res);
-      });
-
-      return remainingToClaim;
+  const keepHolderWallets = async (wallets) => {
+    if (wallets.length === 1) {
+      return [wallets[0]];
     }
-    return 0;
+    const result = [];
+    for (const wallet of wallets) {
+      const response = await isHolder(wallet.toLowerCase());
+      if (response.isHolderOfCollection) {
+        result.push(wallet);
+      }
+    }
+    return result;
   }
-
-  const getWeb3Data = async () => {
-    try {
-      const web3 = new Web3(window.ethereum);
-
-      const accounts = await web3.eth.getAccounts()
-      const networkId = await web3.eth.net.getId();
-
-      const contractDeployed = MetaLifeOgPets.networks[networkId];
-      const instanceContractOgPets = new web3.eth.Contract(MetaLifeOgPets.abi, contractDeployed && contractDeployed.address);
-
-      return [instanceContractOgPets, accounts[0]];
-
-    } catch (error) {
-      // Catch any errors for any of the above operations.
-      console.log(
-      `Failed to load web3, accounts, or contract. Check console for details.`,
-      );
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-
-    getWeb3Data().then((data) => {
-      setContractOgPets(data[0]);
-      setAccount(data[1]);
-    }).catch((err) => {
-      console.error(err)
-    });
-  }, []);
 
   useEffect(() => {
   }, [dispatch]);
@@ -162,7 +131,7 @@ const DynamicElement = ({props}) => {
           eventsCallbacks: {
             onAuthSuccess: async (args) => {
               const response = await isHolder(args.user.verifiedCredentials[0].address.toLowerCase());
-              if (response.isHolderOfCollection || getReminingToClaim() > 0) {
+              if (response.isHolderOfCollection) {
                 onConnectWallet(args['authToken']);
                 upsertUser(args.user.verifiedCredentials[0].address.toLowerCase());
               } else {
