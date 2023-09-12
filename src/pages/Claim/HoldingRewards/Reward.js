@@ -13,6 +13,8 @@ const Reward = ({asset, contract, account}) => {
   const [tokenIdMinted, setTokenIdMinted] = useState(null);
   const [modalMinted, setModalMinted] = useState(false);
   const [modalMintInProgress, setModalMintInProgress] = useState(false);
+  const [modalMintError, setModalMintError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   function minted() {
     setModalMinted(!modalMinted);
@@ -38,7 +40,6 @@ const Reward = ({asset, contract, account}) => {
     contract.methods.mint(asset.tokenId, counter).send({ from: account })
     .then((res) => {
       setCounter(0);
-
       if (res.events.Minted !== undefined) {
         setQuantityMinted(res.events.Minted.returnValues.quantity);
         setTokenIdMinted(res.events.Minted.returnValues.tokenId);
@@ -50,6 +51,8 @@ const Reward = ({asset, contract, account}) => {
     })
     .catch((err) => {
       mintCancel();
+      setErrorMessage(err);
+      setModalMintError(true);
       console.log(err)
     });
   };
@@ -127,8 +130,24 @@ const Reward = ({asset, contract, account}) => {
     return '';
   }
 
+  const closeModalError = () => {
+    setModalMintError(false);
+  }
+
   return (
     <>
+
+      <Modal size="sm" id="flipModalError" isOpen={modalMintError} toggle={() => { closeModalError(); }} modalClassName="zoomIn" centered >
+        <ModalHeader className="modal-title" id="flipModaErrorlLabel">
+          Error
+        </ModalHeader>
+        <ModalBody className="text-center">
+          <div className="text-warning" role="status">
+            {errorMessage}
+          </div>
+        </ModalBody>
+      </Modal>
+
       <Modal size="sm" id="flipModalInProgress" isOpen={modalMintInProgress} toggle={() => { mintInProgress(); }} modalClassName="zoomIn" centered >
         <ModalHeader className="modal-title" id="flipModalLabel">
           Mint {counter} Holding reward in progress
