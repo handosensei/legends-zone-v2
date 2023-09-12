@@ -42,16 +42,6 @@ const CardOgPet = () => {
       </>
       )
     }
-
-    return (
-    <div className="row align-items-center" width="100%">
-      <div className="col-sm-12 text-center">
-        <div className="spinner-border text-primary" role="status" height="100%">
-          <span className="sr-only col-sm-12 text-center">Loading...</span>
-        </div>
-      </div>
-    </div>
-    );
   }
 
   useEffect(() => {
