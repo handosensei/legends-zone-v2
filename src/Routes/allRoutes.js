@@ -21,10 +21,6 @@ import { Navigate } from "react-router-dom";
 // import ProjectOverview from "../pages/Projects/ProjectOverview";
 // import CreateProject from "../pages/Projects/CreateProject";
 //
-// //Task
-// import TaskDetails from "../pages/Tasks/TaskDetails";
-// import TaskList from "../pages/Tasks/TaskList";
-//
 // //Transactions
 // import Transactions from '../pages/Crypto/Transactions';
 // import BuySell from '../pages/Crypto/BuySell';
@@ -229,7 +225,7 @@ import { Navigate } from "react-router-dom";
 // import UserProfile from "../pages/Authentication/user-profile";
 //
 // import FileManager from "../pages/FileManager";
-// import ToDoList from "../pages/ToDo";
+
 //
 // import PrivecyPolicy from '../pages/Pages/PrivacyPolicy';
 // import TermsCondition from '../pages/Pages/TermsCondition';
@@ -271,7 +267,6 @@ const authProtectedRoutes = [
   // { path: "/apps-ecommerce-seller-details", component: <EcommerceSellerDetail /> },
   //
   // { path: "/apps-file-manager", component: <FileManager /> },
-  // { path: "/apps-todo", component: <ToDoList /> },
   //
   // //Api Key
   // { path: "/apps-api-key", component: <APIKey /> },
@@ -289,10 +284,6 @@ const authProtectedRoutes = [
   // { path: "/apps-projects-list", component: <ProjectList /> },
   // { path: "/apps-projects-overview", component: <ProjectOverview /> },
   // { path: "/apps-projects-create", component: <CreateProject /> },
-  //
-  // //Task
-  // { path: "/apps-tasks-list-view", component: <TaskList /> },
-  // { path: "/apps-tasks-details", component: <TaskDetails /> },
   //
   // //Crm
   // { path: "/apps-crm-contacts", component: <CrmContacts /> },
