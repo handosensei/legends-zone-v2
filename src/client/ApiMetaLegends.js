@@ -99,3 +99,23 @@ export const getHoldingRewardsSaved = async () => {
   const url = `${apiUrl}holding-rewards`;
   return get(url);
 }
+
+export const getHonoraries = () => {
+  const url = `${apiUrl}honoraries`;
+  return get(url);
+}
+
+export const getCouncilStones = () => {
+  const url = `${apiUrl}council-stones`;
+  return get(url);
+}
+
+export const getUniversalWeaponSkins = () => {
+  const url = `${apiUrl}weapon-skins`;
+  return get(url);
+}
+
+export const getLZAssets = async () => {
+  const url = `${apiUrl}lz-assets`;
+  return get(url);
+}

@@ -5,6 +5,7 @@ import InfoRewardHolding from "./InfoRewardHolding";
 import CardMetaLegend from "../../Components/CardMetaLegend";
 import CardPerkArmor from "../../Components/CardPerkArmor";
 import CardOgPet from "../../Components/CardOgPet";
+import CardSpecial from "../../Components/CardSpecial";
 
 const DashboardZone = () => {
 
@@ -22,10 +23,12 @@ const DashboardZone = () => {
 
                 <InfoRewardHolding />
                 <div className="justify-content-between d-flex align-items-center mt-3 mb-4">
-                  <h5 className="mb-0 pb-1 text-decoration-underline">Meta-Legends collection</h5>
+                  <h5 className="mb-0 pb-1 ">Meta-Legends collection</h5>
                 </div>
 
                 <CardMetaLegend />
+
+                <CardSpecial />
 
                 <CardPerkArmor />
 
