@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import {
   Button,
@@ -22,22 +22,49 @@ import classnames from "classnames";
 import Flatpickr from "react-flatpickr";
 
 //import images
+import defaultPfp from '../../assets/images/ml-avatar.png';
 import ninja from '../../assets/images/metalegends/ninja.jpg';
 // import avatar1 from '../../../../assets/images/users/avatar-1.jpg';
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("1");
-  const [textarea, setTextArea] = useState("You always want to make sure that your fonts work well together and try to limit the number of fonts you use to three or less. Experiment and play around with the fonts that you already have in the software you're working with reputable font websites.")
 
-  const textArea = (e) => {
-    setTextArea(e.target.value)
-  }
+  const [firstname, setFirstname] = useState(null);
+  const [lastname, setLastname] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [designation, setDesignation] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [bio, setBio] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(defaultPfp);
+  const [linkedin, setLinkedin] = useState(null);
+  const [twitter, setTwitter] = useState(null);
+  const [discord, setDiscord] = useState(null);
 
   const tabChange = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
 
-  document.title = "Profile Settings | Velzon - React Admin & Dashboard Template";
+  document.title = "Profile | Legends Zone";
+
+  useEffect(() => {
+    const authUser = JSON.parse(sessionStorage.getItem("authUser"));
+    const user = authUser.user;
+
+    setFirstname(user.firstname);
+    setLastname(user.lastname);
+    setDesignation(user.designation);
+
+    setUsername(user.username);
+    setEmail(user.email);
+    setBio(user.bio);
+
+    if (user.profilePicture != null) {
+      setProfilePicture(user.profilePicture);
+    }
+    setLinkedin(user.linkedin);
+    setTwitter(user.twitter);
+    setDiscord(user.discord);
+  }, []);
 
   return (
   <React.Fragment>
@@ -50,7 +77,7 @@ const Profile = () => {
               <CardBody className="p-4">
                 <div className="text-center">
                   <div className="profile-user position-relative d-inline-block mx-auto  mb-4">
-                    <img src={ninja}
+                    <img src={profilePicture}
                          className="rounded-circle avatar-xl img-thumbnail user-profile-image"
                          alt="user-profile" />
                     <div className="avatar-xs p-0 rounded-circle profile-photo-edit">
@@ -63,8 +90,8 @@ const Profile = () => {
                       </Label>
                     </div>
                   </div>
-                  <h5 className="fs-16 mb-1">Hando Masahashi</h5>
-                  <p className="text-muted mb-0">CTO / Developer</p>
+                  <h5 className="fs-16 mb-1">{firstname} {lastname}</h5>
+                  <p className="text-muted mb-0">{designation}</p>
                 </div>
               </CardBody>
             </Card>
@@ -82,8 +109,8 @@ const Profile = () => {
                         <i className="ri-linkedin-box-fill"></i>
                     </span>
                   </div>
-                  <Input type="email" className="form-control" id="linkedinUsername" placeholder="Username"
-                         defaultValue="https://www.linkedin.com/in/hando-masahashi-bb4163250/" />
+                  <Input type="email" className="form-control" id="linkedinUsername" placeholder="Linkedin"
+                         defaultValue={linkedin} />
                 </div>
 
                 <div className="mb-3 d-flex">
@@ -92,8 +119,8 @@ const Profile = () => {
                         <i className="ri-twitter-fill"></i>
                     </span>
                   </div>
-                  <Input type="text" className="form-control" id="dribbleName" placeholder="Username"
-                         defaultValue="@handosensei" />
+                  <Input type="text" className="form-control" id="dribbleName" placeholder="Twitter"
+                         defaultValue={twitter} />
                 </div>
                 <div className="d-flex">
                   <div className="avatar-xs d-block flex-shrink-0 me-3">
@@ -101,7 +128,7 @@ const Profile = () => {
                         <i className="ri-discord-fill"></i>
                     </span>
                   </div>
-                  <Input type="text" className="form-control" id="pinterestName" placeholder="Username" defaultValue="handosensei" />
+                  <Input type="text" className="form-control" id="pinterestName" placeholder="Discord" defaultValue={discord} />
                 </div>
               </CardBody>
             </Card>
@@ -133,16 +160,32 @@ const Profile = () => {
 
                         <Col lg={6}>
                           <div className="mb-3">
+                            <Label htmlFor="firstnameInput" className="form-label">Firstname</Label>
+                            <Input type="text" className="form-control" id="firstnameInput"
+                                   placeholder="Enter your firstname" defaultValue={firstname} />
+                          </div>
+
+                        </Col>
+                        <Col lg={6}>
+                          <div className="mb-3">
+                            <Label htmlFor="lastnameInput" className="form-label">Lastname</Label>
+                            <Input type="text" className="form-control" id="lastnameInput"
+                                   placeholder="Enter your lastname" defaultValue={lastname} />
+                          </div>
+                        </Col>
+
+                        <Col lg={6}>
+                          <div className="mb-3">
                             <Label htmlFor="firstnameInput" className="form-label">Username</Label>
                             <Input type="text" className="form-control" id="usernameInput"
-                                   placeholder="Enter your username" defaultValue="Dave" />
+                                   placeholder="Enter your username" defaultValue={username} />
                           </div>
                         </Col>
 
                         <Col lg={6}>
                           <div className="mb-3">
                             <Label htmlFor="emailInput" className="form-label">Email</Label>
-                            <Input type="text" className="form-control" id="emailInput" placeholder="Enter your email" defaultValue="Adame@gmail.com" />
+                            <Input type="text" className="form-control" id="emailInput" placeholder="Enter your email" defaultValue={email} />
                           </div>
                         </Col>
 
@@ -152,7 +195,7 @@ const Profile = () => {
                                    className="form-label">Bio</Label>
                             <textarea className="form-control"
                                       id="bioTextarea"
-                                      rows="3" defaultValue="Hi I'm Anna Adame, It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is European languages are members of the same family."></textarea>
+                                      rows="3" defaultValue={bio}></textarea>
                           </div>
                         </Col>
 
