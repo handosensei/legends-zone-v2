@@ -7,7 +7,6 @@ import {loginUser} from "../../store/auth/login/actions";
 import {logoutUser} from "../../store/actions";
 import {isHolder, upsertUser} from "../../client/ApiMetaLegends";
 import logoSm from "../../assets/images/head-logo.svg";
-import Web3 from "web3";
 
 const evmNetworks = [
   {
@@ -78,29 +77,17 @@ const DynamicElement = ({props}) => {
       return;
     }
     window.ethereum.request({method: 'eth_requestAccounts'})
-      .then(res => {
-        keepHolderWallets(res);
-        const user = {
-          'wallet': res[0].toLowerCase(),
+      .then(async(res) => {
+        const walletAddress = res[0].toLowerCase();
+        const user = await upsertUser(walletAddress);
+        const userStorage = {
+          'user': user,
+          'wallet': walletAddress,
           'jwt': authToken,
         }
-        dispatch(loginUser(user, props.router.navigate));
+        console.log(userStorage);
+        dispatch(loginUser(userStorage, props.router.navigate));
       });
-
-  }
-
-  const keepHolderWallets = async (wallets) => {
-    if (wallets.length === 1) {
-      return [wallets[0]];
-    }
-    const result = [];
-    for (const wallet of wallets) {
-      const response = await isHolder(wallet.toLowerCase());
-      if (response.isHolderOfCollection) {
-        result.push(wallet);
-      }
-    }
-    return result;
   }
 
   useEffect(() => {
@@ -130,10 +117,10 @@ const DynamicElement = ({props}) => {
             ]),
           eventsCallbacks: {
             onAuthSuccess: async (args) => {
-              const response = await isHolder(args.user.verifiedCredentials[0].address.toLowerCase());
+              const walletAddress = args.user.verifiedCredentials[0].address.toLowerCase();
+              const response = await isHolder(walletAddress);
               if (response.isHolderOfCollection) {
                 onConnectWallet(args['authToken']);
-                upsertUser(args.user.verifiedCredentials[0].address.toLowerCase());
               } else {
                 setDisplayNoHolderMessage(true);
               }
