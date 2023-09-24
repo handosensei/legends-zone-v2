@@ -23,8 +23,6 @@ import Flatpickr from "react-flatpickr";
 
 //import images
 import defaultPfp from '../../assets/images/ml-avatar.png';
-import ninja from '../../assets/images/metalegends/ninja.jpg';
-// import avatar1 from '../../../../assets/images/users/avatar-1.jpg';
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("1");

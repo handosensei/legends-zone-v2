@@ -4,13 +4,12 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap
 import {getLegends} from "../../client/ApiMetaLegends";
 
 //import images
-import avatar1 from "../../assets/images/ml-avatar.png";
+import defaultPfp from "../../assets/images/ml-avatar.png";
 
 const ProfileDropdown = () => {
-    const [countMLNFTs, setCountMLNFTs] = useState(0);
-    const [userName, setUserName] = useState("Admin");
+    const [username, setUsername] = useState('Anonymous legend');
     const [rank, setRank] = useState('Wanderer');
-    
+    const [profilePicture, setProfilePicture] = useState(defaultPfp);
     const { user } = useSelector(state => ({
         user: state.Profile.user,
     }));
@@ -41,16 +40,24 @@ const ProfileDropdown = () => {
 
     useEffect(() => {
 
-        defineRank();
-
         const fetchData = async () => {
             const result = await getLegends();
-            setCountMLNFTs(result.length);
             defineRank(result.length);
         }
 
         fetchData();
-    }, [userName, user]);
+
+        const authUser = JSON.parse(sessionStorage.getItem("authUser"));
+        const user = authUser.user;
+        if (user.username != null) {
+            setUsername(user.username);
+        }
+
+        if (user.profilePicture != null) {
+            setProfilePicture(user.profilePicture);
+        }
+
+    }, [username, user]);
 
     //Dropdown Toggle
     const [isProfileDropdown, setIsProfileDropdown] = useState(false);
@@ -62,12 +69,11 @@ const ProfileDropdown = () => {
             <Dropdown isOpen={isProfileDropdown} toggle={toggleProfileDropdown} className="ms-sm-3 header-item topbar-user">
                 <DropdownToggle tag="button" type="button" className="btn">
                     <span className="d-flex align-items-center">
-                        <img className="rounded-circle header-profile-user" src={avatar1}
+                        <img className="rounded-circle header-profile-user" src={profilePicture}
                             alt="Header Avatar" />
                         <span className="text-start ms-xl-2">
-                            <span className="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{rank}</span>
-                            {/*<span className="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{userName}</span>*/}
-                            {/*<span className="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>*/}
+                            <span className="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{username}</span>
+                            <span className="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{rank}</span>
                         </span>
                     </span>
                 </DropdownToggle>
