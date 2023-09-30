@@ -29,7 +29,7 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
     if (contract == null) {
       return 0;
     }
-    if (contract.methods != undefined) {
+    if (contract.methods !== undefined) {
       contract.methods.addressClaimbleWhale(account).call()
       .then((res) => {
         setRemainingToClaim(res);
@@ -43,7 +43,7 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
     if (contract == null) {
       return 0;
     }
-    if (contract.methods != undefined) {
+    if (contract.methods !== undefined) {
       contract.methods.addressClaimbleJudge(account).call()
       .then((res) => {
         setRemainingToClaim(res);
@@ -57,7 +57,7 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
     if (contract == null) {
       return 0;
     }
-    if (contract.methods != undefined) {
+    if (contract.methods !== undefined) {
       contract.methods.addressClaimbleGuardian(account).call()
       .then((res) => {
         setRemainingToClaim(res);
@@ -71,7 +71,7 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
     if (contract == null) {
       return 0;
     }
-    if (contract.methods != undefined) {
+    if (contract.methods !== undefined) {
       contract.methods.addressClaimbleHonorary(account).call()
       .then((res) => {
         setRemainingToClaim(res);
@@ -210,7 +210,7 @@ const ClaimAssetSingle = ({claimable, title, func, contract, account}) => {
         </h5>
         <figure className="figure mt-5">
 
-          <a target="_blank" href={OPENSEA_OG_PETS_ITEM_URL + tokenIdMinted}>
+          <a target="_blank" href={OPENSEA_OG_PETS_ITEM_URL + tokenIdMinted} rel="noopener">
             <img width="300" className="figure-img img-thumbnail img-fluid rounded m-2" src={PINATA_OG_PETS_IPFS_GIF_URL + tokenIdMinted + ".gif"} alt="Card cap" />
           </a>
         </figure>

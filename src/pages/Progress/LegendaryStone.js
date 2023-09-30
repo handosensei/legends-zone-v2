@@ -30,7 +30,7 @@ const LegendaryStone = ({legends}) => {
                   <td>
                     <div className="d-flex align-items-center">
                       <div className="flex-shrink-0 me-2">
-                        <img src={LegendaryStoneImg} alt="Legendary stone image" className="avatar-sm p-2" />
+                        <img src={LegendaryStoneImg} alt="" className="avatar-sm p-2" />
                       </div>
                       <div>
                         <h5 className="fs-14 my-1 fw-medium">Legendary stone</h5>

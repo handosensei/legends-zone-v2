@@ -53,7 +53,7 @@ const HoldingRewards = () => {
     }
 
     try {
-      if (networkId == 11155111) {
+      if (networkId === 11155111) {
         const contractDeployed = MetaLifeHoldingReward.networks[networkId];
         const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeHoldingReward.abi, contractDeployed && contractDeployed.address);
 

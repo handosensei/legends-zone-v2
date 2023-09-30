@@ -64,10 +64,10 @@ const Reward = ({asset, contract, account}) => {
   }
 
   const getRemainingToken = () => {
-    if (asset.quantitySaved == 0) {
+    if (asset.quantitySaved === 0) {
        return 0;
     }
-    if (contract == null) {
+    if (contract === null) {
       return 0;
     }
     if (!('methods' in contract)) {
@@ -168,7 +168,7 @@ const Reward = ({asset, contract, account}) => {
           </h5>
           <figure className="figure mt-5">
 
-            <a target="_blank" href={OPENSEA_HREWARD_ITEM_URL + tokenIdMinted}>
+            <a target="_blank" href={OPENSEA_HREWARD_ITEM_URL + tokenIdMinted} rel="noreferrer">
               <img width="300" className="figure-img img-thumbnail img-fluid rounded m-2" src={LZREWARD_PATH_GIF + asset.code + ".gif"} alt="holding reward minted" />
             </a>
 

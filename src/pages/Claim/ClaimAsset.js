@@ -27,10 +27,10 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
   }
 
   const getRemainingToClaimRandom = () => {
-    if (contract == null) {
+    if (contract === null) {
       return 0;
     }
-    if (contract.methods != undefined) {
+    if (contract.methods !== undefined) {
       contract.methods.addressClaimbleRandom(account).call()
         .then((res) => {
           setRemainingToClaim(res);
@@ -41,10 +41,10 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
   }
 
   const getRemainingToClaimCouncil = () => {
-    if (contract == null) {
+    if (contract === null) {
       return 0;
     }
-    if (contract.methods != undefined) {
+    if (contract.methods !== undefined) {
       contract.methods.addressClaimbleCouncil(account).call()
       .then((res) => {
         setRemainingToClaim(res);
@@ -117,7 +117,7 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
       if (res.events.Transfer.length === undefined) {
         ids.push(res.events.Transfer.returnValues.id);
       } else {
-        res.events.Transfer.map((transfer) => {
+        res.events.Transfer.forEach((transfer) => {
           ids.push(transfer.returnValues.id);
         });
       }
@@ -172,7 +172,7 @@ const ClaimAsset = ({claimable, title, func, contract, account}) => {
         </h5>
         <figure className="figure mt-5">
           {tokenIdsMinted.map((element, key) => (
-            <a key={key} target="_blank" href={OPENSEA_OG_PETS_ITEM_URL + element}>
+            <a key={key} target="_blank" href={OPENSEA_OG_PETS_ITEM_URL + element} rel="noopener">
               <img key={key} width="300" className="figure-img img-thumbnail img-fluid rounded m-2" src={PINATA_OG_PETS_IPFS_GIF_URL + element + ".gif"} alt="Card cap" />
             </a>
           ))}

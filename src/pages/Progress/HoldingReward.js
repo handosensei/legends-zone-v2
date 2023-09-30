@@ -43,7 +43,7 @@ const HoldingReward = ({legends}) => {
       { img: Hold_ShadowGem, code: 'shadow-gem', item: 'Shadow gem', typeClass: '', period: '24 months', quantity: 0, quantitySaved: 0},
     ];
 
-    legends.map((item) => {
+    legends.forEach((item) => {
       const now = moment();
       const purchasedOn = moment(item.purchasedOn);
       const monthsDiff = now.diff(purchasedOn, 'months');
