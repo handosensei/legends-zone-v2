@@ -92,15 +92,7 @@ import { Navigate } from "react-router-dom";
 // import UiRibbons from "../pages/BaseUi/UiRibbons/UiRibbons";
 // import UiUtilities from "../pages/BaseUi/UiUtilities/UiUtilities";
 //
-// // Advance Ui
-// import UiNestableList from "../pages/AdvanceUi/UiNestableList/UiNestableList";
-// import UiScrollbar from "../pages/AdvanceUi/UiScrollbar/UiScrollbar";
-// import UiAnimation from "../pages/AdvanceUi/UiAnimation/UiAnimation";
-// import UiTour from "../pages/AdvanceUi/UiTour/UiTour";
-// import UiSwiperSlider from "../pages/AdvanceUi/UiSwiperSlider/UiSwiperSlider";
-// import UiRatings from "../pages/AdvanceUi/UiRatings/UiRatings";
-// import UiHighlight from "../pages/AdvanceUi/UiHighlight/UiHighlight";
-//
+
 // // Widgets
 // import Widgets from '../pages/Widgets/Index';
 //
@@ -367,15 +359,6 @@ const authProtectedRoutes = [
   // { path: "/ui-general", component: <UiGeneral /> },
   // { path: "/ui-ribbons", component: <UiRibbons /> },
   // { path: "/ui-utilities", component: <UiUtilities /> },
-  //
-  // // Advance Ui
-  // { path: "/advance-ui-nestable", component: <UiNestableList /> },
-  // { path: "/advance-ui-scrollbar", component: <UiScrollbar /> },
-  // { path: "/advance-ui-animation", component: <UiAnimation /> },
-  // { path: "/advance-ui-tour", component: <UiTour /> },
-  // { path: "/advance-ui-swiper", component: <UiSwiperSlider /> },
-  // { path: "/advance-ui-ratings", component: <UiRatings /> },
-  // { path: "/advance-ui-highlight", component: <UiHighlight /> },
   //
   // // Widgets
   // { path: "/widgets", component: <Widgets /> },
