@@ -140,7 +140,7 @@ import { Navigate } from "react-router-dom";
 // import Starter from '../pages/Pages/Starter/Starter';
 // import SimplePage from '../pages/Pages/Profile/SimplePage/SimplePage';
 // import Settings from '../pages/Pages/Profile/Settings/Settings';
-import Profile from '../pages/Profile';
+
 // import Team from '../pages/Pages/Team/Team';
 // import Timeline from '../pages/Pages/Timeline/Timeline';
 // import Faqs from '../pages/Pages/Faqs/Faqs';
@@ -232,6 +232,7 @@ import Progress from '../pages/Progress';
 import Claim from '../pages/Claim';
 import EnvParameters from '../pages/EnvParameters';
 import HoldingRewards from "../pages/Claim/HoldingRewards";
+import Profile from '../pages/Profile';
 
 const authProtectedRoutes = [
 
