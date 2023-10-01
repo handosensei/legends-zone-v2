@@ -49,14 +49,8 @@ const ProfileDropdown = () => {
 
         const authUser = JSON.parse(sessionStorage.getItem("authUser"));
         const user = authUser.user;
-        if (user.username != null) {
-            setUsername(user.username);
-        }
-
-        if (user.profilePicture != null) {
-            setProfilePicture(user.profilePicture);
-        }
-
+        setUsername(user.username ?? 'John DOE');
+        setProfilePicture(user.profilePicture ?? defaultPfp);
     }, [username, user]);
 
     //Dropdown Toggle

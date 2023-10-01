@@ -90,6 +90,11 @@ export const upsertUser = async (address) => {
   return post(url, {});
 }
 
+export const updateUser = async (userId, payload) => {
+  const url = `${apiUrl}users/${userId}`;
+  return patch(url, payload);
+}
+
 export const holdingRewardEstimate = async () => {
   const url = `${apiUrl}holding-rewards/estimate`;
   return post(url, {});

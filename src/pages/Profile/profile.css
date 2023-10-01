@@ -1,0 +1,12 @@
+
+input[type=radio]:checked + label>img {
+    border: 1px solid #fff;
+    box-shadow: 0 0 3px 3px #090;
+}
+
+/* Stuff after this is only to make things more pretty */
+input[type=radio] + label>img {
+    border: 1px #444;
+    transition: 100ms all;
+}
+

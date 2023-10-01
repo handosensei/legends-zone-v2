@@ -85,7 +85,6 @@ const DynamicElement = ({props}) => {
           'wallet': walletAddress,
           'jwt': authToken,
         }
-        console.log(userStorage);
         dispatch(loginUser(userStorage, props.router.navigate));
       });
   }
