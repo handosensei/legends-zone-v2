@@ -3,3 +3,6 @@
  YARN_VERSION = "1.22.19"
  publish = "build"
 
+[[edge_functions]]
+ path = "/profile"
+ function = "auth"
