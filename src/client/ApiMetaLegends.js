@@ -119,3 +119,8 @@ export const getLZAssets = async () => {
   const url = `${apiUrl}lz-assets`;
   return get(url);
 }
+
+export const getHealingDrones = async () => {
+  const url = `${apiUrl}healing-drones`;
+  return get(url);
+}

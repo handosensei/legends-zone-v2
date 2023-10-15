@@ -1,72 +1,97 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Card,
   CardBody,
   Col,
   Container,
-  CardHeader,
   Row,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane,
-  Input
+  Input, Modal, ModalHeader, ModalBody
 } from 'reactstrap';
 import BreadCrumb from '../../../Components/Common/BreadCrumb';
 import Player from "./Player";
+import Rarity from "./Rarity";
+import Claim from "./Claim";
+import SupplyData from "./SupplyData";
 
-import {Link} from "react-router-dom";
-
-
-import iconCelestial from "../../../assets/images/metalegends/healing-drone/ico-celestial.png";
-import iconBurner from "../../../assets/images/metalegends/healing-drone/ico-burner.png";
-import iconRoboter from "../../../assets/images/metalegends/healing-drone/ico-roboter.png";
-import iconGoldboi from "../../../assets/images/metalegends/healing-drone/ico-goldboi.png";
-import iconMatrixAngel from "../../../assets/images/metalegends/healing-drone/ico-matrix-angel.png";
-import iconCyber from "../../../assets/images/metalegends/healing-drone/ico-cyber.png";
-import iconRough from "../../../assets/images/metalegends/healing-drone/ico-rough.png";
-
+import Web3 from "web3";
+import MetaLifeHealingDroneTestnet from "../../../contracts/testnet/healing-drone/MetaLifeHealingDrone.json";
+import MetaLifeHealingDrone from "../../../contracts/mainnet/healing-drone/MetaLifeHealingDrone.json";
+import IMG_NETWORKS_POLYGON from "../../../assets/images/metalegends/networks_polygon.png";
 
 
 const HealingDrone = () => {
 
-  const [counter, setCounter] = useState(0);
-  const [remainingToClaim, setRemainingToClaim] = useState(0);
+  const [modalInformation, setModalInformation] = useState(false);
+  const [contract, setContract] = useState(null);
+  const [account, setAccount] = useState('');
 
   document.title = "Claim \"Healing drone\" reward | Legends Zone";
 
-  function countUp(prev_data_attr) {
-    if (prev_data_attr < remainingToClaim && prev_data_attr < 10) {
-      setCounter(prev_data_attr + 1);
-    }
+  const toggleChangeNetworkNotification = () => {
+    setModalInformation(true);
   }
 
-  function countDown(prev_data_attr) {
-    if (prev_data_attr >= 1) {
-      setCounter(prev_data_attr - 1);
-    }
-  }
+  const getWeb3Data = async () => {
+    const web3 = new Web3(window.ethereum);
+    const networkId = await web3.eth.net.getId();
+    const accounts = await web3.eth.getAccounts()
 
-  const ClaimButton = () => {
-    if (remainingToClaim > 0) {
-      return (<button className="btn btn-primary">Claim</button>);
+    if (networkId !== 137 && networkId !== 11155111) {
+      toggleChangeNetworkNotification();
+      return [null, accounts[0]];
     }
-    return (<button className="btn btn-light">Claim</button>);
-  }
+
+    try {
+      if (networkId === 11155111) {
+        const contractDeployed = MetaLifeHealingDroneTestnet.networks[networkId];
+        const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeHealingDroneTestnet.abi, contractDeployed && contractDeployed.address);
+
+        return [instanceContractHoldingReward, accounts[0]];
+      }
+      // Mainnet: Polygon
+      const contractDeployed = MetaLifeHealingDrone.networks[networkId];
+      const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeHealingDrone.abi, contractDeployed && contractDeployed.address);
+
+      return [instanceContractHoldingReward, accounts[0]];
+    } catch (error) {
+      // Catch any errors for any of the above operations.
+      console.log(
+      `Failed to load web3, accounts, or contract. Check console for details.`,
+      );
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getWeb3Data().then((data) => {
+      setContract(data[0]);
+      setAccount(data[1]);
+    }).catch((err) => {
+      console.error(err)
+    });
+  }, []);
 
   return (
     <React.Fragment>
+
+      <Modal size="lg" id="flipModalInformation" isOpen={modalInformation} toggle={() => {setModalInformation(false) }} modalClassName="zoomIn" centered >
+        <ModalHeader className="modal-title" id="flipModalInformationLabel">
+          Warning !
+        </ModalHeader>
+        <ModalBody className="text-center">
+          <p className="text-white">Select "Polygon" network on top right corner. You could log in again to mint reward.</p>
+          <figure className="figure mt-5">
+            <img width="350" className="figure-img img-thumbnail img-fluid rounded m-2" src={IMG_NETWORKS_POLYGON}  />
+          </figure>
+        </ModalBody>
+      </Modal>
+
       <div className="page-content">
         <Container fluid>
           <BreadCrumb title="Healing drones" pageTitle="Claim"/>
           <Row>
             <Col xl="5">
-              <Card>
-
-                  <Player/>
-
-              </Card>
+              <Player/>
             </Col>
 
             <Col xl="7">
@@ -74,24 +99,7 @@ const HealingDrone = () => {
                 <CardBody>
                   <h2>Healing Drone</h2>
 
-                  <Row className="mt-5">
-                    <Col lg={3} sm={6}>
-                      <div className="p-2 border border-dashed rounded text-center">
-                        <div>
-                          <p className="text-muted fw-medium mb-1">Supply :</p>
-                          <h4 className="fs-20 mb-0"><i className="mdi mdi-panorama-sphere-outline me-1"></i> 1996/2000</h4>
-                        </div>
-                      </div>
-                    </Col>
-                    <Col lg={3} sm={6}>
-                      <div className="p-2 border border-dashed rounded text-center">
-                        <div>
-                          <p className="text-muted fw-medium mb-1">Ends:</p>
-                          <h4 className="fs-20 mb-0"><i className="mdi mdi-clock-edit-outline me-1"></i> June 30th, 2023</h4>
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
+                  <SupplyData contract={contract} />
 
                   <div className="mt-5 text-muted">
                     <h5 className="fs-14">Description :</h5>
@@ -100,108 +108,9 @@ const HealingDrone = () => {
                     </p>
                   </div>
 
-                  <div className="product-content mt-5">
-                    <h5 className="fs-14 mb-3">Rarity description :</h5>
+                  <Rarity />
 
-                    <div className="table-responsive">
-                      <table className="table align-middle table-nowrap mb-0">
-                        <tbody>
-                        <tr>
-                          <th scope="row">
-                            <div className="d-flex align-items-center">
-                              <img src={iconCelestial} alt="" className="avatar-sm rounded object-cover" />
-                              <span className="mb-0 ms-4">Celestial drone</span>
-                            </div>
-                          </th>
-                          <td>1%</td>
-                          <td>
-                            <div className="d-flex align-items-center">
-                              <img src={iconBurner} alt="" className="avatar-sm rounded object-cover" />
-                              <span className="mb-0 ms-4">Burner drone</span>
-                            </div>
-                          </td>
-                          <td>2%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">
-                            <div className="d-flex align-items-center">
-                              <img src={iconRoboter} alt="" className="avatar-sm rounded object-cover" />
-                              <span className="mb-0 ms-4">Roboter drone</span>
-                            </div>
-                          </th>
-                          <td>1%</td>
-                          <td>
-                            <div className="d-flex align-items-center">
-                              <img src={iconGoldboi} alt="" className="avatar-sm rounded object-cover" />
-                              <span className="mb-0 ms-4">Goldboi drone</span>
-                            </div>
-                          </td>
-                          <td>2%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">
-                            <div className="d-flex align-items-center">
-                              <img src={iconMatrixAngel} alt="" className="avatar-sm rounded object-cover" />
-                              <span className="mb-0 ms-4">Matrix-Angel drone</span>
-                            </div>
-                          </th>
-                          <td>1%</td>
-                          <td>
-                            <div className="d-flex align-items-center">
-                              <img src={iconCyber} alt="" className="avatar-sm rounded object-cover" />
-                              <span className="mb-0 ms-4">Cyber drone</span>
-                            </div>
-                          </td>
-                          <td>2%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">
-                            <div className="d-flex align-items-center">
-                              <img src={iconRough} alt="" className="avatar-sm rounded object-cover" />
-                              <span className="mb-0 ms-4">Rough drone</span>
-                            </div>
-                          </th>
-                          <td>1%</td>
-
-                        </tr>
-
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-
-                  <Row className="mt-5 mb-5">
-                    <Col xl={{ size: 4, offset: 4}}>
-                      <div className="mt-3 list-group-item d-flex justify-content-between align-items-center">
-                        Eligibility
-                        <div className="flex-shrink-0">
-                          <span className="text-muted">0</span>
-                        </div>
-                      </div>
-
-                      <div className="mt-2 list-group-item d-flex justify-content-between align-items-center">
-                        Remaining to be claim
-                        <div className="flex-shrink-0">
-                          <span className="text-muted">0</span>
-                        </div>
-                      </div>
-
-                      <div className="d-grid gap-2 mt-5">
-                        <div className="input-step full-width">
-                          <button type="button" className="minus" onClick={() => { countDown(counter); }} >
-                            –
-                          </button>
-                          <Input type="number" className="product-quantity" value={counter} min="0" max="20" readOnly />
-                          <button type="button" className="plus" onClick={() => { countUp(counter); }} >
-                            +
-                          </button>
-                        </div>
-                        <button className="btn btn-light">Max</button>
-                        <button className="btn btn-light">Claim</button>
-                      </div>
-
-                    </Col>
-                  </Row>
+                  <Claim contract={contract} account={account} />
 
                 </CardBody>
               </Card>
