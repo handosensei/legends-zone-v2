@@ -6,6 +6,7 @@ import CardMetaLegend from "../../Components/CardMetaLegend";
 import CardPerkArmor from "../../Components/CardPerkArmor";
 import CardOgPet from "../../Components/CardOgPet";
 import CardSpecial from "../../Components/CardSpecial";
+import CardHealingDrone from "../../Components/CardHealingDrone";
 
 const DashboardZone = () => {
 
@@ -33,6 +34,8 @@ const DashboardZone = () => {
                 <CardPerkArmor />
 
                 <CardOgPet />
+
+                <CardHealingDrone />
 
               </div>
             </Col>

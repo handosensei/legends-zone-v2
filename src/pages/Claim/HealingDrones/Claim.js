@@ -11,7 +11,7 @@ const Claim = ({contract, account}) => {
   const [tokenIdsMinted, setTokenIdsMinted] = useState([]);
   const [tokenMinted, setTokenMinted] = useState([]);
   const [remainingToClaim, setRemainingToClaim] = useState(0);
-
+  const [rewards, setRewards] = useState([]);
 
   const [modalMintInProgress, setModalMintInProgress] = useState(false);
   const [modalMintDone, setModalMintDone] = useState(false);
@@ -70,24 +70,40 @@ const Claim = ({contract, account}) => {
     }
     setModalMintInProgress(true);
     contract.methods.mint(counter).send({ from: account }).then((res) => {
-      mintDone();
+
       setCounter(0);
-      // let ids = [];
-      // if (res.events.Transfer.length === undefined) {
-      //   ids.push(res.events.Transfer.returnValues.id);
-      // } else {
-      //   res.events.Transfer.forEach((transfer) => {
-      //     ids.push(transfer.returnValues.id);
-      //   });
-      // }
-      // setTokenIdsMinted(ids);
-      // console.log(res.events);
-      // console.log(res.events.Minted);
-      // console.log(res.events.Transfer);
-      getHealingDrones().then((res) => {
-        setTokenMinted(res);
-        console.log(res);
-      });
+      let idsMinted = [];
+      if (res.events.Transfer.length === undefined) {
+        idsMinted.push(res.events.Transfer.returnValues.id);
+      } else {
+        res.events.Transfer.forEach((transfer) => {
+          idsMinted.push(transfer.returnValues.id);
+        });
+      }
+      setTokenIdsMinted(idsMinted);
+      console.log('idsMinted');
+      console.log(idsMinted);
+
+      setTimeout(() => {
+        getHealingDrones().then((drones) => {
+          console.log(drones);
+          const items = [];
+          drones.map((drone) => {
+            if (idsMinted.includes(drone.tokenId)) {
+              console.log('Minted');
+              console.log(drone.tokenId);
+              items.push(drone);
+            }
+          });
+          setTokenMinted(items);
+          console.log('items');
+          console.log(items);
+          console.log('tokenMinted');
+          console.log(tokenMinted);
+        });
+        mintDone();
+      }, 5000);
+
     })
     .catch((err) => {
       setModalMintInProgress(false);
@@ -159,7 +175,7 @@ const Claim = ({contract, account}) => {
       </ModalHeader>
       <ModalBody className="text-center">
         <h5 className="fs-16">
-          Congrats ! {tokenMinted.length} {tokenMinted.length === 1 ? 'Healing drone' : 'Healing drones'}
+          Congrats ! {tokenIdsMinted.length} {tokenIdsMinted.length === 1 ? 'Healing drone' : 'Healing drones'}
         </h5>
         <figure className="figure mt-5">
           {tokenMinted.map((element, key) => (

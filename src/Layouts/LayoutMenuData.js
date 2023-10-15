@@ -93,17 +93,15 @@ const Navdata = () => {
                     link: "/claim/holding-rewards",
                     parentId: "claim"
                 },
-                // {
-                //     id: "healingdrones",
-                //     label: "Healing drones",
-                //     link: "/claim/healing-drones",
-                //     parentId: "claim"
-                // },
+                {
+                    id: "healingdrones",
+                    label: "Healing drones",
+                    link: "/claim/healing-drones",
+                    parentId: "claim"
+                },
             ]
         }
     ];
-
-
 
     return <React.Fragment>{menuItems}</React.Fragment>;
 };
