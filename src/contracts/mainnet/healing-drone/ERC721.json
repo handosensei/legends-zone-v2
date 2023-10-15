@@ -19529,7 +19529,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-10-14T21:35:30.606Z",
+  "updatedAt": "2023-10-15T17:51:57.194Z",
   "devdoc": {
     "author": "Solady (https://github.com/vectorized/solady/blob/main/src/tokens/ERC721.sol)Modified from Solmate (https://github.com/transmissions11/solmate/blob/main/src/tokens/ERC721.sol)Modified from OpenZeppelin (https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/token/ERC721/ERC721.sol)",
     "details": "Note: The ERC721 standard allows for self-approvals. For performance, this implementation WILL NOT revert for such actions. Please add any checks with overrides if desired.",

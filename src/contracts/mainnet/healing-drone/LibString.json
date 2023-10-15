@@ -26669,7 +26669,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.13",
-  "updatedAt": "2023-10-14T21:35:30.619Z",
+  "updatedAt": "2023-10-15T17:51:57.207Z",
   "devdoc": {
     "author": "Solady (https://github.com/vectorized/solady/blob/main/src/utils/LibString.sol)Modified from Solmate (https://github.com/transmissions11/solmate/blob/main/src/utils/LibString.sol)",
     "errors": {
