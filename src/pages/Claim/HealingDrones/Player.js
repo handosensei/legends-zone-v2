@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { Card } from 'reactstrap';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import '../video.css';
@@ -42,9 +43,11 @@ function Player() {
   }, []);
 
   return (
-    <div className="video-container">
-      <video ref={videoRef} className="video-js vjs-1-1" autoPlay muted />
-    </div>
+    <Card>
+      <div className="video-container">
+        <video ref={videoRef} className="video-js vjs-1-1" autoPlay muted />
+      </div>
+    </Card>
   );
 }
 
