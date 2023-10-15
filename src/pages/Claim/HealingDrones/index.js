@@ -81,7 +81,7 @@ const HealingDrone = () => {
         <ModalBody className="text-center">
           <p className="text-white">Select "Polygon" network on top right corner. You could log in again to mint reward.</p>
           <figure className="figure mt-5">
-            <img width="350" className="figure-img img-thumbnail img-fluid rounded m-2" src={IMG_NETWORKS_POLYGON}  />
+            <img width="350" className="figure-img img-thumbnail img-fluid rounded m-2" src={IMG_NETWORKS_POLYGON}   alt="img" />
           </figure>
         </ModalBody>
       </Modal>

@@ -74,10 +74,10 @@ const Claim = ({contract, account}) => {
       setCounter(0);
       let idsMinted = [];
       if (res.events.Transfer.length === undefined) {
-        idsMinted.push(res.events.Transfer.returnValues.id);
+        idsMinted.push(parseInt(res.events.Transfer.returnValues.id));
       } else {
         res.events.Transfer.forEach((transfer) => {
-          idsMinted.push(transfer.returnValues.id);
+          idsMinted.push(parseInt(transfer.returnValues.id));
         });
       }
       setTokenIdsMinted(idsMinted);
@@ -86,20 +86,25 @@ const Claim = ({contract, account}) => {
 
       setTimeout(() => {
         getHealingDrones().then((drones) => {
+          setRewards(drones);
           console.log(drones);
           const items = [];
-          drones.map((drone) => {
+          const images = [];
+          drones.forEach((drone) => {
             if (idsMinted.includes(drone.tokenId)) {
               console.log('Minted');
               console.log(drone.tokenId);
               items.push(drone);
+              // images.push(drone.image);
             }
           });
+
+          // console.log('items');
+          // console.log(items);
+          // console.log(images);
           setTokenMinted(items);
-          console.log('items');
-          console.log(items);
-          console.log('tokenMinted');
-          console.log(tokenMinted);
+          // console.log('tokenMinted');
+          // console.log(tokenMinted);
         });
         mintDone();
       }, 5000);
@@ -145,6 +150,17 @@ const Claim = ({contract, account}) => {
     return (<button className="btn btn-light">Claim</button>);
   }
 
+  const ListRewards = () => {
+    console.log(tokenMinted);
+    return (
+      <figure className="figure mt-5">
+        {tokenMinted.map((element, key) => (
+          <img key={key} width="200" className="figure-img img-thumbnail img-fluid rounded m-2" src={element.image} alt={element.name} />
+        ))}
+      </figure>
+    );
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       defineEligibility();
@@ -177,11 +193,7 @@ const Claim = ({contract, account}) => {
         <h5 className="fs-16">
           Congrats ! {tokenIdsMinted.length} {tokenIdsMinted.length === 1 ? 'Healing drone' : 'Healing drones'}
         </h5>
-        <figure className="figure mt-5">
-          {tokenMinted.map((element, key) => (
-            <img key={key} width="300" className="figure-img img-thumbnail img-fluid rounded m-2" src={element.image} alt={element.name} />
-          ))}
-        </figure>
+        <ListRewards />
       </ModalBody>
       <div className="modal-footer">
         <Button color="light" onClick={() => { mintDone(); }}> Close </Button>
