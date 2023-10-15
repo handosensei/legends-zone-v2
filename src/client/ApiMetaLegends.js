@@ -80,11 +80,6 @@ export const isHolder = async (address) => {
   return get(url);
 }
 
-export const patchMintOrdersOgPets = async (payload) => {
-  const url = `${apiUrl}mint-orders/og-pets`;
-  return patch(url, payload);
-}
-
 export const upsertUser = async (address) => {
   const url = `${apiUrl}users/${address}`;
   return post(url, {});
