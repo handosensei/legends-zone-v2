@@ -92,6 +92,11 @@ const Navdata = () => {
                     label: "Holding rewards",
                     link: "/claim/holding-rewards",
                     parentId: "claim"
+                }, {
+                    id: "healingdrones",
+                    label: "Healing drones",
+                    link: "/claim/healing-drones",
+                    parentId: "claim"
                 },
             ]
         }

@@ -233,12 +233,14 @@ import Claim from '../pages/Claim';
 import EnvParameters from '../pages/EnvParameters';
 import HoldingRewards from "../pages/Claim/HoldingRewards";
 import Profile from '../pages/Profile';
+import HealingDrone from "../pages/Claim/HealingDrones";
 
 const authProtectedRoutes = [
 
   { path: "/claim", component: <Claim /> },
   { path: "/claim/og-pets", component: <Claim /> },
   { path: "/claim/holding-rewards", component: <HoldingRewards /> },
+  { path: "/claim/healing-drones", component: <HealingDrone /> },
   { path: "/progress", component: <Progress /> },
   { path: "/dashboard", component: <DashboardZone /> },
   { path: "/index", component: <DashboardZone /> },
