@@ -1,10 +1,10 @@
-import iconCelestial from "../../../assets/images/metalegends/healing-drone/ico-celestial.png";
-import iconBurner from "../../../assets/images/metalegends/healing-drone/ico-burner.png";
-import iconRoboter from "../../../assets/images/metalegends/healing-drone/ico-roboter.png";
-import iconGoldboi from "../../../assets/images/metalegends/healing-drone/ico-goldboi.png";
-import iconMatrixAngel from "../../../assets/images/metalegends/healing-drone/ico-matrix-angel.png";
-import iconCyber from "../../../assets/images/metalegends/healing-drone/ico-cyber.png";
-import iconRough from "../../../assets/images/metalegends/healing-drone/ico-rough.png";
+import iconCelestial from "../../../assets/images/metalegends/faction/ico-celestial.png";
+import iconBurner from "../../../assets/images/metalegends/faction/ico-burner.png";
+import iconRoboter from "../../../assets/images/metalegends/faction/ico-roboter.png";
+import iconGoldboi from "../../../assets/images/metalegends/faction/ico-goldboi.png";
+import iconMatrixAngel from "../../../assets/images/metalegends/faction/ico-matrix-angel.png";
+import iconCyber from "../../../assets/images/metalegends/faction/ico-cyber.png";
+import iconRough from "../../../assets/images/metalegends/faction/ico-rough.png";
 import React from "react";
 
 const Rarity = () => {
