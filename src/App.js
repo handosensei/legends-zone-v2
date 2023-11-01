@@ -6,9 +6,6 @@ import './assets/scss/themes.scss';
 //imoprt Route
 import Route from './Routes';
 
-
-// import { initFirebaseBackend } from "./helpers/firebase_helper";
-
 // Fake Backend 
 import fakeBackend from "./helpers/AuthType/fakeBackend";
 
