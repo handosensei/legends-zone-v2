@@ -50,13 +50,15 @@ const Profile = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(inputs);
     updateUser(inputs.id, inputs).then((response) => {
       toast("Data profile updated",
       {
         position: "top-right",
         hideProgressBar: true,
         className: 'bg-success text-white' });
+      const authUser = JSON.parse(sessionStorage.getItem("authUser"));
+      authUser.user = inputs;
+      sessionStorage.setItem("authUser", JSON.stringify(authUser));
     })
     .catch((e) => {
       console.error('update profile failed !');
