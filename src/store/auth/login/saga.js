@@ -6,9 +6,9 @@ import { apiError, loginSuccess, logoutUserSuccess } from "./actions";
 
 function* loginUser({ payload: { user, history } }) {
   try {
-      yield put(loginSuccess(user));
-      history('/dashboard')
-      sessionStorage.setItem("authUser", JSON.stringify(user));
+    yield put(loginSuccess(user));
+    history('/dashboard')
+    sessionStorage.setItem("authUser", JSON.stringify(user));
   } catch (error) {
     yield put(apiError(error));
   }

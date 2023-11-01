@@ -8,6 +8,9 @@ import {getHonoraries, getLegends, updateUser} from "../../client/ApiMetaLegends
 import './profile.css';
 import {toast, ToastContainer} from "react-toastify";
 
+import {useDispatch} from "react-redux";
+import {editProfile} from "../../store/auth/profile/actions";
+
 const Profile = () => {
 
   const [firstname, setFirstname] = useState('');
@@ -22,6 +25,8 @@ const Profile = () => {
   const [discord, setDiscord] = useState('');
   const [modalPfpChoice, setModalPfpChoice] = useState(false);
   const [legends, setLegends] = useState([]);
+
+  const dispatch = useDispatch();
 
   const toggleModalPfpChoice = () => {
     setModalPfpChoice(!modalPfpChoice);
@@ -50,20 +55,12 @@ const Profile = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    updateUser(inputs.id, inputs).then((response) => {
-      toast("Data profile updated",
+    dispatch(editProfile(inputs));
+    toast("Data profile updated",
       {
         position: "top-right",
         hideProgressBar: true,
         className: 'bg-success text-white' });
-      const authUser = JSON.parse(sessionStorage.getItem("authUser"));
-      authUser.user = inputs;
-      sessionStorage.setItem("authUser", JSON.stringify(authUser));
-    })
-    .catch((e) => {
-      console.error('update profile failed !');
-      console.error(e.message);
-    });
   }
 
   const initForm = () => {
@@ -111,6 +108,9 @@ const Profile = () => {
   useEffect(() => {
     initForm();
   }, []);
+
+  useEffect(() => {
+  }, [dispatch]);
 
   return (
   <React.Fragment>
