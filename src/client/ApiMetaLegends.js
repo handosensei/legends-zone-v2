@@ -124,3 +124,8 @@ export const getHealingDrones = async () => {
   const url = `${apiUrl}healing-drones`;
   return get(url);
 }
+
+export const getVehicles = async () => {
+  const url = `${apiUrl}vehicles`;
+  return get(url);
+}
