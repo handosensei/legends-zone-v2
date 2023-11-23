@@ -99,6 +99,12 @@ const Navdata = () => {
                     link: "/claim/healing-drones",
                     parentId: "claim"
                 },
+                {
+                    id: "vehicles",
+                    label: "Vehicles",
+                    link: "/claim/vehicles",
+                    parentId: "claim"
+                },
             ]
         }
     ];
