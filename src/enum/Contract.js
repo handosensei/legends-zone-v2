@@ -1,3 +1,3 @@
-export const CONTRACT_ML = '0xf9c362cdd6eeba080dd87845e88512aa0a18c615';
-export const CONTRACT_OG_PETS = '0xfc634bfc0f00a2d3dcc93ceb4558da9de840fdbc';
+
+
 export const CONTRACT_LZ_REWARD = '0x51aB7043422b8d908032573c637FE32912CFB1E7';

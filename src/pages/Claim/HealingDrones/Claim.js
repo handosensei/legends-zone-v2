@@ -81,30 +81,17 @@ const Claim = ({contract, account}) => {
         });
       }
       setTokenIdsMinted(idsMinted);
-      console.log('idsMinted');
-      console.log(idsMinted);
 
       setTimeout(() => {
         getHealingDrones().then((drones) => {
           setRewards(drones);
-          console.log(drones);
           const items = [];
-          const images = [];
           drones.forEach((drone) => {
             if (idsMinted.includes(drone.tokenId)) {
-              console.log('Minted');
-              console.log(drone.tokenId);
               items.push(drone);
-              // images.push(drone.image);
             }
           });
-
-          // console.log('items');
-          // console.log(items);
-          // console.log(images);
           setTokenMinted(items);
-          // console.log('tokenMinted');
-          // console.log(tokenMinted);
         });
         mintDone();
       }, 5000);
