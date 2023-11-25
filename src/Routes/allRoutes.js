@@ -40,10 +40,6 @@ import { Navigate } from "react-router-dom";
 // import InvoiceCreate from "../pages/Invoices/InvoiceCreate";
 // import InvoiceDetails from "../pages/Invoices/InvoiceDetails";
 //
-// // Support Tickets
-// import ListView from '../pages/SupportTickets/ListView';
-// import TicketsDetails from '../pages/SupportTickets/TicketsDetails';
-//
 // // //Ecommerce Pages
 // import EcommerceProducts from "../pages/Ecommerce/EcommerceProducts/index";
 // import EcommerceProductDetail from "../pages/Ecommerce/EcommerceProducts/EcommerceProductDetail";
@@ -294,10 +290,6 @@ const authProtectedRoutes = [
   // { path: "/apps-invoices-list", component: <InvoiceList /> },
   // { path: "/apps-invoices-details", component: <InvoiceDetails /> },
   // { path: "/apps-invoices-create", component: <InvoiceCreate /> },
-  //
-  // //Supports Tickets
-  // { path: "/apps-tickets-list", component: <ListView /> },
-  // { path: "/apps-tickets-details", component: <TicketsDetails /> },
   //
   // //transactions
   // { path: "/apps-crypto-transactions", component: <Transactions /> },
