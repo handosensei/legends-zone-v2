@@ -5,6 +5,7 @@ import InfoRewardHolding from "./InfoRewardHolding";
 import CardMetaLegend from "../../Components/CardMetaLegend";
 import CardPerkArmor from "../../Components/CardPerkArmor";
 import CardOgPet from "../../Components/CardOgPet";
+import CardOgVehicle from "../../Components/CardOgVehicle";
 import CardSpecial from "../../Components/CardSpecial";
 import CardHealingDrone from "../../Components/CardHealingDrone";
 
@@ -34,6 +35,7 @@ const DashboardZone = () => {
                 <CardPerkArmor />
 
                 <CardOgPet />
+                <CardOgVehicle />
 
                 <CardHealingDrone />
 
