@@ -13,8 +13,7 @@ import Web3 from "web3";
 import IMG_NETWORKS_ETHEREUM from "../../../assets/images/metalegends/networks_ethereum.png";
 import ClaimAsset from "./ClaimAsset";
 import ClaimAssetSingle from "./ClaimAssetSingle";
-import MetaLifeVehicleTestnet from "../../../contracts/testnet/og-vehicle/MetaLifeVehicle.json";
-//import MetaLifeVehicleMainnet from "../../../contracts/mainnet/og-vehicle/MetaLifeVehicle.json";
+import MetaLifeVehicleMainnet from "../../../contracts/mainnet/og-vehicle/MetaLifeVehicle.json";
 
 const Vehicle = () => {
 
@@ -40,17 +39,11 @@ const Vehicle = () => {
     }
 
     try {
-      if (networkId === 11155111) {
-        const contractDeployed = MetaLifeVehicleTestnet.networks[networkId];
-        const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeVehicleTestnet.abi, contractDeployed && contractDeployed.address);
-
-        return [instanceContractHoldingReward, accounts[0]];
-      }
       // Mainnet: Ethereum
-      // const contractDeployed = MetaLifeVehicleMainnet.networks[networkId];
-      // const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeVehicleMainnet.abi, contractDeployed && contractDeployed.address);
+      const contractDeployed = MetaLifeVehicleMainnet.networks[networkId];
+      const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeVehicleMainnet.abi, contractDeployed && contractDeployed.address);
 
-      // return [instanceContractHoldingReward, accounts[0]];
+      return [instanceContractHoldingReward, accounts[0]];
     } catch (error) {
       // Catch any errors for any of the above operations.
       console.log(
