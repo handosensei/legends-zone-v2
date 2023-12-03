@@ -229,6 +229,7 @@ import Claim from '../pages/Claim';
 import EnvParameters from '../pages/EnvParameters';
 import HoldingRewards from "../pages/Claim/HoldingRewards";
 import Profile from '../pages/Profile';
+import ProfileEdit from '../pages/Profile/edit';
 import HealingDrone from "../pages/Claim/HealingDrones";
 import Vehicle from "../pages/Claim/Vehicles";
 
@@ -243,6 +244,7 @@ const authProtectedRoutes = [
   { path: "/dashboard", component: <DashboardZone /> },
   { path: "/index", component: <DashboardZone /> },
   { path: "/profile", component: <Profile /> },
+  { path: "/profile/edit", component: <ProfileEdit /> },
   { path: "/sensei", component: <EnvParameters /> },
   //
   // { path: "/dashboard-crypto", component: <DashboardCrypto /> },

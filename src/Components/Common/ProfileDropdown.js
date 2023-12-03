@@ -49,7 +49,15 @@ const ProfileDropdown = () => {
 
         const authUser = JSON.parse(sessionStorage.getItem("authUser"));
         const user = authUser.user;
-        setUsername(user.username ?? 'John DOE');
+        if (user.username !== null && user.username !== '') {
+            setUsername(user.username);
+        }
+        else if (user.firstname !== null && user.lastname !== null
+            && user.firstname !== '' && user.lastname !== '') {
+            setUsername( `${user.firstname ?? ''} ${user.lastname ?? ''}`);
+        } else {
+            setUsername('John DOE');
+        }
         setProfilePicture(user.profilePicture ?? defaultPfp);
     }, [username, user]);
 
@@ -71,11 +79,11 @@ const ProfileDropdown = () => {
                         </span>
                     </span>
                 </DropdownToggle>
-                {/*<DropdownMenu className="dropdown-menu-end">*/}
-                {/*    <DropdownItem href={process.env.PUBLIC_URL + "/profile"}>*/}
-                {/*        <i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>*/}
-                {/*        <span className="align-middle">Profile</span>*/}
-                {/*    </DropdownItem>*/}
+                <DropdownMenu className="dropdown-menu-end">
+                    <DropdownItem href={process.env.PUBLIC_URL + "/profile"}>
+                        <i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
+                        <span className="align-middle">Profile</span>
+                    </DropdownItem>
                     {/*<DropdownItem href={process.env.PUBLIC_URL + "/apps-chat"}><i*/}
                     {/*    className="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span*/}
                     {/*        className="align-middle">Messages</span></DropdownItem>*/}
@@ -95,7 +103,7 @@ const ProfileDropdown = () => {
                     {/*            className="align-middle">Settings</span></DropdownItem>*/}
                     {/*<DropdownItem href={process.env.PUBLIC_URL + "/auth-lockscreen-basic"}><i*/}
                     {/*    className="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Lock screen</span></DropdownItem>*/}
-                {/*</DropdownMenu>*/}
+                </DropdownMenu>
             </Dropdown>
         </React.Fragment>
     );

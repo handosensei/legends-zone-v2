@@ -1,10 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Card, CardBody, Col, Container, Form, Label, Modal, ModalBody, ModalHeader, Row} from 'reactstrap';
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Container,
+  Form,
+  Label,
+  Row
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
 import BreadCrumb from '../../Components/Common/BreadCrumb';
 
 //import images
 import defaultPfp from '../../assets/images/ml-avatar.png';
-import {getHonoraries, getLegends, updateUser} from "../../client/ApiMetaLegends";
 import './profile.css';
 import {toast, ToastContainer} from "react-toastify";
 
@@ -23,38 +32,14 @@ const Profile = () => {
   const [linkedin, setLinkedin] = useState('');
   const [twitter, setTwitter] = useState('');
   const [discord, setDiscord] = useState('');
-  const [modalPfpChoice, setModalPfpChoice] = useState(false);
-  const [legends, setLegends] = useState([]);
+  const [inputs, setInputs] = useState({});
 
   const dispatch = useDispatch();
 
-  const toggleModalPfpChoice = () => {
-    setModalPfpChoice(!modalPfpChoice);
-  }
-
-  const selectProfilePicture = () => {
-    setModalPfpChoice(false);
-  }
-
-  const cancel = () => {
-    initForm();
-    toast("Reset data",
-    {
-      position: "top-right",
-      hideProgressBar: true,
-      className: 'bg-warning text-white' });
-  }
-
-  const [inputs, setInputs] = useState({});
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs(values => ({...values, [name]: value}))
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(inputs);
     dispatch(editProfile(inputs));
     toast("Data profile updated",
       {
@@ -80,29 +65,6 @@ const Profile = () => {
     setInputs(user);
   }
 
-  const listNft = async () => {
-    setModalPfpChoice(true);
-    let res = await getLegends();
-    const honoraries = await getHonoraries();
-    if (honoraries.length > 0) {
-      res = res.concat(honoraries);
-    }
-    setLegends(res);
-  }
-
-  const onSelectPfp = (e) => {
-    const user = inputs;
-    setProfilePicture(e.target.value);
-    user.profilePicture = e.target.value;
-    setInputs(user);
-  }
-
-  const resetProfilePicture = () => {
-    setModalPfpChoice(false);
-    const authUser = JSON.parse(sessionStorage.getItem("authUser"));
-    setProfilePicture(authUser.user.profilePicture ?? defaultPfp);
-  }
-
   document.title = "Profile | Legends Zone";
 
   useEffect(() => {
@@ -113,246 +75,149 @@ const Profile = () => {
   }, [dispatch]);
 
   return (
-  <React.Fragment>
+    <React.Fragment>
 
-    <Modal size="lg" id="modal-pfp-choice" isOpen={modalPfpChoice} toggle={() => { toggleModalPfpChoice(); }} modalClassName="zoomIn" centered >
-      <ModalHeader className="modal-title" id="flipModalLabel" toggle={() => { toggleModalPfpChoice(); }}></ModalHeader>
-      <ModalBody className="text-center">
-        <Row>
-          {legends.map((legend, key) => (
-            <Col key={key} sm={4} md={3} xl={2} xxl={2}>
-              <Card>
-                <input type="radio" name="picture-profile"
-                  id={`legend#${legend.tokenId}`} className="visually-hidden" value={legend.media.thumbnail}
-                  onChange={onSelectPfp}
-                />
-                <label htmlFor={`legend#${legend.tokenId}`}>
-                  <img className="img-fluid" src={legend.media.thumbnail} alt="" />
-                </label>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </ModalBody>
-      <div className="modal-footer">
-        <Button color="primary" onClick={() => { selectProfilePicture(); }}> Select </Button>
-        <Button color="light" onClick={() => { resetProfilePicture(); }}> Close </Button>
+      <div className="page-content">
+        <Container fluid>
+          <BreadCrumb title="Profile" pageTitle="Home"/>
+          <Form onSubmit={handleSubmit}>
+            <Row>
+              <Col xxl={3}>
+                <Card className="card-bg-fill">
+                  <CardBody className="p-4">
+                    <div className="text-center">
+                      <div className="profile-user position-relative d-inline-block mx-auto  mb-4">
+                        <img src={profilePicture}
+                             className="rounded-circle avatar-xl img-thumbnail user-profile-image"
+                             alt="user-profile"/>
+                      </div>
+                    </div>
+                  </CardBody>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <h5 className="card-title mb-0 fs-5">Social networks</h5>
+                  </CardHeader>
+                  <CardBody>
+                    <div className="table-responsive">
+                      <table className="table table-borderless mb-0">
+                        <tbody className="align-middle">
+                          <tr>
+                            <th scope="row">
+                              <div className="avatar-xs d-block flex-shrink-0 me-3">
+                                <span className="avatar-title rounded-circle fs-5 bg-secondary text-light">
+                                  <i className="ri-linkedin-box-fill"></i>
+                                </span>
+                              </div>
+                            </th>
+                            <td className="text-muted fs-6">{linkedin}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">
+                              <div className="avatar-xs d-block flex-shrink-0 me-3">
+                                <span className="avatar-title rounded-circle fs-5 bg-info">
+                                  <i className="ri-twitter-fill"></i>
+                                </span>
+                              </div>
+                            </th>
+                            <td className="text-muted fs-6">{twitter}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">
+                              <div className="avatar-xs d-block flex-shrink-0 me-3">
+                                <span className="avatar-title rounded-circle fs-5 bg-primary">
+                                  <i className="ri-discord-fill"></i>
+                                </span>
+                              </div>
+                            </th>
+                            <td className="text-muted fs-6">{discord}</td>
+                          </tr>
+                          {/*<tr>*/}
+                          {/*  <th scope="row">*/}
+                          {/*    <div className="avatar-xs d-block flex-shrink-0 me-3">*/}
+                          {/*      <span className="avatar-title rounded-circle fs-5 bg-black">*/}
+                          {/*        <i className="ri-github-fill"></i>*/}
+                          {/*      </span>*/}
+                          {/*    </div>*/}
+                          {/*  </th>*/}
+                          {/*  <td className="text-muted fs-6"></td>*/}
+                          {/*</tr>*/}
+                        </tbody>
+                      </table>
+                    </div>
+                  </CardBody>
+                </Card>
+              </Col>
+
+              <Col xxl={9}>
+                <Card>
+                  <CardHeader>
+                    <h5 className="card-title mb-0 fs-5">Informations</h5>
+                  </CardHeader>
+                  <CardBody className="p-4">
+                    <Row>
+
+
+                      <Col lg={6}>
+                        <div className="mb-3">
+                          <Label htmlFor="firstnameInput" className="form-label fs-5">Firstname</Label>
+                          <div className="text-muted fs-5">{firstname}</div>
+                        </div>
+
+                      </Col>
+                      <Col lg={6}>
+                        <div className="mb-3">
+                          <Label htmlFor="lastnameInput" className="form-label fs-5">Lastname</Label>
+                          <div className="text-muted fs-5">{lastname}</div>
+                        </div>
+                      </Col>
+
+                      <Col lg={6}>
+                        <div className="mb-3">
+                          <Label htmlFor="firstnameInput" className="form-label fs-5">Username</Label>
+                          <div className="text-muted fs-5">{username}</div>
+                        </div>
+                      </Col>
+
+                      <Col lg={6}>
+                        <div className="mb-3">
+                          <Label htmlFor="emailInput" className="form-label fs-5">Email</Label>
+                          <div className="text-muted fs-5">{email}</div>
+                        </div>
+                      </Col>
+
+                      <Col lg={6}>
+                        <div className="mb-3">
+                          <Label htmlFor="designationInput" className="form-label fs-5">Designation</Label>
+                          <div className="text-muted fs-5">{designation}</div>
+                        </div>
+                      </Col>
+
+                      <Col lg={12}>
+                        <div className="mb-3 pb-2">
+                          <Label htmlFor="bioTextarea" className="form-label fs-5">Bio</Label>
+                          <div className="text-muted fs-5">{bio}</div>
+                        </div>
+                      </Col>
+
+                      <Col lg={12}>
+                        <div className="hstack gap-2 justify-content-end">
+                          <Link to="/profile/edit" className="btn btn-success">
+                            <i className="ri-edit-box-line align-bottom"></i> Edit Profile
+                          </Link>
+                        </div>
+                      </Col>
+                    </Row>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </Form>
+        </Container>
       </div>
-    </Modal>
-
-    <div className="page-content">
-      <Container fluid>
-        <BreadCrumb title="Profile" pageTitle="Home"/>
-        <Form onSubmit={handleSubmit}>
-          <Row>
-            <Col xxl={3}>
-              <Card className="card-bg-fill">
-                <CardBody className="p-4">
-                  <div className="text-center">
-                    <div className="profile-user position-relative d-inline-block mx-auto  mb-4">
-                      <img src={profilePicture}
-                           className="rounded-circle avatar-xl img-thumbnail user-profile-image"
-                           alt="user-profile"/>
-                      <input type="hidden" value={inputs.profilePicture || ''} name="profilePicture" />
-                      <div className="avatar-xs p-0 rounded-circle profile-photo-edit">
-                        <input id="profile-img-file-input" type="button"
-                               className="profile-img-file-input" onClick={listNft}/>
-                        <Label htmlFor="profile-img-file-input" className="profile-photo-edit avatar-xs">
-                          <span className="avatar-title rounded-circle bg-light text-body">
-                              <i className="ri-camera-fill"></i>
-                          </span>
-                        </Label>
-                      </div>
-                    </div>
-                    {/*<h5 className="fs-16 mb-1">{firstname} {lastname}</h5>*/}
-                    {/*<p className="text-muted mb-0">{designation}</p>*/}
-                  </div>
-                </CardBody>
-              </Card>
-
-              <Card>
-                <CardBody>
-                  <div className="d-flex align-items-center mb-4">
-                    <div className="flex-grow-1">
-                      <h5 className="card-title mb-0">Social networks</h5>
-                    </div>
-                  </div>
-                  <div className="mb-3 d-flex">
-                    <div className="avatar-xs d-block flex-shrink-0 me-3">
-                    <span className="avatar-title rounded-circle fs-16 bg-secondary text-light">
-                        <i className="ri-linkedin-box-fill"></i>
-                    </span>
-                    </div>
-                    <input type="text" className="form-control" id="linkedinInput"
-                           name="linkedin"
-                           placeholder="Linkedin"
-                           value={inputs.linkedin || ""}
-                           onChange={handleChange} />
-                  </div>
-
-                  <div className="mb-3 d-flex">
-                    <div className="avatar-xs d-block flex-shrink-0 me-3">
-                    <span className="avatar-title rounded-circle fs-16 bg-info">
-                        <i className="ri-twitter-fill"></i>
-                    </span>
-                    </div>
-                    <input type="text" className="form-control" id="twitterInput"
-                           name="twitter"
-                           placeholder="Twitter"
-                           value={inputs.twitter || ""}
-                           onChange={handleChange} />
-                  </div>
-                  <div className="d-flex">
-                    <div className="avatar-xs d-block flex-shrink-0 me-3">
-                    <span className="avatar-title rounded-circle fs-16 bg-primary">
-                        <i className="ri-discord-fill"></i>
-                    </span>
-                    </div>
-                    <input type="text" className="form-control" id="discordInput"
-                           name="discord"
-                           placeholder="Discord"
-                           value={inputs.discord || ""}
-                           onChange={handleChange} />
-                  </div>
-                </CardBody>
-              </Card>
-            </Col>
-
-            <Col xxl={9}>
-              <Card>
-                <CardBody className="p-4">
-                  <Row>
-                    <div className="d-flex align-items-center mb-4">
-                      <div className="flex-grow-1">
-                        <h5 className="card-title mb-0">Informations</h5>
-                      </div>
-                    </div>
-                    <Col lg={6}>
-                      <div className="mb-3">
-                        <Label htmlFor="firstnameInput" className="form-label">Firstname</Label>
-                        <input type="text" className="form-control" id="firstnameInput"
-                               placeholder="Enter your firstname"
-                               name="firstname"
-                               value={inputs.firstname || ""}
-                               onChange={handleChange} />
-                      </div>
-
-                    </Col>
-                    <Col lg={6}>
-                      <div className="mb-3">
-                        <Label htmlFor="lastnameInput" className="form-label">Lastname</Label>
-                        <input type="text" className="form-control" id="lastnameInput"
-                               name="lastname"
-                               value={inputs.lastname || ""}
-                               placeholder="Enter your lastname"
-                               onChange={handleChange} />
-                      </div>
-                    </Col>
-
-                    <Col lg={6}>
-                      <div className="mb-3">
-                        <Label htmlFor="firstnameInput" className="form-label">Username</Label>
-                        <input type="text" className="form-control" id="usernameInput"
-                               name="username"
-                               value={inputs.username || ""}
-                               placeholder="Enter your username"
-                               onChange={handleChange} />
-                      </div>
-                    </Col>
-
-                    <Col lg={6}>
-                      <div className="mb-3">
-                        <Label htmlFor="emailInput" className="form-label">Email</Label>
-                        <input type="email" className="form-control" id="emailInput"
-                               name="email"
-                               value={inputs.email || ""}
-                               placeholder="Enter your email"
-                               onChange={handleChange} />
-                      </div>
-                    </Col>
-
-                    <Col lg={6}>
-                      <div className="mb-3">
-                        <Label htmlFor="designationInput" className="form-label">Designation</Label>
-                        <input type="designation" className="form-control" id="designationInput"
-                               name="designation"
-                               value={inputs.designation || ""}
-                               placeholder="Enter your designation"
-                               onChange={handleChange} />
-                      </div>
-                    </Col>
-
-                    <Col lg={12}>
-                      <div className="mb-3 pb-2">
-                        <Label htmlFor="bioTextarea"
-                               className="form-label">Bio</Label>
-                        <textarea className="form-control" id="bioTextarea" rows="3"
-                                  name="bio"
-                                  value={inputs.bio || ""}
-                                  onChange={handleChange}></textarea>
-                      </div>
-                    </Col>
-
-                    {/*<Col lg={12}>*/}
-                    {/*  <div className="mt-4 mb-3 border-bottom pb-2">*/}
-                    {/*    <div className="float-end">*/}
-                    {/*      <Button className="btn-sm btn-soft-primary">*/}
-                    {/*        Add wallet*/}
-                    {/*      </Button>*/}
-                    {/*    </div>*/}
-                    {/*    <h5 className="card-title">Wallets</h5>*/}
-                    {/*  </div>*/}
-
-                    {/*  <div className="d-flex align-items-center mb-3">*/}
-                    {/*    <div className="flex-shrink-0 avatar-sm">*/}
-                    {/*      <div className="avatar-title bg-light text-primary rounded-3 fs-18">*/}
-                    {/*        <i className="ri-fingerprint-line"></i>*/}
-                    {/*      </div>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="flex-grow-1 ms-3">*/}
-                    {/*      <p className="text-muted mb-0">0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd</p>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="hstack gap-2 mt-4 mt-sm-0">*/}
-                    {/*      <button type="button" className="btn btn-outline-warning btn-icon waves-effect waves-light"><i*/}
-                    {/*      className="ri-star-fill"></i></button>*/}
-                    {/*      <button type="button" className="btn btn-outline-primary btn-icon waves-effect waves-light"><i*/}
-                    {/*      className="ri-delete-bin-fill"></i></button>*/}
-                    {/*    </div>*/}
-                    {/*  </div>*/}
-                    {/*  <div className="d-flex align-items-center mb-3">*/}
-                    {/*    <div className="flex-shrink-0 avatar-sm">*/}
-                    {/*      <div className="avatar-title bg-light text-primary rounded-3 fs-18">*/}
-                    {/*        <i className="ri-fingerprint-line"></i>*/}
-                    {/*      </div>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="flex-grow-1 ms-3">*/}
-                    {/*      <p className="text-muted mb-0">0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd</p>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="hstack gap-2 mt-4 mt-sm-0">*/}
-                    {/*      <button type="button" className="btn btn-outline-warning btn-icon waves-effect waves-light"><i*/}
-                    {/*      className="ri-star-line"></i></button>*/}
-                    {/*      <button type="button" className="btn btn-outline-primary btn-icon waves-effect waves-light"><i*/}
-                    {/*      className="ri-delete-bin-fill"></i></button>*/}
-                    {/*    </div>*/}
-                    {/*  </div>*/}
-                    {/*</Col>*/}
-
-                    <Col lg={12}>
-                      <div className="hstack gap-2 justify-content-end">
-                        <button type="submit" className="btn btn-primary">Updates</button>
-                        <button type="button" className="btn btn-soft-danger" onClick={() => cancel()}>Cancel</button>
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </Form>
-      </Container>
-    </div>
-    <ToastContainer />
-  </React.Fragment>
+      <ToastContainer />
+    </React.Fragment>
   );
 };
 
