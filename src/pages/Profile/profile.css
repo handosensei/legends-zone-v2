@@ -10,3 +10,10 @@ input[type=radio] + label>img {
     transition: 100ms all;
 }
 
+.minh-75 {
+    min-height: 75px;
+}
+
+.minh-50 {
+    min-height: 50px;
+}

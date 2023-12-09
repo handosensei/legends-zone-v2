@@ -13,6 +13,7 @@ function* editProfile({ payload: { user } }) {
     authUser.user = user;
     sessionStorage.setItem("authUser", JSON.stringify(authUser));
     yield put(profileSuccess(response));
+    window.location = process.env.PUBLIC_URL + "/profile";
   } catch (error) {
     yield put(profileError(error));
   }

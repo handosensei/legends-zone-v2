@@ -129,3 +129,13 @@ export const getVehicles = async () => {
   const url = `${apiUrl}vehicles`;
   return get(url);
 }
+
+export const usernameIsAvailable = async (username) => {
+  const url = `${apiUrl}users/username/${username}/is-available`;
+  return get(url);
+}
+
+export const emailIsAvailable = async (email) => {
+  const url = `${apiUrl}users/email/${email}/is-available`;
+  return get(url);
+}

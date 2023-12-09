@@ -100,52 +100,46 @@ const Profile = () => {
                     <h5 className="card-title mb-0 fs-5">Social networks</h5>
                   </CardHeader>
                   <CardBody>
-                    <div className="table-responsive">
-                      <table className="table table-borderless mb-0">
-                        <tbody className="align-middle">
-                          <tr>
-                            <th scope="row">
-                              <div className="avatar-xs d-block flex-shrink-0 me-3">
-                                <span className="avatar-title rounded-circle fs-5 bg-secondary text-light">
-                                  <i className="ri-linkedin-box-fill"></i>
-                                </span>
-                              </div>
-                            </th>
-                            <td className="text-muted fs-6">{linkedin}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">
-                              <div className="avatar-xs d-block flex-shrink-0 me-3">
-                                <span className="avatar-title rounded-circle fs-5 bg-info">
-                                  <i className="ri-twitter-fill"></i>
-                                </span>
-                              </div>
-                            </th>
-                            <td className="text-muted fs-6">{twitter}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">
-                              <div className="avatar-xs d-block flex-shrink-0 me-3">
-                                <span className="avatar-title rounded-circle fs-5 bg-primary">
-                                  <i className="ri-discord-fill"></i>
-                                </span>
-                              </div>
-                            </th>
-                            <td className="text-muted fs-6">{discord}</td>
-                          </tr>
-                          {/*<tr>*/}
-                          {/*  <th scope="row">*/}
-                          {/*    <div className="avatar-xs d-block flex-shrink-0 me-3">*/}
-                          {/*      <span className="avatar-title rounded-circle fs-5 bg-black">*/}
-                          {/*        <i className="ri-github-fill"></i>*/}
-                          {/*      </span>*/}
-                          {/*    </div>*/}
-                          {/*  </th>*/}
-                          {/*  <td className="text-muted fs-6"></td>*/}
-                          {/*</tr>*/}
-                        </tbody>
-                      </table>
-                    </div>
+
+                    <Row className="minh-50 align-items-center">
+                      <Col lg={2}>
+                        <div className="avatar-xs d-block flex-shrink-0 me-3">
+                          <span className="avatar-title rounded-circle fs-6 bg-secondary text-light">
+                            <i className="ri-linkedin-box-fill"></i>
+                          </span>
+                        </div>
+                      </Col>
+                      <Col lg={10}>
+                        <div className="text-muted fs-6">{linkedin}</div>
+                      </Col>
+                    </Row>
+
+                    <Row className="minh-50 align-items-center">
+                      <Col lg={2}>
+                        <div className="avatar-xs d-block flex-shrink-0 me-3">
+                          <span className="avatar-title rounded-circle fs-6 bg-info">
+                            <i className="ri-twitter-fill"></i>
+                          </span>
+                        </div>
+                      </Col>
+                      <Col lg={10}>
+                        <div className="text-muted fs-6">{twitter}</div>
+                      </Col>
+                    </Row>
+
+                    <Row className="minh-50 align-items-center">
+                      <Col lg={2}>
+                        <div className="avatar-xs d-block flex-shrink-0 me-3">
+                          <span className="avatar-title rounded-circle fs-6 bg-primary">
+                            <i className="ri-discord-fill"></i>
+                          </span>
+                        </div>
+                      </Col>
+                      <Col lg={10}>
+                        <div className="text-muted fs-6">{discord}</div>
+                      </Col>
+                    </Row>
+
                   </CardBody>
                 </Card>
               </Col>
@@ -156,51 +150,52 @@ const Profile = () => {
                     <h5 className="card-title mb-0 fs-5">Informations</h5>
                   </CardHeader>
                   <CardBody className="p-4">
-                    <Row>
-
-
+                    <Row className="minh-75">
                       <Col lg={6}>
                         <div className="mb-3">
-                          <Label htmlFor="firstnameInput" className="form-label fs-5">Firstname</Label>
-                          <div className="text-muted fs-5">{firstname}</div>
-                        </div>
-
-                      </Col>
-                      <Col lg={6}>
-                        <div className="mb-3">
-                          <Label htmlFor="lastnameInput" className="form-label fs-5">Lastname</Label>
-                          <div className="text-muted fs-5">{lastname}</div>
+                          <Label htmlFor="firstnameInput" className="form-label fs-6">Firstname</Label>
+                          <div className="text-muted fs-6">{firstname}</div>
                         </div>
                       </Col>
-
                       <Col lg={6}>
                         <div className="mb-3">
-                          <Label htmlFor="firstnameInput" className="form-label fs-5">Username</Label>
-                          <div className="text-muted fs-5">{username}</div>
+                          <Label htmlFor="lastnameInput" className="form-label fs-6">Lastname</Label>
+                          <div className="text-muted fs-6">{lastname}</div>
+                        </div>
+                      </Col>
+                    </Row>
+                    <Row className="minh-75">
+                      <Col lg={6}>
+                        <div className="mb-3">
+                          <Label htmlFor="firstnameInput" className="form-label fs-6">Username</Label>
+                          <div className="text-muted fs-6">{username}</div>
                         </div>
                       </Col>
 
                       <Col lg={6}>
                         <div className="mb-3">
-                          <Label htmlFor="emailInput" className="form-label fs-5">Email</Label>
-                          <div className="text-muted fs-5">{email}</div>
+                          <Label htmlFor="emailInput" className="form-label fs-6">Email</Label>
+                          <div className="text-muted fs-6">{email}</div>
                         </div>
                       </Col>
-
+                    </Row>
+                    <Row className="minh-75">
                       <Col lg={6}>
                         <div className="mb-3">
-                          <Label htmlFor="designationInput" className="form-label fs-5">Designation</Label>
-                          <div className="text-muted fs-5">{designation}</div>
+                          <Label htmlFor="designationInput" className="form-label fs-6">Designation</Label>
+                          <div className="text-muted fs-6">{designation}</div>
                         </div>
                       </Col>
-
+                    </Row>
+                    <Row className="minh-75">
                       <Col lg={12}>
                         <div className="mb-3 pb-2">
-                          <Label htmlFor="bioTextarea" className="form-label fs-5">Bio</Label>
-                          <div className="text-muted fs-5">{bio}</div>
+                          <Label htmlFor="bioTextarea" className="form-label fs-6">Bio</Label>
+                          <div className="text-muted fs-6">{bio}</div>
                         </div>
                       </Col>
-
+                    </Row>
+                    <Row>
                       <Col lg={12}>
                         <div className="hstack gap-2 justify-content-end">
                           <Link to="/profile/edit" className="btn btn-success">
