@@ -92,7 +92,7 @@ const Edit = () => {
       }
 
       if (values.email !== email) {
-        const res = emailIsAvailable(values.email);
+        const res = await emailIsAvailable(values.email);
         if (!res.isAvailable) {
           toast("Email is not available", {
             position: "top-right",
