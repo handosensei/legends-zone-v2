@@ -11,6 +11,7 @@ const Navdata = () => {
     const [isProgress, setIsProgress] = useState(false);
     const [isClaimLZRewards, setIsClaimLZRewards] = useState(false);
     const [isClaimPerks, setIsClaimPerks] = useState(false);
+    const [isHolder, setIsHolder] = useState(false);
 
     function updateIconSidebar(e) {
         if (e && e.target && e.target.getAttribute("subitems")) {
@@ -41,6 +42,9 @@ const Navdata = () => {
         if (iscurrentState !== 'Claim Perks') {
             setIsClaimPerks(false);
         }
+        if (iscurrentState !== 'Holders') {
+            setIsHolder(false);
+        }
 
     }, [
         history,
@@ -48,6 +52,8 @@ const Navdata = () => {
         isDashboard,
         isProgress,
         isClaimLZRewards
+        isClaim,
+        isHolder
     ]);
 
     const menuItems = [
@@ -55,7 +61,6 @@ const Navdata = () => {
             label: "Menu",
             isHeader: true,
         }, {
-
             id: "dashboard",
             label: "Dashboards",
             icon: "ri-dashboard-2-line",
@@ -138,6 +143,26 @@ const Navdata = () => {
             ]
         }
     ];
+
+    const authUser = JSON.parse(sessionStorage.getItem("authUser"));
+
+    if (authUser.user.isModo) {
+        menuItems.push({
+            label: "Modo",
+            isHeader: true,
+        });
+        menuItems.push({
+            id: "holder",
+            label: "Holders",
+            icon: "ri-shield-user-line",
+            link: "/holders",
+            stateVariables: isHolder,
+            click: function (e) {
+                e.preventDefault();
+                setIscurrentState('Holders');
+            }
+        });
+    }
 
     return <React.Fragment>{menuItems}</React.Fragment>;
 };

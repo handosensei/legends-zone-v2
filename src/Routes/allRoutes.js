@@ -232,6 +232,7 @@ import HealingDrone from "../pages/Claim/HealingDrones";
 import Vehicle from "../pages/Claim/Vehicles";
 import Residence from "../pages/Claim/Residences";
 import Armor from "../pages/Claim/Armors";
+import Holder from "../pages/Holder";
 
 const authProtectedRoutes = [
 
@@ -247,6 +248,7 @@ const authProtectedRoutes = [
   { path: "/index", component: <DashboardZone /> },
   { path: "/profile", component: <Profile /> },
   { path: "/profile/edit", component: <ProfileEdit /> },
+  { path: "/holders", component: <Holder /> },
   { path: "/sensei", component: <EnvParameters /> },
   //
   // { path: "/dashboard-crypto", component: <DashboardCrypto /> },
