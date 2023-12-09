@@ -7,7 +7,8 @@ import {
   Container,
   Form,
   Label,
-  Row
+  Row,
+  Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import BreadCrumb from '../../Components/Common/BreadCrumb';
@@ -219,6 +220,53 @@ const Profile = () => {
                         </div>
                       </Col>
                     </Row>
+
+                    {/*<Row>*/}
+                    {/*  <Col lg={12}>*/}
+                    {/*    <div className="mt-4 mb-3 border-bottom pb-2">*/}
+                    {/*      <div className="float-end">*/}
+                    {/*        <Button className="btn-sm btn-soft-primary">*/}
+                    {/*          Add wallet*/}
+                    {/*        </Button>*/}
+                    {/*      </div>*/}
+                    {/*      <h5 className="card-title">Wallets</h5>*/}
+                    {/*    </div>*/}
+
+                    {/*    <div className="d-flex align-items-center mb-3">*/}
+                    {/*      <div className="flex-shrink-0 avatar-sm">*/}
+                    {/*        <div className="avatar-title bg-light text-primary rounded-3 fs-18">*/}
+                    {/*          <i className="ri-fingerprint-line"></i>*/}
+                    {/*        </div>*/}
+                    {/*      </div>*/}
+                    {/*      <div className="flex-grow-1 ms-3">*/}
+                    {/*        <p className="text-muted mb-0">0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd</p>*/}
+                    {/*      </div>*/}
+                    {/*      <div className="hstack gap-2 mt-4 mt-sm-0">*/}
+                    {/*        <button type="button" className="btn btn-outline-warning btn-icon waves-effect waves-light"><i*/}
+                    {/*        className="ri-star-fill"></i></button>*/}
+                    {/*        <button type="button" className="btn btn-outline-primary btn-icon waves-effect waves-light"><i*/}
+                    {/*        className="ri-delete-bin-fill"></i></button>*/}
+                    {/*      </div>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="d-flex align-items-center mb-3">*/}
+                    {/*      <div className="flex-shrink-0 avatar-sm">*/}
+                    {/*        <div className="avatar-title bg-light text-primary rounded-3 fs-18">*/}
+                    {/*          <i className="ri-fingerprint-line"></i>*/}
+                    {/*        </div>*/}
+                    {/*      </div>*/}
+                    {/*      <div className="flex-grow-1 ms-3">*/}
+                    {/*        <p className="text-muted mb-0">0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd</p>*/}
+                    {/*      </div>*/}
+                    {/*      <div className="hstack gap-2 mt-4 mt-sm-0">*/}
+                    {/*        <button type="button" className="btn btn-outline-warning btn-icon waves-effect waves-light"><i*/}
+                    {/*        className="ri-star-line"></i></button>*/}
+                    {/*        <button type="button" className="btn btn-outline-primary btn-icon waves-effect waves-light"><i*/}
+                    {/*        className="ri-delete-bin-fill"></i></button>*/}
+                    {/*      </div>*/}
+                    {/*    </div>*/}
+                    {/*  </Col>*/}
+                    {/*</Row>*/}
+
                     <Row>
                       <Col lg={12}>
                         <div className="hstack gap-2 justify-content-end">
