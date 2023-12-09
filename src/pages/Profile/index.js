@@ -102,40 +102,40 @@ const Profile = () => {
                   <CardBody>
 
                     <Row className="minh-50 align-items-center">
-                      <Col lg={2}>
+                      <Col lg={2} xs={2}>
                         <div className="avatar-xs d-block flex-shrink-0 me-3">
                           <span className="avatar-title rounded-circle fs-6 bg-secondary text-light">
                             <i className="ri-linkedin-box-fill"></i>
                           </span>
                         </div>
                       </Col>
-                      <Col lg={10}>
+                      <Col lg={10} xs={10}>
                         <div className="text-muted fs-6">{linkedin}</div>
                       </Col>
                     </Row>
 
                     <Row className="minh-50 align-items-center">
-                      <Col lg={2}>
+                      <Col lg={2} xs={2}>
                         <div className="avatar-xs d-block flex-shrink-0 me-3">
                           <span className="avatar-title rounded-circle fs-6 bg-info">
                             <i className="ri-twitter-fill"></i>
                           </span>
                         </div>
                       </Col>
-                      <Col lg={10}>
+                      <Col lg={10} xs={10}>
                         <div className="text-muted fs-6">{twitter}</div>
                       </Col>
                     </Row>
 
                     <Row className="minh-50 align-items-center">
-                      <Col lg={2}>
+                      <Col lg={2} xs={2}>
                         <div className="avatar-xs d-block flex-shrink-0 me-3">
                           <span className="avatar-title rounded-circle fs-6 bg-primary">
                             <i className="ri-discord-fill"></i>
                           </span>
                         </div>
                       </Col>
-                      <Col lg={10}>
+                      <Col lg={10} xs={10}>
                         <div className="text-muted fs-6">{discord}</div>
                       </Col>
                     </Row>
