@@ -477,7 +477,12 @@ const Edit = () => {
                         <Col>
                           <FormGroup className="mb-3">
                             <Label htmlFor="validationCustom06" className="form-label fs-6">Bio</Label>
-                            <textarea name="bio" className="form-control" id="validationCustom06"></textarea>
+                            <textarea name="bio" className="form-control" id="validationCustom06"
+                                      onChange={validation.handleChange}
+                                      onBlur={validation.handleBlur}
+                                      value={validation.values.bio || ""}
+                            >
+                            </textarea>
                           </FormGroup>
                         </Col>
                       </Row>
