@@ -19,6 +19,7 @@ import {toast, ToastContainer} from "react-toastify";
 
 import {useDispatch} from "react-redux";
 import {editProfile} from "../../store/auth/profile/actions";
+import {WEB3_PROFILS} from "../../enum/Web3profil";
 
 const Profile = () => {
 
@@ -206,7 +207,7 @@ const Profile = () => {
                       <Col lg={6}>
                         <div className="mb-3">
                           <Label htmlFor="profileWeb3Input" className="form-label fs-6">Web3 Profil</Label>
-                          <div className="text-muted fs-6">{web3Profil}</div>
+                          <div className="text-muted fs-6">{WEB3_PROFILS[web3Profil]}</div>
                         </div>
                       </Col>
                     </Row>
