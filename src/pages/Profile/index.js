@@ -32,6 +32,8 @@ const Profile = () => {
   const [linkedin, setLinkedin] = useState('');
   const [twitter, setTwitter] = useState('');
   const [discord, setDiscord] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [web3Profil, setWeb3Profil] = useState('');
   const [inputs, setInputs] = useState({});
 
   const dispatch = useDispatch();
@@ -59,9 +61,11 @@ const Profile = () => {
     setEmail(user.email ?? '');
     setBio(user.bio ?? '');
     setProfilePicture(user.profilePicture ?? defaultPfp);
+    setWeb3Profil(user.web3Profil ?? '');
     setLinkedin(user.linkedin ?? '');
     setTwitter(user.twitter ?? '');
     setDiscord(user.discord ?? '');
+    setInstagram(user.instagram ?? '');
     setInputs(user);
   }
 
@@ -104,8 +108,8 @@ const Profile = () => {
                     <Row className="minh-50 align-items-center">
                       <Col lg={2} xs={2}>
                         <div className="avatar-xs d-block flex-shrink-0 me-3">
-                          <span className="avatar-title rounded-circle fs-6 bg-secondary text-light">
-                            <i className="ri-linkedin-box-fill"></i>
+                          <span className="avatar-title rounded-circle fs-5 bg-light">
+                            <i className="bx bxl-linkedin"></i>
                           </span>
                         </div>
                       </Col>
@@ -117,7 +121,7 @@ const Profile = () => {
                     <Row className="minh-50 align-items-center">
                       <Col lg={2} xs={2}>
                         <div className="avatar-xs d-block flex-shrink-0 me-3">
-                          <span className="avatar-title rounded-circle fs-6 bg-info">
+                          <span className="avatar-title rounded-circle fs-5 bg-light">
                             <i className="ri-twitter-fill"></i>
                           </span>
                         </div>
@@ -130,13 +134,26 @@ const Profile = () => {
                     <Row className="minh-50 align-items-center">
                       <Col lg={2} xs={2}>
                         <div className="avatar-xs d-block flex-shrink-0 me-3">
-                          <span className="avatar-title rounded-circle fs-6 bg-primary">
+                          <span className="avatar-title rounded-circle fs-5 bg-light">
                             <i className="ri-discord-fill"></i>
                           </span>
                         </div>
                       </Col>
                       <Col lg={10} xs={10}>
                         <div className="text-muted fs-6">{discord}</div>
+                      </Col>
+                    </Row>
+
+                    <Row className="minh-50 align-items-center">
+                      <Col lg={2} xs={2}>
+                        <div className="avatar-xs d-block flex-shrink-0 me-3">
+                          <span className="avatar-title rounded-circle fs-5 bg-light">
+                            <i className="ri-instagram-fill"></i>
+                          </span>
+                        </div>
+                      </Col>
+                      <Col lg={10} xs={10}>
+                        <div className="text-muted fs-6">{instagram}</div>
                       </Col>
                     </Row>
 
@@ -184,6 +201,12 @@ const Profile = () => {
                         <div className="mb-3">
                           <Label htmlFor="designationInput" className="form-label fs-6">Designation</Label>
                           <div className="text-muted fs-6">{designation}</div>
+                        </div>
+                      </Col>
+                      <Col lg={6}>
+                        <div className="mb-3">
+                          <Label htmlFor="profileWeb3Input" className="form-label fs-6">Web3 Profil</Label>
+                          <div className="text-muted fs-6">{web3Profil}</div>
                         </div>
                       </Col>
                     </Row>

@@ -43,9 +43,11 @@ const Edit = () => {
   const [designation, setDesignation] = useState('');
   const [email, setEmail] = useState('');
   const [bio, setBio] = useState('');
+  const [web3Profil, setWeb3Profil] = useState('');
   const [linkedin, setLinkedin] = useState('');
   const [twitter, setTwitter] = useState('');
   const [discord, setDiscord] = useState('');
+  const [instagram, setInstagram] = useState('');
 
   const dispatch = useDispatch();
 
@@ -61,11 +63,13 @@ const Edit = () => {
       username: username,
       email: email,
       profilePicture: profilePicture,
+      web3Profil: web3Profil,
       designation: designation,
       bio: bio,
       linkedin: linkedin,
       discord: discord,
       twitter: twitter,
+      instagram: instagram,
     },
     validationSchema: Yup.object({
       firstname: Yup.string().nullable(),
@@ -74,10 +78,12 @@ const Edit = () => {
       email: Yup.string().email().required("Please enter your email"),
       designation: Yup.string().nullable(),
       profilePicture: Yup.string().nullable(),
+      setWeb3Profil: Yup.string().nullable(),
       bio: Yup.string().nullable(),
       linkedin: Yup.string().nullable(),
       discord: Yup.string().nullable(),
       twitter: Yup.string().nullable(),
+      instagram: Yup.string().nullable(),
     }),
     onSubmit: async (values) => {
       if (values.username !== username) {
@@ -122,9 +128,11 @@ const Edit = () => {
     setEmail(user.email ?? '');
     setBio(user.bio ?? '');
     setProfilePicture(user.profilePicture ?? defaultPfp);
+    setWeb3Profil(user.web3Profil ?? '');
     setLinkedin(user.linkedin ?? '');
     setTwitter(user.twitter ?? '');
     setDiscord(user.discord ?? '');
+    setInstagram(user.instagram ?? '');
     setInputs(user);
   }
 
@@ -239,7 +247,7 @@ const Edit = () => {
                   <CardBody>
                     <div className="mb-3 d-flex">
                       <div className="avatar-xs d-block flex-shrink-0 me-3">
-                      <span className="avatar-title rounded-circle fs-16 bg-secondary text-light">
+                      <span className="avatar-title rounded-circle fs-16 bg-light">
                           <i className="ri-linkedin-box-fill"></i>
                       </span>
                       </div>
@@ -266,11 +274,9 @@ const Edit = () => {
                       ) : null}
                     </div>
 
-
-
                     <div className="mb-3 d-flex">
                       <div className="avatar-xs d-block flex-shrink-0 me-3">
-                      <span className="avatar-title rounded-circle fs-16 bg-info">
+                      <span className="avatar-title rounded-circle fs-16 bg-light">
                           <i className="ri-twitter-fill"></i>
                       </span>
                       </div>
@@ -299,7 +305,7 @@ const Edit = () => {
 
                     <div className="mb-3 d-flex">
                       <div className="avatar-xs d-block flex-shrink-0 me-3">
-                      <span className="avatar-title rounded-circle fs-16 bg-primary">
+                      <span className="avatar-title rounded-circle fs-16 bg-light">
                           <i className="ri-discord-fill"></i>
                       </span>
                       </div>
@@ -325,6 +331,36 @@ const Edit = () => {
                         </FormFeedback>
                       ) : null}
                     </div>
+
+                    <div className="mb-3 d-flex">
+                      <div className="avatar-xs d-block flex-shrink-0 me-3">
+                      <span className="avatar-title rounded-circle fs-16 bg-light">
+                          <i className="ri-instagram-fill"></i>
+                      </span>
+                      </div>
+                      <Input
+                        name="instagram"
+                        type="text"
+                        className="form-control"
+                        id="linkedinInput"
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.instagram || ""}
+                        invalid={
+                          validation.touched.instagram &&
+                          validation.errors.instagram
+                            ? true
+                            : false
+                        }
+                      />
+                      {validation.touched.instagram &&
+                      validation.errors.instagram ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.instagram}
+                        </FormFeedback>
+                      ) : null}
+                    </div>
+
                   </CardBody>
                 </Card>
               </Col>
@@ -337,7 +373,7 @@ const Edit = () => {
                   <CardBody className="p-4">
                     <div className="live-preview">
                       <Row className="minh-75">
-                        <Col md="6">
+                        <Col lg={6}>
                           <FormGroup className="mb-3">
                             <Label htmlFor="validationCustom01" className="form-label fs-6">Firstname</Label>
                             <Input
@@ -364,7 +400,7 @@ const Edit = () => {
                           </FormGroup>
                         </Col>
 
-                        <Col md="6">
+                        <Col lg={6}>
                           <FormGroup className="mb-3">
                             <Label htmlFor="validationCustom02" className="form-label fs-6">Lastname</Label>
                             <Input
@@ -392,7 +428,7 @@ const Edit = () => {
                         </Col>
                       </Row>
                       <Row className="minh-75">
-                        <Col md="6">
+                        <Col lg={6}>
                           <FormGroup className="mb-3">
                             <Label htmlFor="validationCustom03" className="form-label fs-6">Username</Label>
                             <Input
@@ -418,7 +454,7 @@ const Edit = () => {
                             ) : null}
                           </FormGroup>
                         </Col>
-                        <Col md="6">
+                        <Col lg={6}>
                           <FormGroup className="mb-3">
                             <Label htmlFor="validationCustom04" className="form-label fs-6">Email</Label>
                             <Input
@@ -446,7 +482,7 @@ const Edit = () => {
                         </Col>
                       </Row>
                       <Row className="minh-75">
-                        <Col md="6">
+                        <Col lg={6}>
                           <FormGroup className="mb-3">
                             <Label htmlFor="validationCustom05" className="form-label fs-6">Designation</Label>
                             <Input
@@ -472,12 +508,48 @@ const Edit = () => {
                             ) : null}
                           </FormGroup>
                         </Col>
+
+                        <Col lg={6}>
+                          <FormGroup className="mb-3">
+                            <Label htmlFor="validationCustom06" className="form-label fs-6">Web3 Profil</Label>
+                            <Input
+                              name="web3Profil"
+                              type="select"
+                              className="form-control"
+                              id="validationCustom06"
+                              onChange={validation.handleChange}
+                              onBlur={validation.handleBlur}
+                              value={validation.values.web3Profil || ""}
+                              invalid={
+                                validation.touched.web3Profil &&
+                                validation.errors.web3Profil
+                                  ? true
+                                  : false
+                              }
+                            >
+                              <option value=''>-- Select your profil --</option>
+                              <option value="artist">Artist</option>
+                              <option value="community-manager">Community manager</option>
+                              <option value="founder">Founder</option>
+                              <option value="investor">Investor</option>
+                              <option value="it-expert">IT Expert</option>
+                              <option value="moderator">Moderator</option>
+                            </Input>
+                            {validation.touched.web3Profil &&
+                            validation.errors.web3Profil ? (
+                              <FormFeedback type="invalid">
+                                {validation.errors.web3Profil}
+                              </FormFeedback>
+                            ) : null}
+                          </FormGroup>
+                        </Col>
                       </Row>
+
                       <Row className="minh-75">
                         <Col>
                           <FormGroup className="mb-3">
-                            <Label htmlFor="validationCustom06" className="form-label fs-6">Bio</Label>
-                            <textarea name="bio" className="form-control" id="validationCustom06"
+                            <Label htmlFor="validationCustom07" className="form-label fs-6">Bio</Label>
+                            <textarea name="bio" className="form-control" id="validationCustom07"
                                       onChange={validation.handleChange}
                                       onBlur={validation.handleBlur}
                                       value={validation.values.bio || ""}
