@@ -200,8 +200,6 @@ import { Navigate } from "react-router-dom";
 // import Application from "../pages/Jobs/Application";
 // import CompaniesList from "../pages/Jobs/CompaniesList";
 //
-// //APi Key
-// import APIKey from "../pages/APIKey/index";
 //
 // import ChartsJs from "../pages/Charts/ChartsJs/index";
 // import Echarts from "../pages/Charts/ECharts/index";
@@ -264,11 +262,6 @@ const authProtectedRoutes = [
   // { path: "/apps-ecommerce-seller-details", component: <EcommerceSellerDetail /> },
   //
   // { path: "/apps-file-manager", component: <FileManager /> },
-  //
-  // //Api Key
-  // { path: "/apps-api-key", component: <APIKey /> },
-  //
-  //
   // //Chat
   // { path: "/apps-chat", component: <Chat /> },
   //
