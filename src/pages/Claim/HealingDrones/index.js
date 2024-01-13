@@ -14,7 +14,6 @@ import Claim from "./Claim";
 import SupplyData from "./SupplyData";
 
 import Web3 from "web3";
-import MetaLifeHealingDroneTestnet from "../../../contracts/testnet/healing-drone/MetaLifeHealingDrone.json";
 import MetaLifeHealingDrone from "../../../contracts/mainnet/healing-drone/MetaLifeHealingDrone.json";
 import IMG_NETWORKS_POLYGON from "../../../assets/images/metalegends/networks_polygon.png";
 
@@ -42,13 +41,6 @@ const HealingDrone = () => {
     }
 
     try {
-      if (networkId === 11155111) {
-        const contractDeployed = MetaLifeHealingDroneTestnet.networks[networkId];
-        const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeHealingDroneTestnet.abi, contractDeployed && contractDeployed.address);
-
-        return [instanceContractHoldingReward, accounts[0]];
-      }
-      // Mainnet: Polygon
       const contractDeployed = MetaLifeHealingDrone.networks[networkId];
       const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeHealingDrone.abi, contractDeployed && contractDeployed.address);
 
