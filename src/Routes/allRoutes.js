@@ -230,14 +230,16 @@ import Profile from '../pages/Profile';
 import ProfileEdit from '../pages/Profile/edit';
 import HealingDrone from "../pages/Claim/HealingDrones";
 import Vehicle from "../pages/Claim/Vehicles";
+import Armor from "../pages/Claim/Armors";
 
 const authProtectedRoutes = [
 
   { path: "/claim", component: <Claim /> },
-  { path: "/claim/og-pets", component: <Claim /> },
   { path: "/claim/holding-rewards", component: <HoldingRewards /> },
   { path: "/claim/healing-drones", component: <HealingDrone /> },
-  { path: "/claim/vehicles", component: <Vehicle /> },
+  { path: "/claim/og-armors", component: <Armor /> },
+  { path: "/claim/og-pets", component: <Claim /> },
+  { path: "/claim/og-vehicles", component: <Vehicle /> },
   { path: "/progress", component: <Progress /> },
   { path: "/dashboard", component: <DashboardZone /> },
   { path: "/index", component: <DashboardZone /> },

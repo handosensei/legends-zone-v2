@@ -6,9 +6,11 @@ const Navdata = () => {
     //state data
 
     const [iscurrentState, setIscurrentState] = useState('Dashboard');
-    const [isClaim, setIsClaim] = useState(false);
+
     const [isDashboard, setIsDashboard] = useState(false);
     const [isProgress, setIsProgress] = useState(false);
+    const [isClaimLZRewards, setIsClaimLZRewards] = useState(false);
+    const [isClaimPerks, setIsClaimPerks] = useState(false);
 
     function updateIconSidebar(e) {
         if (e && e.target && e.target.getAttribute("subitems")) {
@@ -33,8 +35,11 @@ const Navdata = () => {
         if (iscurrentState !== 'Progress') {
             setIsProgress(false);
         }
-        if (iscurrentState !== 'Claim') {
-            setIsClaim(false);
+        if (iscurrentState !== 'Claim LZ Rewards') {
+            setIsClaimLZRewards(false);
+        }
+        if (iscurrentState !== 'Claim Perks') {
+            setIsClaimPerks(false);
         }
 
     }, [
@@ -42,7 +47,7 @@ const Navdata = () => {
         iscurrentState,
         isDashboard,
         isProgress,
-        isClaim
+        isClaimLZRewards
     ]);
 
     const menuItems = [
@@ -70,40 +75,59 @@ const Navdata = () => {
                 setIscurrentState('Progress');
             }
         }, {
-            id: "claim",
-            label: "Claim",
+            id: "claim-lz-rewards",
+            label: "Claim LZ Rewards",
             icon: "ri-medal-2-fill",
             link: "/#",
             click: function (e) {
                 e.preventDefault();
-                setIsClaim(!isClaim);
-                setIscurrentState('Claim');
+                setIsClaimLZRewards(!isClaimLZRewards);
+                setIscurrentState('Claim LZ Rewards');
                 updateIconSidebar(e);
             },
-            stateVariables: isClaim,
-            subItems: [
-                {
-                    id: "ogpets",
-                    label: "OG Pets",
-                    link: "/claim/og-pets",
-                    parentId: "claim"
-                }, {
+            stateVariables: isClaimLZRewards,
+            subItems: [{
                     id: "holdingrewards",
-                    label: "Holding rewards",
+                    label: "Holding rewards S1",
                     link: "/claim/holding-rewards",
                     parentId: "claim"
-                },
-                {
+                },{
                     id: "healingdrones",
                     label: "Healing drones",
                     link: "/claim/healing-drones",
                     parentId: "claim"
+                }
+            ]
+        }, {
+            id: "claim-perks",
+            label: "Claim Perks",
+            icon: "bx bxs-invader",
+            link: "/#",
+            click: function (e) {
+                e.preventDefault();
+                setIsClaimPerks(!isClaimPerks);
+                setIscurrentState('Claim Perks');
+                updateIconSidebar(e);
+            },
+            stateVariables: isClaimPerks,
+            subItems: [
+                {
+                    id: "ogarmor",
+                    label: "OG Armors",
+                    link: "/claim/og-armors",
+                    parentId: "claim-perks"
                 },
                 {
-                    id: "vehicles",
-                    label: "Vehicles",
-                    link: "/claim/vehicles",
-                    parentId: "claim"
+                    id: "ogpets",
+                    label: "OG Pets",
+                    link: "/claim/og-pets",
+                    parentId: "claim-perks"
+                },
+                {
+                    id: "ogvehicles",
+                    label: "OG Vehicles",
+                    link: "/claim/og-vehicles",
+                    parentId: "claim-perks"
                 },
             ]
         }
