@@ -3,7 +3,7 @@ import {Col, Container, Modal, ModalBody, ModalHeader, Row} from "reactstrap";
 import IMG_NETWORKS_ETHEREUM from "../../../assets/images/metalegends/networks_ethereum.png";
 import BreadCrumb from "../../../Components/Common/BreadCrumb";
 import Player from "../../../Components/Player";
-import ClaimAsset from "./ClaimAsset";
+
 
 const Armor = () => {
 
