@@ -1,15 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Container, Modal, ModalBody, ModalHeader, Row} from "reactstrap";
+import {Card, CardBody, Col, Container, Modal, ModalBody, ModalHeader, Row} from "reactstrap";
 import IMG_NETWORKS_ETHEREUM from "../../../assets/images/metalegends/networks_ethereum.png";
 import BreadCrumb from "../../../Components/Common/BreadCrumb";
 import Player from "../../../Components/Player";
+import Rarity from "./Rarity";
+import Claim from "./Claim";
+import Web3 from "web3";
+import MetaLifeArmor from "../../../contracts/mainnet/og-armor/MetaLifeArmor.json";
+const contractAddress = "0xE091774B4a6d0990d0ba7d9478de6e00f7175f7f";
 
 
 const Armor = () => {
 
   const [modalInformation, setModalInformation] = useState(false);
-  const [contract, setContract] = useState(null);
   const [account, setAccount] = useState('');
+  const [supplyTotal, setSupplyTotal] = useState(0);
   const [classNamePlayer, setClassNamePlayer] = useState('');
   const [armorNameVideos, ] = useState(['1', '2', '3', '4', '5', '6']);
 
@@ -19,12 +24,57 @@ const Armor = () => {
 
   document.title = "Claim perk Armor | Legends Zone";
 
+  const toggleChangeNetworkNotification = () => {
+    setModalInformation(true);
+  }
+
+  const getWeb3Data = async () => {
+    const web3 = new Web3(window.ethereum);
+    const networkId = await web3.eth.net.getId();
+    const accounts = await web3.eth.getAccounts()
+
+    if (networkId !== 1) {
+      toggleChangeNetworkNotification();
+      return [null, accounts[0]];
+    }
+
+    const contractDeployed = {
+      "events": {},
+      "links": {},
+      "address": contractAddress,
+      "transactionHash": "0x6d79e3bca72a9d19caec939c21549b4139225e5b61ffe265afa402b30b4e82cc"
+    }
+
+    try {
+      const instance = new web3.eth.Contract(MetaLifeArmor, contractDeployed && contractAddress);
+      return [instance, accounts[0]];
+    } catch (error) {
+      // Catch any errors for any of the above operations.
+      console.log(
+        `Failed to load web3, accounts, or contract. Check console for details.`,
+      );
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
 
     var windowSize = document.documentElement.clientWidth;
     if (windowSize < 1200) {
       setClassNamePlayer('d-none');
     }
+
+    getWeb3Data().then((data) => {
+
+      setAccount(data[1]);
+
+      data[0].methods.totalSupply().call().then((res) => {
+        setSupplyTotal(res);
+      });
+
+    }).catch((err) => {
+      console.error(err);
+    });
 
   }, []);
 
@@ -46,23 +96,42 @@ const Armor = () => {
         <Container fluid>
           <BreadCrumb title="Armors" pageTitle="Claim"/>
           <Row>
-            <Col xl="6" className={classNamePlayer}>
+
+            <Col xl="5" className={classNamePlayer}>
               <Player videos={armorNameVideos} path={URL_MP4}/>
             </Col>
 
-            <Col xl="6">
-              {/*<Row>*/}
-              {/*  <ClaimAsset contract={contract} account={account} title="Perk package + OG" func="random"/>*/}
-              {/*  <ClaimAsset contract={contract} account={account} title="Council" func="council"/>*/}
-              {/*</Row>*/}
-            {/*  <Row>*/}
-            {/*    <ClaimAsset contract={contract} account={account} title="Honorary" func="honorary" />*/}
-            {/*    <ClaimAsset contract={contract} account={account} title="Whale" func="whale" />*/}
-            {/*  </Row>*/}
-            {/*  <Row>*/}
-            {/*    <ClaimAssetSingle contract={contract} account={account} title="Judge" func="judge" />*/}
-            {/*    <ClaimAssetSingle contract={contract} account={account} title="Guardian" func="guardian" />*/}
-            {/*  </Row>*/}
+            <Col xl="7">
+              <Card>
+                <CardBody>
+                  <h2>OG Armors</h2>
+
+                  <Row className="mt-5">
+                    <Col lg={6} sm={6}>
+                      <div className="p-2 border border-dashed rounded text-center">
+                        <div>
+                          <p className="text-muted fw-medium mb-1">Supply :</p>
+                          <h4 className="fs-20 mb-0">
+                            <i className="mdi mdi-panorama-sphere-outline me-1"></i> {supplyTotal}/1661
+                          </h4>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
+
+                  <div className="mt-5 text-muted">
+                    <h5 className="fs-14">Description :</h5>
+                    <p>
+                      The Meta-Life Armors is the first perks for holders who minted their NFT Legends at least 0.5 ETH.
+                    </p>
+                    <p>
+                      Open this <a href="https://docs.google.com/spreadsheets/d/1ZXiERq44tG6FZsKtrHrrOMZ1vJazHxKPKkBalzg8Aas/edit?usp=sharing" target="_blank" rel="noreferrer">Google sheet file</a> to find out if you are eligible
+                    </p>
+                  </div>
+                  <Rarity />
+                  <Claim account={account} />
+                </CardBody>
+              </Card>
             </Col>
 
           </Row>
