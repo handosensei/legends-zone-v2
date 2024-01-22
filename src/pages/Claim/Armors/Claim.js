@@ -29,7 +29,7 @@ const Claim = ({account}) => {
           className: 'bg-success text-white' });
     } catch (err) {
       console.log(err);
-      toast("Armor NFT failed",
+      toast("Mint armor NFT failed",
         {
           position: "top-right",
           hideProgressBar: true,
