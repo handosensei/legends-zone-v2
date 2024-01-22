@@ -33,7 +33,7 @@ const Claim = ({account}) => {
         {
           position: "top-right",
           hideProgressBar: true,
-          className: 'bg-error text-white' });
+          className: 'bg-danger text-white' });
     }
   }
 
