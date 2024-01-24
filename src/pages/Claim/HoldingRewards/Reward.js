@@ -112,7 +112,7 @@ const Reward = ({asset, contract, account}) => {
       });
 
     if (claimed === 0) {
-      return (<span className="text-success">{claimed}</span>)
+      return (<span className="text-muted">{claimed}</span>)
     }
 
     return (<span className="text-white">{claimed}</span>)
