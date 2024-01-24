@@ -9,6 +9,7 @@ const OPENSEA_HREWARD_ITEM_URL = `https://opensea.io/assets/matic/${CONTRACT_LZ_
 const Reward = ({asset, contract, account}) => {
   const [counter, setCounter] = useState(0);
   const [remainingToClaim, setRemainingToClaim] = useState(0);
+  const [claimed, setClaimed] = useState(0);
   const [quantityMinted, setQuantityMinted] = useState(0);
   const [tokenIdMinted, setTokenIdMinted] = useState(null);
   const [modalMinted, setModalMinted] = useState(false);
@@ -72,8 +73,8 @@ const Reward = ({asset, contract, account}) => {
     }
     if (!('methods' in contract)) {
       return 0;
-    }    
-    
+    }
+
     contract.methods.remaining(account, asset.tokenId).call()
       .then((res) => {
         setRemainingToClaim(res);
@@ -92,6 +93,29 @@ const Reward = ({asset, contract, account}) => {
     return (
     <span className="text-muted">{restToClaim}</span>
     );
+  }
+
+  const Minted = () => {
+    if (contract === null) {
+      return 0;
+    }
+    if (!('methods' in contract)) {
+      return 0;
+    }
+
+    contract.methods.holderEligibilities(account, asset.tokenId).call()
+      .then((res) => {
+        setClaimed(res.claimed);
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+
+    if (claimed === 0) {
+      return (<span className="text-success">{claimed}</span>)
+    }
+
+    return (<span className="text-white">{claimed}</span>)
   }
 
   function countUp(prev_data_attr) {
@@ -202,6 +226,12 @@ const Reward = ({asset, contract, account}) => {
             Claim saved
             <div className="flex-shrink-0">
               <Quantity quantity={asset.quantitySaved} />
+            </div>
+          </div>
+          <div className="list-group-item d-flex justify-content-between align-items-center">
+            Minted
+            <div className="flex-shrink-0">
+              <Minted />
             </div>
           </div>
           <div className="list-group-item d-flex justify-content-between align-items-center">
