@@ -15,7 +15,6 @@ import Reward from "./Reward";
 import {getLegends, holdingRewardEstimate, getHoldingRewardsSaved} from "../../../client/ApiMetaLegends";
 import {wait} from "@testing-library/user-event/dist/utils";
 import Web3 from "web3";
-import MetaLifeHoldingReward from "../../../contracts/testnet/holding-reward/MetaLifeHoldingReward.json";
 import MetaLifeLZReward from "../../../contracts/mainnet/lz-rewards/LegendsZoneRewards.json";
 import {
   LZREWARD_RIBBON_CYBER_WEAPON,
@@ -53,13 +52,6 @@ const HoldingRewards = () => {
     }
 
     try {
-      if (networkId === 11155111) {
-        const contractDeployed = MetaLifeHoldingReward.networks[networkId];
-        const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeHoldingReward.abi, contractDeployed && contractDeployed.address);
-
-        return [instanceContractHoldingReward, accounts[0]];
-      }
-      // Mainnet: Polygon
       const contractDeployed = MetaLifeLZReward.networks[networkId];
       const instanceContractHoldingReward = new web3.eth.Contract(MetaLifeLZReward.abi, contractDeployed && contractDeployed.address);
 

@@ -129,6 +129,12 @@ const Navdata = () => {
                     link: "/claim/og-vehicles",
                     parentId: "claim-perks"
                 },
+                {
+                    id: "ogressidences",
+                    label: "OG Residences",
+                    link: "/claim/og-residences",
+                    parentId: "claim-perks"
+                },
             ]
         }
     ];
