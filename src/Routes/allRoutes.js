@@ -374,12 +374,6 @@ const authProtectedRoutes = [
   // { path: "/forms-advanced", component: <FormAdvanced /> },
   // { path: "/forms-select2", component: <Select2 /> },
   //
-  // //Tables
-  // { path: "/tables-basic", component: <BasicTables /> },
-  // { path: "/tables-gridjs", component: <GridTables /> },
-  // { path: "/tables-listjs", component: <ListTables /> },
-  // { path: "/tables-datatables", component: <DataTables /> },
-  //
   // //Icons
   // { path: "/icons-remix", component: <RemixIcons /> },
   // { path: "/icons-boxicons", component: <BoxIcons /> },
