@@ -5,8 +5,7 @@ import BreadCrumb from "../../../Components/Common/BreadCrumb";
 import Player from "../../../Components/Player";
 import Claim from "./Claim";
 
-import MetaLifeResidence from "../../../contracts/testnet/og-residence/MetaLifeResidence.json";
-// import MetaLifeResidence from "../../../contracts/mainnet/og-residence/MetaLifeResidence.json";
+import MetaLifeResidence from "../../../contracts/mainnet/og-residence/MetaLifeResidence.json";
 import Web3 from "web3";
 
 const Residence = () => {
@@ -55,13 +54,14 @@ const Residence = () => {
     contract.methods.totalSupply().call().then((res) => {
       setSupply(res);
     });
+
+    return supply;
   }
 
   useEffect(() => {
     getWeb3Data().then((data) => {
       setContract(data[0]);
       setAccount(data[1]);
-      getSupply()
     }).catch((err) => {
       console.error(err)
     });
@@ -88,7 +88,7 @@ const Residence = () => {
                         <div>
                           <p className="text-muted fw-medium mb-1">Supply :</p>
                           <h4 className="fs-20 mb-0">
-                            <i className="mdi mdi-panorama-sphere-outline me-1"></i> {supply} / 700
+                            <i className="mdi mdi-panorama-sphere-outline me-1"></i> {getSupply()} / 700
                           </h4>
                         </div>
                       </div>
