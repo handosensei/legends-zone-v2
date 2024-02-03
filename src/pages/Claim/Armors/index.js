@@ -16,7 +16,7 @@ const Armor = () => {
   const [account, setAccount] = useState('');
   const [supplyTotal, setSupplyTotal] = useState(0);
   const [classNamePlayer, setClassNamePlayer] = useState('');
-  const [armorNameVideos, ] = useState(['1', '2', '3', '4', '5', '6']);
+  const [armorNameVideos, ] = useState(['1.mp4', '2.mp4', '3.mp4', '4.mp4', '5.mp4', '6.mp4']);
 
   const ML_IPFS = 'https://metalegends.mypinata.cloud/ipfs/';
   const ARMOR_CID = 'QmWhLmvNXqkTajFZYDWXLBKUBArxadaLsqwWKC5aC6m8YH/mp4';

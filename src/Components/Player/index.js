@@ -16,7 +16,7 @@ function Player({videos, path}) {
     const sources = [];
     videos.forEach((nameVideo) => {
       const source = {
-        src: `${path}/${nameVideo}.mp4`,
+        src: `${path}/${nameVideo}`,
         type: 'video/mp4'
       }
       sources.push(source);
