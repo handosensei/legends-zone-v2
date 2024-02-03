@@ -21,13 +21,10 @@ const CardOgVehicle = () => {
         <Card>
           <CardBody>
             <h6 className="mb-2">
-              OG Vehicle <span className="text-secondary">#{vehicle.tokenId}</span>
+              Vehicle <span className="text-secondary">#{vehicle.tokenId}</span>
             </h6>
           </CardBody>
           <img className="img-fluid" src={vehicle.image} alt={`OG Vehicle #${vehicle.tokenId}`} />
-          <div className="card-footer">
-            <p className="text-muted mb-0">{vehicle.name}</p>
-          </div>
         </Card>
       </Col>
       ))}

@@ -21,7 +21,7 @@ const CardOgPet = () => {
         <Card>
           <CardBody>
             <h6 className="mb-2">
-              OG Pet <span className="text-secondary">#{pet.tokenId}</span>
+              Pet <span className="text-secondary">#{pet.tokenId}</span>
             </h6>
           </CardBody>
           <img className="img-fluid" src={pet.image} alt={`OG Pet #${pet.tokenId}`} />

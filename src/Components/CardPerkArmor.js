@@ -14,7 +14,7 @@ const CardPerkArmor = () => {
 
     return (<>
       <div className="justify-content-between d-flex align-items-center mt-3 mb-4">
-        <h5 className="mb-0 pb-1 ">Perk Armors collection</h5>
+        <h5 className="mb-0 pb-1 ">Perk OG Armors collection</h5>
       </div>
       {perkArmors.map((armor, key) => (
         <Col key={key} sm={4} md={3} xl={2} xxl={1}>
