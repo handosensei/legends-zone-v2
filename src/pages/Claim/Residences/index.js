@@ -1,54 +1,27 @@
 import React, {useEffect, useState} from 'react';
+import {Card, CardBody, Col, Container, Row} from "reactstrap";
 
 import BreadCrumb from "../../../Components/Common/BreadCrumb";
 import Player from "../../../Components/Player";
-
-import Web3 from "web3";
+import Claim from "./Claim";
 
 import MetaLifeResidence from "../../../contracts/testnet/og-residence/MetaLifeResidence.json";
 // import MetaLifeResidence from "../../../contracts/mainnet/og-residence/MetaLifeResidence.json";
-import {Card, CardBody, Col, Container, Row} from "reactstrap";
-import SupplyData from "../HealingDrones/SupplyData";
-import Rarity from "../HealingDrones/Rarity";
-import Claim from "../HealingDrones/Claim";
-
+import Web3 from "web3";
 
 const Residence = () => {
 
   const ML_IPFS = 'https://metalegends.mypinata.cloud/ipfs/';
-  const ARMOR_CID = 'QmWN5FodCoeCmLVCfr8bYhrKrdKqh4vMUy8FTmLk8diQU7/mp4';
-  const URL_MP4 = `${ML_IPFS}${ARMOR_CID}`
+  const RESIDENCE_DEMO_CID = 'QmVk2zayexHG23igKa5FTHRD8E2UfKTygywTTsktmuBzF1';
+  const URL_MP4 = `${ML_IPFS}${RESIDENCE_DEMO_CID}`
 
   document.title = "Claim perk \"OG Residence\" | Legends Zone";
 
   const [contract, setContract] = useState({});
   const [account, setAccount] = useState('');
   const [supply, setSupply] = useState(0);
-  const residenceList = [
-    '01-rough-compact',
-    '02-rough-comfortable',
-    '03-rough-grand',
-    '04-cyber-compact',
-    '05-cyber-comfortable',
-    '06-cyber-grand',
-    '07-matrix-compact',
-    '08-matrix-comfortable',
-    '09-matrix-grand',
-    '10-goldboi-compact',
-    '11-goldboi-comfortable',
-    '12-goldboi-grand',
-    '13-roboter-compact',
-    '14-roboter-comfortable',
-    '15-roboter-grand',
-    '16-burner-compact',
-    '17-burner-comfortable',
-    '18-burner-grand',
-    '19-celestial-compact',
-    '20-celestial-comfortable',
-    '21-celestial-grand'
-  ];
-  const residenceNameVideos = residenceList.sort((a, b) => 0.5 - Math.random());
-/*
+  const residenceList = [''];
+
   const getWeb3Data = async () => {
     const web3 = new Web3(window.ethereum);
     const networkId = await web3.eth.net.getId();
@@ -72,15 +45,28 @@ const Residence = () => {
     }
   };
 
+  const getSupply = () => {
+    if (contract == null) {
+      return;
+    }
+    if (contract.methods === undefined) {
+      return;
+    }
+    contract.methods.totalSupply().call().then((res) => {
+      setSupply(res);
+    });
+  }
+
   useEffect(() => {
     getWeb3Data().then((data) => {
       setContract(data[0]);
       setAccount(data[1]);
+      getSupply()
     }).catch((err) => {
       console.error(err)
     });
   }, []);
-*/
+
   return (
     <React.Fragment>
       <div className="page-content">
@@ -88,7 +74,7 @@ const Residence = () => {
           <BreadCrumb title="OG Residence" pageTitle="Claim perk"/>
           <Row>
             <Col xl="5">
-              <Player videos={residenceNameVideos} path={URL_MP4}/>
+              <Player videos={residenceList} path={URL_MP4}/>
             </Col>
 
             <Col xl="7">
@@ -119,9 +105,19 @@ const Residence = () => {
                     </p>
                   </div>
 
-                  {/*<Rarity />*/}
+                  <div className="product-content mt-5">
+                    <h5 className="fs-14">Rarity description :</h5>
+                    <p className="text-muted">
+                      Each class has 100 residences with 3 types of area:
+                    </p>
+                    <ul className="text-muted">
+                      <li>10 "Grand" residences per class</li>
+                      <li>40 "Comfortable" residences per class</li>
+                      <li>50 "Compact" residences per class</li>
+                    </ul>
+                  </div>
 
-                  {/*<Claim contract={contract} account={account} />*/}
+                  <Claim contract={contract} account={account} />
 
                 </CardBody>
               </Card>
