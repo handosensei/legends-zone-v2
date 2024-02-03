@@ -130,6 +130,11 @@ export const getVehicles = async () => {
   return get(url);
 }
 
+export const getResidences = async () => {
+  const url = `${apiUrl}residences`;
+  return get(url);
+}
+
 export const usernameIsAvailable = async (username) => {
   const url = `${apiUrl}users/username/${username}/is-available`;
   return get(url);
