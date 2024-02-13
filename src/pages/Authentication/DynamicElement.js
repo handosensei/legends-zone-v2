@@ -118,6 +118,7 @@ const DynamicElement = ({props}) => {
             onAuthSuccess: async (args) => {
               const walletAddress = args.user.verifiedCredentials[0].address.toLowerCase();
               const response = await isHolder(walletAddress);
+              console.log(response);
               if (response.isHolderOfCollection) {
                 onConnectWallet(args['authToken']);
               } else {

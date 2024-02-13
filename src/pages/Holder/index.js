@@ -1,84 +1,90 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Col,
-  Container,
-  ListGroup,
-  ListGroupItem,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Input,
-  Row
-} from 'reactstrap';
-import BreadCrumb from '../../Components/Common/BreadCrumb';
-import SimpleBar from 'simplebar-react';
-import { Link } from 'react-router-dom';
-import List from 'list.js';
-//Import Flatepicker
-import Flatpickr from "react-flatpickr";
-import ModalBadgeReward from "../Progress/ModalBadgeReward";
+import React from 'react'
+import { Card, CardBody, CardHeader, Col, Container, Row } from 'reactstrap'
+import { DefaultTable, PaginationTable, SearchTable, SortingTable, LoadingStateTable, HiddenColumns } from './ReactTable'
 
-
-const Holder = () => {
-  const [isLoad, setIsLoad] = useState(false);
-
-  document.title = "Holders list | Legends Zone";
-
-  const handleChange = (event) => {
-    const value = event.target.value;
-    if (value.trim().length === 42) {
-      setIsLoad(true);
-
-      /*
-          test if holder
-          - list mint package
-          - list og pet
-          - list og vehicle
-          - list LZ rewards
-
-          list asset
-          - list ML
-          - list council
-          - list og armor
-          - list og pet
-          - list og vehicle
-       */
-    }
-  };
-
+const ReactTable = () => {
+  document.title = "React Tables | Velzon - React Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-          <BreadCrumb title="Holders" pageTitle="Home" />
           <Row>
-            <Col>
+            <Col lg={12}>
               <Card>
-                <CardHeader className="align-items-center d-flex">
-                  <h4 className="card-title mb-0 flex-grow-1">Search holder data</h4>
+                <CardHeader>
+                  <h5 className="card-title mb-0">Default Tables</h5>
                 </CardHeader>
                 <CardBody>
-                  <div className="input-group">
-                    <span className="input-group-text" id="inputGroup-sizing-sm">Holder wallet</span>
-                    <Input type="text" className="form-control" aria-describedby="inputGroup-sizing-default"
-                           onChange={handleChange} />
-                  </div>
+                  <DefaultTable />
                 </CardBody>
               </Card>
             </Col>
           </Row>
 
-
+          <Row>
+            <Col lg={12}>
+              <Card>
+                <CardHeader>
+                  <h5 className="card-title mb-0">Pagination</h5>
+                </CardHeader>
+                <CardBody>
+                  <PaginationTable />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={12}>
+              <Card>
+                <CardHeader>
+                  <h5 className="card-title mb-0">Search</h5>
+                </CardHeader>
+                <CardBody>
+                  <SearchTable />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={12}>
+              <Card>
+                <CardHeader>
+                  <h5 className="card-title mb-0">Sorting</h5>
+                </CardHeader>
+                <CardBody>
+                  <SortingTable />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={12}>
+              <Card>
+                <CardHeader>
+                  <h5 className="card-title mb-0">Loading State</h5>
+                </CardHeader>
+                <CardBody>
+                  <LoadingStateTable />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={12}>
+              <Card>
+                <CardHeader>
+                  <h5 className="card-title mb-0">Hidden Columns</h5>
+                </CardHeader>
+                <CardBody>
+                  <HiddenColumns />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
         </Container>
       </div>
     </React.Fragment>
-  );
+  )
 }
 
-export default Holder;
+export default ReactTable;

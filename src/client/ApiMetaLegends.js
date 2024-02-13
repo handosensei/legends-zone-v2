@@ -144,3 +144,18 @@ export const emailIsAvailable = async (email) => {
   const url = `${apiUrl}users/email/${email}/is-available`;
   return get(url);
 }
+
+export const getUser = async (wallet) => {
+  const url = `${apiUrl}users/${wallet}`;
+  return get(url);
+}
+
+export const getHolderLegends = async (wallet) => {
+  const url = `${apiUrl}holders/${wallet}/meta-legends`;
+  return get(url);
+}
+
+export const getHolderHoldingRewards = async (wallet) => {
+  const url = `${apiUrl}holders/${wallet}/holding-rewards`;
+  return get(url);
+}

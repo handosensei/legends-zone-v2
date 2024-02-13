@@ -51,8 +51,8 @@ const Navdata = () => {
         iscurrentState,
         isDashboard,
         isProgress,
-        isClaimLZRewards
-        isClaim,
+        isClaimLZRewards,
+        setIsClaimPerks,
         isHolder
     ]);
 
