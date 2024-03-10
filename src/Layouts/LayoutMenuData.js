@@ -11,6 +11,7 @@ const Navdata = () => {
     const [isProgress, setIsProgress] = useState(false);
     const [isClaimLZRewards, setIsClaimLZRewards] = useState(false);
     const [isClaimPerks, setIsClaimPerks] = useState(false);
+    const [isClaimDarkLegends, setIsClaimDarkLegends] = useState(false);
 
     function updateIconSidebar(e) {
         if (e && e.target && e.target.getAttribute("subitems")) {
@@ -41,13 +42,17 @@ const Navdata = () => {
         if (iscurrentState !== 'Claim Perks') {
             setIsClaimPerks(false);
         }
+        if (iscurrentState !== 'Claim Dark Rewards') {
+            setIsClaimDarkLegends(false);
+        }
 
     }, [
         history,
         iscurrentState,
         isDashboard,
         isProgress,
-        isClaimLZRewards
+        isClaimLZRewards,
+        isClaimDarkLegends
     ]);
 
     const menuItems = [
@@ -136,7 +141,25 @@ const Navdata = () => {
                     parentId: "claim-perks"
                 },
             ]
-        }
+        }, {
+            id: "claim-dark-rewards",
+            label: "Claim Dark Rewards",
+            icon: "ri-skull-2-line",
+            link: "/#",
+            click: function (e) {
+                e.preventDefault();
+                setIsClaimDarkLegends(!isClaimDarkLegends);
+                setIscurrentState('Claim Dark Rewards');
+                updateIconSidebar(e);
+            },
+            stateVariables: isClaimDarkLegends,
+            subItems: [{
+                id: "darkarmor",
+                label: "Dark Armors",
+                link: "/claim/dark-rewards",
+                parentId: "claim-dark-rewards"
+            }]
+        },
     ];
 
     return <React.Fragment>{menuItems}</React.Fragment>;

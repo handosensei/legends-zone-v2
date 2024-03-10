@@ -232,6 +232,7 @@ import HealingDrone from "../pages/Claim/HealingDrones";
 import Vehicle from "../pages/Claim/Vehicles";
 import Residence from "../pages/Claim/Residences";
 import Armor from "../pages/Claim/Armors";
+import DarkRewards from "../pages/Claim/DarkRewards";
 
 const authProtectedRoutes = [
 
@@ -242,6 +243,7 @@ const authProtectedRoutes = [
   { path: "/claim/og-pets", component: <Claim /> },
   { path: "/claim/og-vehicles", component: <Vehicle /> },
   { path: "/claim/og-residences", component: <Residence /> },
+  { path: "/claim/dark-rewards", component: <DarkRewards /> },
   { path: "/progress", component: <Progress /> },
   { path: "/dashboard", component: <DashboardZone /> },
   { path: "/index", component: <DashboardZone /> },
