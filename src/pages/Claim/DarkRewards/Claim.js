@@ -22,7 +22,8 @@ const Claim = ({contract, account}) => {
       return 0;
     }
     if (contract.methods !== undefined) {
-      contract.methods.remaining(account, 2).call().then((res) => {
+      contract.methods.remaining(account, 1).call().then((res) => {
+        console.log(res);
         setRemainingToClaim(res);
       });
       return remainingToClaim;
@@ -35,7 +36,7 @@ const Claim = ({contract, account}) => {
       return;
     }
     setModalMintInProgress(true);
-    contract.methods.mint(1, 2).send({ from: account }).then((res) => {
+    contract.methods.mint(1, 1).send({ from: account }).then((res) => {
       mintDone();
     })
     .catch((err) => {
