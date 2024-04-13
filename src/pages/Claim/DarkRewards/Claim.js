@@ -21,6 +21,11 @@ const Claim = ({contract, account}) => {
     if (contract == null) {
       return 0;
     }
+
+    if (contract._address === null || contract._address == undefined) {
+      return 0;
+    }
+    
     if (contract.methods !== undefined) {
       contract.methods.remaining(account, 2).call().then((res) => {
         setRemainingToClaim(res);
