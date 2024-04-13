@@ -4,8 +4,8 @@ import React, {useState} from "react";
 const Claim = ({contract, account}) => {
 
   const ML_IPFS = 'https://metalegends.mypinata.cloud/ipfs/';
-  const DARK_DEMO_CID = 'QmeaWJVMKP1v4ASmxpsK8QeedxvqrJLXEcjAtWxgAQnwyo';
-  const DARK_ARMOR_IMG = `${ML_IPFS}${DARK_DEMO_CID}/gif/armor_rough_light.gif`
+  const DARK_DEMO_CID = 'QmSJggxBLvLJGGVtBiifBvTakmMTptrGY1fJHfecMrYpXC';
+  const DARK_ARMOR_IMG = `${ML_IPFS}${DARK_DEMO_CID}/gif/armor_roboter_medium.gif`
 
   const [remainingToClaim, setRemainingToClaim] = useState(0);
 
@@ -22,8 +22,7 @@ const Claim = ({contract, account}) => {
       return 0;
     }
     if (contract.methods !== undefined) {
-      contract.methods.remaining(account, 1).call().then((res) => {
-        console.log(res);
+      contract.methods.remaining(account, 2).call().then((res) => {
         setRemainingToClaim(res);
       });
       return remainingToClaim;
@@ -36,7 +35,7 @@ const Claim = ({contract, account}) => {
       return;
     }
     setModalMintInProgress(true);
-    contract.methods.mint(1, 1).send({ from: account }).then((res) => {
+    contract.methods.mint(2, 1).send({ from: account }).then((res) => {
       mintDone();
     })
     .catch((err) => {
@@ -58,7 +57,7 @@ const Claim = ({contract, account}) => {
 
     <Modal size="lg" id="flipModalInProgress" isOpen={modalMintInProgress} toggle={() => { setModalMintInProgress(true); }} modalClassName="zoomIn" centered >
       <ModalHeader className="modal-title" id="flipModalLabel">
-        Mint Dark rough light armor in progress
+        Mint Dark roboter medium armor in progress
       </ModalHeader>
       <ModalBody className="text-center">
         <div className="spinner-border text-primary" role="status">
@@ -75,7 +74,7 @@ const Claim = ({contract, account}) => {
           Congrats !
         </h5>
         <figure className="figure mt-5">
-          <img width="400" className="figure-img img-thumbnail img-fluid rounded m-2" src={DARK_ARMOR_IMG} alt="Dark rough light armor" />
+          <img width="400" className="figure-img img-thumbnail img-fluid rounded m-2" src={DARK_ARMOR_IMG} alt="Dark Roboter Medium Armor" />
         </figure>
       </ModalBody>
       <div className="modal-footer">

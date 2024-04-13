@@ -75,6 +75,7 @@ const Navdata = () => {
             label: "Progress",
             icon: "ri-treasure-map-line",
             link: "/progress",
+            stateVariables: isProgress,
             click: function (e) {
                 e.preventDefault();
                 setIscurrentState('Progress');
@@ -145,20 +146,12 @@ const Navdata = () => {
             id: "claim-dark-rewards",
             label: "Claim Dark Rewards",
             icon: "ri-skull-2-line",
-            link: "/#",
+            link: "/claim/dark-rewards",
+            stateVariables: isClaimDarkLegends,
             click: function (e) {
                 e.preventDefault();
-                setIsClaimDarkLegends(!isClaimDarkLegends);
                 setIscurrentState('Claim Dark Rewards');
-                updateIconSidebar(e);
             },
-            stateVariables: isClaimDarkLegends,
-            subItems: [{
-                id: "darkarmor",
-                label: "Dark Armors",
-                link: "/claim/dark-rewards",
-                parentId: "claim-dark-rewards"
-            }]
         },
     ];
 

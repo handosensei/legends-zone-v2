@@ -13,10 +13,10 @@ import DarkLegendsRewards from "../../../contracts/mainnet/dark-rewards/DarkLege
 const DarkRewards = () => {
 
   const ML_IPFS = 'https://metalegends.mypinata.cloud/ipfs/';
-  const DARK_DEMO_CID = 'QmeaWJVMKP1v4ASmxpsK8QeedxvqrJLXEcjAtWxgAQnwyo';
+  const DARK_DEMO_CID = 'QmSJggxBLvLJGGVtBiifBvTakmMTptrGY1fJHfecMrYpXC';
   const URL_MP4 = `${ML_IPFS}${DARK_DEMO_CID}/mp4/`
 
-  const armorsList = ['armor_rough_light.mp4'];
+  const armorsList = ['armor_roboter_medium.mp4'];
 
   const [contract, setContract] = useState({});
   const [account, setAccount] = useState('');
@@ -63,7 +63,7 @@ const DarkRewards = () => {
             <Col xl="7">
               <Card>
                 <CardBody>
-                  <h2>Dark Rough Light Armors</h2>
+                  <h2>Dark Roboter Medium Armors</h2>
 
                   <Row className="mt-5">
                     <Col lg={6} sm={6}>
@@ -71,7 +71,7 @@ const DarkRewards = () => {
                         <div>
                           <p className="text-muted fw-medium mb-1">Supply :</p>
                           <h4 className="fs-20 mb-0">
-                            <i className="mdi mdi-qqchat me-1"></i> 350
+                            <i className="mdi mdi-qqchat me-1"></i> 200
                           </h4>
                         </div>
                       </div>
@@ -81,7 +81,7 @@ const DarkRewards = () => {
                         <div>
                           <p className="text-muted fw-medium mb-1">Expire at :</p>
                           <h4 className="fs-20 mb-0">
-                            <i className="ri ri-calendar-fill me-1"></i> Thursday 11 April 2024 21:59:59 UTC
+                            <i className="ri ri-calendar-fill me-1"></i> Wednesday 15 May 2024 23:59:59 UTC
                           </h4>
                         </div>
                       </div>
@@ -91,10 +91,10 @@ const DarkRewards = () => {
                   <div className="mt-5 text-muted">
                     <h5 className="fs-14">Description :</h5>
                     <p>
-                      Meta-Life Dark Legends, mint your Dark rough light armor NFT, a supply of 300 NFTs.
+                      Meta-Life Dark Legends, mint your Dark roboter medium armor NFT, a supply of 200 NFTs.
                     </p>
                     <p>
-                      Exclusively accessible to members who won <a href="https://zealy.io/cw/metalegends" target="_blank"> Zealy Quest</a> S1.
+                      Exclusively accessible to members who won <a href="https://zealy.io/cw/metalegends" target="_blank" rel="noreferrer"> Zealy Quest</a> S2.
                     </p>
                   </div>
                   <Claim contract={contract} account={account} />
