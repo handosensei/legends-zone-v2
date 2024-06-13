@@ -142,16 +142,16 @@ const Navdata = () => {
                     parentId: "claim-perks"
                 },
             ]
-        }, {
-            id: "claim-dark-rewards",
-            label: "Claim Dark Rewards",
-            icon: "ri-skull-2-line",
-            link: "/claim/dark-rewards",
-            stateVariables: isClaimDarkLegends,
-            click: function (e) {
-                e.preventDefault();
-                setIscurrentState('Claim Dark Rewards');
-            },
+        // }, {
+        //     id: "claim-dark-rewards",
+        //     label: "Claim Dark Rewards",
+        //     icon: "ri-skull-2-line",
+        //     link: "/claim/dark-rewards",
+        //     stateVariables: isClaimDarkLegends,
+        //     click: function (e) {
+        //         e.preventDefault();
+        //         setIscurrentState('Claim Dark Rewards');
+        //     },
         },
     ];
 
