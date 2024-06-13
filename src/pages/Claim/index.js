@@ -97,16 +97,16 @@ const Claim = () => {
             <Col xl="4">
               <Row>
                 <ClaimAsset claimable={(ogPet.mint + ogPet.og).toString()} title="Perk package + OG" func="random"   contract={contractOgPets} account={account}/>
-                <ClaimAsset claimable={ogPet.council}         title="Council"           func="council"  contract={contractOgPets} account={account}/>
+                {/*<ClaimAsset claimable={ogPet.council}         title="Council"           func="council"  contract={contractOgPets} account={account}/>*/}
               </Row>
-              <Row>
-                <ClaimAssetSingle claimable={ogPet.honorary} title="Honorary" func="honorary" contract={contractOgPets} account={account}/>
-                <ClaimAssetSingle claimable={ogPet.guardian} title="Guardian" func="guardian" contract={contractOgPets} account={account}/>
-              </Row>
-              <Row>
-                <ClaimAssetSingle claimable={ogPet.judge} title="Judge" func="judge" contract={contractOgPets} account={account}/>
-                <ClaimAssetSingle claimable={ogPet.whale} title="Top 10 Whale" func="whale" contract={contractOgPets} account={account}/>
-              </Row>
+              {/*<Row>*/}
+                {/*<ClaimAssetSingle claimable={ogPet.honorary} title="Honorary" func="honorary" contract={contractOgPets} account={account}/>*/}
+                {/*<ClaimAssetSingle claimable={ogPet.guardian} title="Guardian" func="guardian" contract={contractOgPets} account={account}/>*/}
+              {/*</Row>*/}
+              {/*<Row>*/}
+                {/*<ClaimAssetSingle claimable={ogPet.judge} title="Judge" func="judge" contract={contractOgPets} account={account}/>*/}
+                {/*<ClaimAssetSingle claimable={ogPet.whale} title="Top 10 Whale" func="whale" contract={contractOgPets} account={account}/>*/}
+              {/*</Row>*/}
             </Col>
           </Row>
         </Container>

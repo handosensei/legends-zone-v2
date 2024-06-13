@@ -93,16 +93,16 @@ const Vehicle = () => {
           <Col xl="6">
             <Row>
               <ClaimAsset contract={contract} account={account} title="Perk package + OG" func="random"/>
-              <ClaimAsset contract={contract} account={account} title="Council" func="council"/>
+              {/*<ClaimAsset contract={contract} account={account} title="Council" func="council"/>*/}
             </Row>
-            <Row>
-              <ClaimAsset contract={contract} account={account} title="Honorary" func="honorary" />
-              <ClaimAsset contract={contract} account={account} title="Whale" func="whale" />
-            </Row>
-            <Row>
-              <ClaimAssetSingle contract={contract} account={account} title="Judge" func="judge" />
-              <ClaimAssetSingle contract={contract} account={account} title="Guardian" func="guardian" />
-            </Row>
+            {/*<Row>*/}
+            {/*  <ClaimAsset contract={contract} account={account} title="Honorary" func="honorary" />*/}
+            {/*  <ClaimAsset contract={contract} account={account} title="Whale" func="whale" />*/}
+            {/*</Row>*/}
+            {/*<Row>*/}
+            {/*  <ClaimAssetSingle contract={contract} account={account} title="Judge" func="judge" />*/}
+            {/*  <ClaimAssetSingle contract={contract} account={account} title="Guardian" func="guardian" />*/}
+            {/*</Row>*/}
           </Col>
 
         </Row>
