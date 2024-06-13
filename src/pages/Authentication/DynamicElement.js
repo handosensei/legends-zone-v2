@@ -106,7 +106,6 @@ const DynamicElement = ({props}) => {
             [
               'metamask',
               'trust',
-              'coolwallet',
               'coinbase',
               'walletconnect',
               'braveevm',
