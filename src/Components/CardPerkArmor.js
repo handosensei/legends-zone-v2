@@ -4,6 +4,7 @@ import {getPerkArmors} from "../client/ApiMetaLegends";
 import {Link} from "react-router-dom";
 import Player from "./Player";
 import 'video.js/dist/video-js.css';
+import LinkProjectFileUrl from "./LinkProjectFileUrl";
 
 const CardPerkArmor = () => {
 
@@ -19,7 +20,19 @@ const CardPerkArmor = () => {
 
   const PerkArmors = () => {
     if (perkArmors.length === 0) {
-      return (<></>);
+      return (<>
+        <div className="row align-items-center" width="100%">
+          <div className="col-sm-12 text-center">
+            <h3>No OG Armor asset ...</h3>
+
+            <p className="m-5">
+              <a className="btn btn-secondary btn-label waves-effect waves-light w-lg" href="https://opensea.io/collection/metalife-og-armor" target="_blank" rel="noreferrer">
+                <i className="ri-money-dollar-circle-line label-icon align-middle fs-16 me-2"></i> OG Armor
+              </a>
+            </p>
+          </div>
+        </div>
+      </>);
     }
 
     return (<>
@@ -29,9 +42,6 @@ const CardPerkArmor = () => {
         </div>
       </Modal>
 
-      <div className="justify-content-between d-flex align-items-center mt-3 mb-4">
-        <h5 className="mb-0 pb-1 ">Perk OG Armors collection</h5>
-      </div>
       {perkArmors.map((armor, key) => (
         <Col key={key} sm={4} md={3} xl={2}>
           <Card>
@@ -44,7 +54,7 @@ const CardPerkArmor = () => {
             <div className="card-footer">
               <p className="text-muted mb-0">{armor.name}</p>
               <div className="hstack gap-2 justify-content-end">
-                <LinkProjectFileUrl armor={armor} />
+                <LinkProjectFileUrl object={armor} />
               </div>
             </div>
           </Card>
@@ -59,22 +69,6 @@ const CardPerkArmor = () => {
     }
     toggleModal();
     setMp4(urlMp4);
-  }
-
-  const LinkProjectFileUrl = ({armor}) => {
-    if (armor.projectFileUrl === '') {
-      return (
-        <button type="button" className="btn btn-light btn-sm">
-          <i className="lab la-codepen align-middle lh-1"></i>
-        </button>
-      );
-    }
-
-    return (
-      <Link to={armor.projectFileUrl} target="_blank" className="btn btn-outline-success btn-sm link-success">
-        <i className="lab la-codepen align-middle lh-1"></i>
-      </Link>
-    );
   }
 
   const Display = () => {

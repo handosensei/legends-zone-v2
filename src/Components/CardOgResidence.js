@@ -9,15 +9,24 @@ const CardOgResidence = () => {
 
   const OgResidences = () => {
     if (perkOgResidences.length === 0) {
-      return (<></>);
+      return (<>
+        <div className="row align-items-center" width="100%">
+          <div className="col-sm-12 text-center">
+            <h3>No OG Residence asset ...</h3>
+
+            <p className="m-5">
+              <a className="btn btn-secondary btn-label waves-effect waves-light w-lg" href="https://opensea.io/collection/metalife-og-residence" target="_blank" rel="noreferrer">
+                <i className="ri-money-dollar-circle-line label-icon align-middle fs-16 me-2"></i> OG Residence
+              </a>
+            </p>
+          </div>
+        </div>
+      </>);
     }
 
     return (<>
-      <div className="justify-content-between d-flex align-items-center mt-3 mb-4">
-        <h5 className="mb-0 pb-1 ">Perk OG Residences collection</h5>
-      </div>
       {perkOgResidences.map((Residence, key) => (
-      <Col key={key} sm={4} md={3} xl={2} xxl={1}>
+      <Col key={key} sm={4} md={3} xl={2}>
         <Card>
           <CardBody>
             <h6 className="mb-2">

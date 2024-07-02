@@ -22,29 +22,10 @@ const CardMetaLegend = () => {
   }
 
   const Legends = () => {
-    if (legends.length === 0) {
-      return (
-      <div className="row align-items-center" width="100%">
-        <div className="col-sm-12 text-center">
-          <h3>No Meta-Legends ...</h3>
-          <p className="m-5">
-          <a className="btn btn-secondary btn-label waves-effect waves-light" href="https://opensea.io/collection/meta-legends" target="_blank" rel="noreferrer">
-            <i className="ri-money-dollar-circle-line label-icon align-middle fs-16 me-2"></i> Go on OpenSea
-          </a>
-          </p>
-          <p>
-            <a className="btn btn-warning btn-label waves-effect waves-light" href="https://blur.io/collection/meta-legends" target="_blank" rel="noreferrer">
-              <i className="ri-money-dollar-circle-line label-icon align-middle fs-16 me-2"></i> Go on Blur
-            </a>
-          </p>
 
-        </div>
-      </div>
-      );
-    }
     return (<>
       {legends.map((legend, key) => (
-      <Col key={key} sm={4} md={3} xl={2} xxl={1}>
+      <Col key={key} sm={4} md={3} xl={2}>
         <Card>
           <CardBody>
             <h6 className="mb-2">
@@ -52,10 +33,6 @@ const CardMetaLegend = () => {
             </h6>
           </CardBody>
           <img className="img-fluid" src={legend.media.thumbnail} alt={`Legend #${legend.tokenId}`} />
-          <div className="card-footer">
-            {/*<Link to="#" className="link-success float-end">Detail</Link>*/}
-            <MonthHolding purchasedOnDate={legend.purchasedOn} />
-          </div>
         </Card>
       </Col>
       ))}

@@ -9,37 +9,37 @@ import {
 
 const CardSpecial = () => {
 
-  const [isLoading, setIsLoading] = useState(false);
   const [honoraries, setHonoraries] = useState([]);
   const [universalWeaponSkins, setUniversalWeaponSkins] = useState([]);
   const [councilStones, setCouncilStones] = useState([]);
-  const [lzAssets, setLzAssets] = useState([]);
 
   const Honoraries = () => {
     if (honoraries.length === 0) {
       return (<></>);
     }
 
-    return (<Row>
-      <div className="justify-content-between d-flex align-items-center mt-3 mb-4">
-        <h5 className="mb-0 pb-1">Honorary collection</h5>
-      </div>
-      {honoraries.map((honorary, key) => (
-      <Col key={key} sm={4} md={3} xl={2} xxl={2}>
-        <Card>
-          <CardBody>
-            <h6 className="mb-2">
-              Token <span className="text-secondary">#{honorary.tokenId}</span>
-            </h6>
-          </CardBody>
-          <img className="img-fluid" src={honorary.image} alt={`Honorary #${honorary.tokenId}`} />
-          <div className="card-footer">
-            <p className="text-muted mb-0">{honorary.name}</p>
-          </div>
-        </Card>
-      </Col>
-      ))}
-      </Row>);
+    return (
+      <Row>
+        <div className="justify-content-between d-flex align-items-center mt-3 mb-4">
+          <h5 className="mb-0 pb-1">Honorary collection</h5>
+        </div>
+        {honoraries.map((honorary, key) => (
+        <Col key={key} sm={4} md={3} xl={2} >
+          <Card>
+            <CardBody>
+              <h6 className="mb-2">
+                Honorary <span className="text-secondary">#{honorary.tokenId}</span>
+              </h6>
+            </CardBody>
+            <img className="img-fluid" src={honorary.image} alt={`Honorary #${honorary.tokenId}`} />
+            <div className="card-footer">
+              <p className="text-muted mb-0">{honorary.name}</p>
+            </div>
+          </Card>
+        </Col>
+        ))}
+      </Row>
+    );
   }
 
   const UniversalWeaponSkins = () => {
@@ -52,7 +52,7 @@ const CardSpecial = () => {
         <h5 className="mb-0 pb-1 ">Universal weapon skin collection</h5>
       </div>
       {universalWeaponSkins.map((weapon, key) => (
-      <Col key={key} sm={4} md={3} xl={2} xxl={2}>
+      <Col key={key} sm={4} md={3} xl={2} >
         <Card>
           <CardBody>
             <h6 className="mb-2">
@@ -79,7 +79,7 @@ const CardSpecial = () => {
         <h5 className="mb-0 pb-1 ">Council stone collection</h5>
       </div>
       {councilStones.map((stone, key) => (
-      <Col key={key} sm={4} md={3} xl={2} xxl={2}>
+      <Col key={key} sm={4} md={3} xl={2} >
         <Card>
           <CardBody>
             <h6 className="mb-2">
@@ -96,33 +96,40 @@ const CardSpecial = () => {
     </Row>);
   }
 
-  const LzAssets = () => {
-    if (lzAssets.length === 0) {
-      return (<></>);
+  const NoSpecial = () => {
+    if (honoraries.length + universalWeaponSkins.length + councilStones.length === 0) {
+      return (
+        <React.Fragment>
+          <div className="row align-items-center" width="100%">
+            <div className="col-sm-12 text-center">
+              <h3>No special asset ...</h3>
+
+              <p className="m-5">
+                <a className="btn btn-secondary btn-label waves-effect waves-light w-lg" href="https://opensea.io/collection/council-stones" target="_blank" rel="noreferrer">
+                  <i className="ri-money-dollar-circle-line label-icon align-middle fs-16 me-2"></i> Council stones
+                </a>
+              </p>
+              <p className="m-5">
+                <a className="btn btn-secondary btn-label waves-effect waves-light w-lg" href="https://opensea.io/collection/ml-universal-weapon-skins" target="_blank" rel="noreferrer">
+                  <i className="ri-money-dollar-circle-line label-icon align-middle fs-16 me-2"></i> Universal weapon skins
+                </a>
+              </p>
+              <p className="m-5">
+                <a className="btn btn-secondary btn-label waves-effect waves-light w-lg" href="https://opensea.io/collection/ml-honorary" target="_blank" rel="noreferrer">
+                  <i className="ri-money-dollar-circle-line label-icon align-middle fs-16 me-2"></i> Honorary
+                </a>
+              </p>
+
+            </div>
+          </div>
+        </React.Fragment>
+      );
     }
 
-    return (<Row>
-      <div className="justify-content-between d-flex align-items-center mt-3 mb-4">
-        <h5 className="mb-0 pb-1 ">Legends Zone asset collection</h5>
-      </div>
-      {lzAssets.map((asset, key) => (
-      <Col key={key} sm={4} md={3} xl={2} xxl={2}>
-        <Card>
-          <CardBody>
-            <h6 className="mb-2">
-              Token <span className="text-secondary">#{asset.tokenId}</span>
-            </h6>
-          </CardBody>
-          <img className="img-fluid" src={asset.image} alt={`OG Pet #${asset.tokenId}`} />
-          <div className="card-footer">
-            <p className="text-muted mb-0">Balance: {asset.balance}</p>
-          </div>
-        </Card>
-      </Col>
-      ))}
-    </Row>);
+    return (
+      <React.Fragment></React.Fragment>
+    );
   }
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,10 +144,6 @@ const CardSpecial = () => {
       getCouncilStones().then((resCouncilStones) => {
         setCouncilStones(resCouncilStones);
       });
-
-      getLZAssets().then((resLzAssets) => {
-        setLzAssets(resLzAssets);
-      })
     }
 
     if (sessionStorage.getItem("authUser")) {
@@ -154,7 +157,7 @@ const CardSpecial = () => {
       <Honoraries />
       <CouncilStones />
       <UniversalWeaponSkins />
-      <LzAssets />
+      <NoSpecial />
     </>
   );
 };
