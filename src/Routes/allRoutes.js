@@ -225,10 +225,8 @@ import DashboardZone from '../pages/DashboardZone';
 import Progress from '../pages/Progress';
 import Claim from '../pages/Claim';
 import EnvParameters from '../pages/EnvParameters';
-import HoldingRewards from "../pages/Claim/HoldingRewards";
 import Profile from '../pages/Profile';
 import ProfileEdit from '../pages/Profile/edit';
-import HealingDrone from "../pages/Claim/HealingDrones";
 import Vehicle from "../pages/Claim/Vehicles";
 import Residence from "../pages/Claim/Residences";
 import Armor from "../pages/Claim/Armors";
@@ -237,8 +235,6 @@ import DarkRewards from "../pages/Claim/DarkRewards";
 const authProtectedRoutes = [
 
   { path: "/claim", component: <Claim /> },
-  { path: "/claim/holding-rewards", component: <HoldingRewards /> },
-  { path: "/claim/healing-drones", component: <HealingDrone /> },
   { path: "/claim/og-armors", component: <Armor /> },
   { path: "/claim/og-pets", component: <Claim /> },
   { path: "/claim/og-vehicles", component: <Vehicle /> },

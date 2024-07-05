@@ -81,30 +81,6 @@ const Navdata = () => {
                 setIscurrentState('Progress');
             }
         }, {
-            id: "claim-lz-rewards",
-            label: "Claim LZ Rewards",
-            icon: "ri-medal-2-fill",
-            link: "/#",
-            click: function (e) {
-                e.preventDefault();
-                setIsClaimLZRewards(!isClaimLZRewards);
-                setIscurrentState('Claim LZ Rewards');
-                updateIconSidebar(e);
-            },
-            stateVariables: isClaimLZRewards,
-            subItems: [{
-                    id: "holdingrewards",
-                    label: "Holding rewards S1",
-                    link: "/claim/holding-rewards",
-                    parentId: "claim"
-                },{
-                    id: "healingdrones",
-                    label: "Healing drones",
-                    link: "/claim/healing-drones",
-                    parentId: "claim"
-                }
-            ]
-        }, {
             id: "claim-perks",
             label: "Claim Perks",
             icon: "bx bxs-invader",

@@ -9,7 +9,7 @@ import LegendaryStone from './LegendaryStone';
 import {getRewardsEstimate} from "../../client/ApiMetaLegends";
 
 const Progress = () => {
-  
+
   const [rewardBadge, setRewardBadge] = useState({});
   const [totalTokenRewards, setTotalTokenRewards] = useState(0);
   const [perkPackages, setPerkPackages] = useState({});
@@ -48,8 +48,6 @@ const Progress = () => {
                   <AssetUnstaked unstaked={unstaked} />
                 </Row>
                 <Row>
-                  <HoldingReward legends={legends} />
-
                   <LegendaryStone legends={legends} />
                 </Row>
               </div>
