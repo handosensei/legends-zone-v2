@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Card, CardBody, Col, Row} from "reactstrap";
-import CardHealingDrone from "./CardHealingDrone";
 import {getLZAssets} from "../client/ApiMetaLegends";
 
 const CardHoldingReward = () => {
@@ -16,7 +15,7 @@ const CardHoldingReward = () => {
 
             <p className="m-5">
               <a className="btn btn-secondary btn-label waves-effect waves-light w-lg" href="https://opensea.io/collection/legends-zone-rewards" target="_blank" rel="noreferrer">
-                <i className="ri-money-dollar-circle-line label-icon align-middle fs-16 me-2"></i> Council stones
+                <i className="ri-money-dollar-circle-line label-icon align-middle fs-16 me-2"></i> Holding rewards
               </a>
             </p>
           </div>
