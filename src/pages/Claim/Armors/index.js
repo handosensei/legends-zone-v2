@@ -9,7 +9,27 @@ import Web3 from "web3";
 import MetaLifeArmor from "../../../contracts/mainnet/og-armor/MetaLifeArmor.json";
 const contractAddress = "0xE091774B4a6d0990d0ba7d9478de6e00f7175f7f";
 
+/**
 
+Process pour ajouter des amors à minter
+ 1 - verifier si le wallet peut minter avec "publicAllowList"
+ 2 - si le wallet ne peut pas minter, utilser "setPublicAllowList"
+ 3 - Verifier le nombre que le wallet peut minter avec "walletMintsVerify"
+ 4 - Définir le nombre de NFT à minter en fonction de "walletMintsVerify" en additionnant la quantité
+ 5 - Ajouter les wallets avec le nombre à minter
+
+ setPublicAllowList(1)
+ -> write - set wallet to allow mint ["0x24DF9F5A2624Db695ee695399fd43DEB62c475Bd"]
+ publicAllowList(1)
+ -> read - wallet should mint
+ setWalletMintsVerify(2)
+ -> write - add wallet and quantity to allowlist
+ walletMintsModified(1)
+ -> read - how many time public allow mint modified
+ walletMintsVerify(1)
+ -> read - how many can mint
+
+ */
 const Armor = () => {
 
   const [modalInformation, setModalInformation] = useState(false);

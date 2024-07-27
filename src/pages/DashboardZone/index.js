@@ -22,6 +22,27 @@ const DashboardZone = () => {
     }
   };
 
+  const TabContent = () => {
+    switch (justifyTab) {
+      case '1':
+        return <CardMetaLegend />;
+      case '2':
+        return <CardSpecial />;
+      case '3':
+        return <CardHoldingReward />;
+      case '4':
+        return <CardHealingDrone />;
+      case '5':
+        return <CardPerkArmor />;
+      case '6':
+        return <CardOgPet />;
+      case '7':
+        return <CardOgVehicle />;
+      case '8':
+        return <CardOgResidence />;
+    }
+  }
+
   return (
     <React.Fragment>
       <div className="page-content">
@@ -76,35 +97,35 @@ const DashboardZone = () => {
 
                 <TabContent activeTab={justifyTab} className="text-muted">
                   <TabPane tabId="1">
-                    <CardMetaLegend />
+                    <TabContent />
                   </TabPane>
 
                   <TabPane tabId="2">
-                    <CardSpecial />
+                    <TabContent />
                   </TabPane>
 
                   <TabPane tabId="3">
-                    <CardHoldingReward />
+                    <TabContent />
                   </TabPane>
 
                   <TabPane tabId="4">
-                    <CardHealingDrone />
+                    <TabContent />
                   </TabPane>
 
                   <TabPane tabId="5">
-                    <CardPerkArmor />
+                    <TabContent />
                   </TabPane>
 
                   <TabPane tabId="6">
-                    <CardOgPet />
+                    <TabContent />
                   </TabPane>
 
                   <TabPane tabId="7">
-                    <CardOgVehicle />
+                    <TabContent />
                   </TabPane>
 
                   <TabPane tabId="8">
-                    <CardOgResidence />
+                    <TabContent />
                   </TabPane>
                 </TabContent>
 
