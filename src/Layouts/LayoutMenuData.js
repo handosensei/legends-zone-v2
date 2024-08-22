@@ -12,6 +12,7 @@ const Navdata = () => {
     const [isClaimLZRewards, setIsClaimLZRewards] = useState(false);
     const [isClaimPerks, setIsClaimPerks] = useState(false);
     const [isClaimDarkLegends, setIsClaimDarkLegends] = useState(false);
+    const [isBadgeRewards, setIsBadgeRewards] = useState(false);
 
     function updateIconSidebar(e) {
         if (e && e.target && e.target.getAttribute("subitems")) {
@@ -45,6 +46,9 @@ const Navdata = () => {
         if (iscurrentState !== 'Claim Dark Rewards') {
             setIsClaimDarkLegends(false);
         }
+        if (iscurrentState !== 'Badge Rewards') {
+            setIsBadgeRewards(false);
+        }
 
     }, [
         history,
@@ -52,7 +56,8 @@ const Navdata = () => {
         isDashboard,
         isProgress,
         isClaimLZRewards,
-        isClaimDarkLegends
+        isClaimDarkLegends,
+        isBadgeRewards,
     ]);
 
     const menuItems = [
@@ -118,6 +123,16 @@ const Navdata = () => {
                     parentId: "claim-perks"
                 },
             ]
+        }, {
+            id: "badge-rewards",
+            label: "Badge Rewards",
+            icon: "mdi mdi-police-badge",
+            link: "/claim/badge-rewards",
+            stateVariables: isBadgeRewards,
+            click: function (e) {
+                e.preventDefault();
+                setIscurrentState('Badge Rewards');
+            }
         // }, {
         //     id: "claim-dark-rewards",
         //     label: "Claim Dark Rewards",

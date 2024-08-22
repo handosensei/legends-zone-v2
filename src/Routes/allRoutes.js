@@ -231,6 +231,7 @@ import Vehicle from "../pages/Claim/Vehicles";
 import Residence from "../pages/Claim/Residences";
 import Armor from "../pages/Claim/Armors";
 import DarkRewards from "../pages/Claim/DarkRewards";
+import BadgeRewards from "../pages/Claim/BadgeRewards";
 
 const authProtectedRoutes = [
 
@@ -240,12 +241,14 @@ const authProtectedRoutes = [
   { path: "/claim/og-vehicles", component: <Vehicle /> },
   { path: "/claim/og-residences", component: <Residence /> },
   { path: "/claim/dark-rewards", component: <DarkRewards /> },
+  { path: "/claim/badge-rewards", component: <BadgeRewards /> },
   { path: "/progress", component: <Progress /> },
   { path: "/dashboard", component: <DashboardZone /> },
   { path: "/index", component: <DashboardZone /> },
   { path: "/profile", component: <Profile /> },
   { path: "/profile/edit", component: <ProfileEdit /> },
   { path: "/sensei", component: <EnvParameters /> },
+
   //
   // { path: "/dashboard-crypto", component: <DashboardCrypto /> },
 
