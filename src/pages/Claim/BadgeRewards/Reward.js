@@ -8,7 +8,7 @@ const OPENSEA_BREWARD_ITEM_URL = `https://opensea.io/assets/matic/${CONTRACT_BAD
 const Reward = ({asset, contract, account}) => {
 
   const [errorMessage, setErrorMessage] = useState('');
-  const [remainingToClaim, setRemainingToClaim] = useState(0);
+  let [remainingToClaim, setRemainingToClaim] = useState(0);
   const [modalMinted, setModalMinted] = useState(false);
   const [modalMintInProgress, setModalMintInProgress] = useState(false);
   const [modalMintError, setModalMintError] = useState(false);
@@ -39,7 +39,7 @@ const Reward = ({asset, contract, account}) => {
         if (res.events.Minted !== undefined) {
           minted()
         } else {
-          console.log(res);
+          setRemainingToClaim(remainingToClaim--)
           setModalMintInProgress(false);
         }
       })
