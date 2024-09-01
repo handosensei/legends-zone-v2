@@ -13,6 +13,7 @@ const Navdata = () => {
     const [isClaimPerks, setIsClaimPerks] = useState(false);
     const [isClaimDarkLegends, setIsClaimDarkLegends] = useState(false);
     const [isBadgeRewards, setIsBadgeRewards] = useState(false);
+    const [isStaking, setIsStaking] = useState(false);
 
     function updateIconSidebar(e) {
         if (e && e.target && e.target.getAttribute("subitems")) {
@@ -46,6 +47,9 @@ const Navdata = () => {
         if (iscurrentState !== 'Claim Dark Rewards') {
             setIsClaimDarkLegends(false);
         }
+        if (iscurrentState !== 'Staking') {
+            setIsStaking(false);
+        }
         if (iscurrentState !== 'Badge Rewards') {
             setIsBadgeRewards(false);
         }
@@ -58,6 +62,7 @@ const Navdata = () => {
         isClaimLZRewards,
         isClaimDarkLegends,
         isBadgeRewards,
+        isStaking
     ]);
 
     const menuItems = [
@@ -143,6 +148,32 @@ const Navdata = () => {
         //         e.preventDefault();
         //         setIscurrentState('Claim Dark Rewards');
         //     },
+        }, {
+            id: "staking",
+            label: "Staking",
+            icon: "bx bxl-sketch",
+            link: "/#",
+            stateVariables: isStaking,
+            click: function (e) {
+                e.preventDefault();
+                setIsStaking(!isStaking);
+                setIscurrentState('Staking');
+                updateIconSidebar(e);
+            },
+            subItems: [
+                {
+                    id: "stakingmetalegends",
+                    label: "Meta Legends",
+                    link: "/staking/meta-legends",
+                    parentId: "staking"
+                },
+                {
+                    id: "stakingcouncilstones",
+                    label: "Council Stones",
+                    link: "/staking/council-stones",
+                    parentId: "staking"
+                }
+            ]
         },
     ];
 

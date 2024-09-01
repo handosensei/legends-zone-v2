@@ -232,6 +232,8 @@ import Residence from "../pages/Claim/Residences";
 import Armor from "../pages/Claim/Armors";
 import DarkRewards from "../pages/Claim/DarkRewards";
 import BadgeRewards from "../pages/Claim/BadgeRewards";
+import StakingMetaLegends from "../pages/Staking/MetaLegends";
+import StakingCouncilStones from "../pages/Staking/CouncilStones";
 
 const authProtectedRoutes = [
 
@@ -247,6 +249,9 @@ const authProtectedRoutes = [
   { path: "/index", component: <DashboardZone /> },
   { path: "/profile", component: <Profile /> },
   { path: "/profile/edit", component: <ProfileEdit /> },
+  { path: "/staking/meta-legends", component: <StakingMetaLegends /> },
+  { path: "/staking/council-stones", component: <StakingCouncilStones /> },
+
   { path: "/sensei", component: <EnvParameters /> },
 
   //
