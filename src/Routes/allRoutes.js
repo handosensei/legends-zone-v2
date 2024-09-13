@@ -88,9 +88,6 @@ import { Navigate } from "react-router-dom";
 // import UiRibbons from "../pages/BaseUi/UiRibbons/UiRibbons";
 // import UiUtilities from "../pages/BaseUi/UiUtilities/UiUtilities";
 //
-
-// // Widgets
-// import Widgets from '../pages/Widgets/Index';
 //
 // //Forms
 // import BasicElements from "../pages/Forms/BasicElements/BasicElements";
@@ -361,9 +358,6 @@ const authProtectedRoutes = [
   // { path: "/ui-general", component: <UiGeneral /> },
   // { path: "/ui-ribbons", component: <UiRibbons /> },
   // { path: "/ui-utilities", component: <UiUtilities /> },
-  //
-  // // Widgets
-  // { path: "/widgets", component: <Widgets /> },
   //
   // // Forms
   // { path: "/forms-elements", component: <BasicElements /> },
