@@ -144,3 +144,8 @@ export const emailIsAvailable = async (email) => {
   const url = `${apiUrl}users/email/${email}/is-available`;
   return get(url);
 }
+
+export const getItemsFromByCollection = async (blockchain, network, collection) => {
+  const url = `${apiUrl}collections/owned/${blockchain}/${network}/${collection}`;
+  return get(url);
+}
