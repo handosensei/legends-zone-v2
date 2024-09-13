@@ -24,7 +24,7 @@ const CardSpecial = () => {
           <h5 className="mb-0 pb-1">Honorary collection</h5>
         </div>
         {honoraries.map((honorary, key) => (
-        <Col key={key} sm={4} md={3} xl={2} >
+        <Col key={key} xs={6} sm={4} md={3} xl={2} >
           <Card>
             <CardBody>
               <h6 className="mb-2">

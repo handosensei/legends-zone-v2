@@ -18,7 +18,7 @@ const CardMetaLegend = () => {
 
   return (
     <Row>
-      <Col sm={4} md={3} xl={2}>
+      <Col xs={6} sm={4} md={3} xl={2}>
         {legends.map((legend, key) => (
           <Card key={key}>
             <CardBody>

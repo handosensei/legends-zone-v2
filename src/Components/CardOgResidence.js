@@ -26,7 +26,7 @@ const CardOgResidence = () => {
 
     return (<>
       {perkOgResidences.map((Residence, key) => (
-      <Col key={key} sm={4} md={3} xl={2}>
+      <Col key={key} xs={6} sm={4} md={3} xl={2}>
         <Card>
           <CardBody>
             <h6 className="mb-2">
