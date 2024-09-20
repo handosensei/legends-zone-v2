@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import spaace_coin from "../../../assets/images/spaace/coin.png";
 import CountUp from "react-countup";
 
-const Information = () => {
+const Information = ({amountSpaace, countTokenStaked}) => {
 
   return (
     <React.Fragment>
@@ -55,7 +55,7 @@ const Information = () => {
                         prefix=""
                         suffix=" $SPAACE"
                         separator='.'
-                        end="559.25"
+                        end={amountSpaace}
                         decimals="3"
                         duration={2}
                       />
@@ -85,7 +85,7 @@ const Information = () => {
                         prefix=""
                         suffix=" NFT"
                         separator=''
-                        end="4"
+                        end={countTokenStaked}
                         decimals="0"
                         duration={2}
                       />

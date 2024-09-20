@@ -1,10 +1,10 @@
 import Web3 from "web3";
 
-export const getWeb3Data = async ({contract, chainId}) => {
+export const getWeb3Data = async (contract, chainId) => {
   const web3 = new Web3(window.ethereum);
   const networkId = await web3.eth.net.getId();
-  const accounts = await web3.eth.getAccounts()
-  if (networkId !== chainId) {
+  const accounts = await web3.eth.getAccounts();
+  if (networkId != chainId) {
     return [null, accounts[0]];
   }
 
