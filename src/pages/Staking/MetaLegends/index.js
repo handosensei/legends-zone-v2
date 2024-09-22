@@ -23,7 +23,7 @@ import {getWeb3Data} from "../../../Components/Common/LibWeb3";
 
 import MlContract from "../../../contracts/testnet/meta-legends/MetaLegends.json";
 import StakingContract from "../../../contracts/testnet/staking-ml/MetaLifeStaking.json";
-import {getItemsFromByCollection} from "../../../client/ApiMetaLegends";
+import {getItemsFromByCollection, getNFTsMetadata} from "../../../client/ApiMetaLegends";
 import {toast, ToastContainer} from "react-toastify";
 import Information from './Information';
 import MLStaked from "./MLStaked";
@@ -49,7 +49,10 @@ const MetaLegends = () => {
   const [loading, setLoading] = useState(false);
   const [countTokenStaked, setCountTokenStaked] = useState(0);
   const [tokenIdsStaked, setTokenIdsStaked] = useState([]);
+  const [NFTsStaked, setNFTsStaked] = useState([]);
   const [amountSpaace, setAmountSpaace] = useState(0);
+  const [rewardDetails, setRewardDetails] = useState([]);
+  const [rewardPerHour, setRewardPerHour] = useState(0);
 
   const notif = (type, message, colorText='text-white') => {
     toast(message, {
@@ -68,7 +71,22 @@ const MetaLegends = () => {
     if (hasNtfsStaked) {
       return (
         <React.Fragment>
-          <MLStaked tokenIds={tokenIdsStaked}/>
+          <Row className="mb-4">
+            <Col xl={10} lg={10} md={9} sm={8} xs={8}>
+              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-xs me-2" >
+                <i className="ri-lock-unlock-fill label-icon align-middle fs-16 me-2"></i> Unstake & Claim
+              </Button>
+              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-xs " >
+                <i className=" ri-hand-coin-line label-icon align-middle fs-16 me-2"></i> Claim
+              </Button>
+            </Col>
+            <Col xl={2} lg={2} md={3} sm={4} xs={4} style={{textAlign: "right"}}>
+              <Button color="secondary" className="btn-label btn-sm waves-effect waves-light w-xs" onClick={toogleModal}>
+                <i className="mdi mdi-diamond-stone label-icon align-middle fs-16 me-2"></i> Stake more
+              </Button>
+            </Col>
+          </Row>
+          <MLStaked NFTsStaked={NFTsStaked} rewardDetails={rewardDetails} rewardsPerHour={rewardPerHour}/>
         </React.Fragment>
       );
     }
@@ -176,7 +194,7 @@ const MetaLegends = () => {
     return (
       <React.Fragment>
         {nftUnstaked.map((legend, key) => (
-          <Col key={key} xs={6} sm={4} md={3} lg={2} xl={2} xxl={2}>
+          <Col key={key} xs={4} sm={4} md={3} lg={2} xl={2} xxl={2}>
               <input type="checkbox" name="tokenIds"
                      id={`legend#${legend.tokenId}`} className="visually-hidden" value={legend.tokenId}
                      onChange={onSelectPfp} />
@@ -289,9 +307,10 @@ const MetaLegends = () => {
     getWeb3Data(StakingContract, CHAIN_ID).then((res) => {
       setContractStaking(res[0]);
       setAccount(res[1]);
-
       const contract = res[0];
       const account = res[1];
+      contract.methods.rewardsPerHour().call()
+        .then((res) => setRewardPerHour(res));
       contract.methods.tokenStakedByOwner(account).call()
         .then((res) => {
           setCountTokenStaked(res.length);
@@ -299,7 +318,15 @@ const MetaLegends = () => {
             setHasNftsStaked(true);
             setTokenIdsStaked(res);
             contract.methods.getRewardAmount(account, res).call().then((res) => {
-              setAmountSpaace(res);
+              setAmountSpaace(Number(res) / Math.pow(10, 18));
+            });
+
+            contract.methods.getRewardDetails(account).call().then((res) => {
+              setRewardDetails(res);
+            });
+
+            getNFTsMetadata(BLOCKCHAIN, NETWORK, CONTRACT_ML, res).then((tokens) => {
+              setNFTsStaked(tokens);
             });
           }
         });
@@ -328,7 +355,7 @@ const MetaLegends = () => {
 
           <BreadCrumb title="Meta-Legends NFT" pageTitle="Staking"/>
 
-          <Information amount={0} countTokenStaked={countTokenStaked}/>
+          <Information amountSpaace={amountSpaace} countTokenStaked={countTokenStaked}/>
 
           <StakedNFTs />
 

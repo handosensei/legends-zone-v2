@@ -42,7 +42,7 @@ const Information = ({amountSpaace, countTokenStaked}) => {
 
               <div className="d-flex align-items-center">
                 <div className="flex-grow-1">
-                  <p className="text-uppercase fw-medium mb-0 text-muted">Amount earned</p>
+                  <p className="text-uppercase fw-medium mb-0 text-muted">Total earned</p>
                 </div>
               </div>
 
