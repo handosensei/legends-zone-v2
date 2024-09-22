@@ -149,3 +149,9 @@ export const getItemsFromByCollection = async (blockchain, network, collection) 
   const url = `${apiUrl}collections/owned/${blockchain}/${network}/${collection}`;
   return get(url);
 }
+
+export const getNFTsMetadata = async (blockchain, network, collection, tokenIds) => {
+  const url = `${apiUrl}collections/metadata/${blockchain}/${network}/${collection}`;
+  const payload = { tokens: tokenIds };
+  return post(url, payload);
+}
