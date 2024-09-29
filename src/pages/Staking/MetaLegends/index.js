@@ -15,8 +15,6 @@ import {
 } from "reactstrap";
 import BreadCrumb from "../../../Components/Common/BreadCrumb";
 import {Link} from "react-router-dom";
-import spaace_coin from "../../../assets/images/spaace/coin.png";
-import CountUp from "react-countup";
 
 import "./unstaked.css";
 import {getWeb3Data} from "../../../Components/Common/LibWeb3";
@@ -27,6 +25,10 @@ import {getItemsFromByCollection, getNFTsMetadata} from "../../../client/ApiMeta
 import {toast, ToastContainer} from "react-toastify";
 import Information from './Information';
 import MLStaked from "./MLStaked";
+
+import { useSelector, useDispatch} from "react-redux";
+import {stakedLoading, stakedSuccess} from "../../../store/staking/metalegends/actions";
+import stakingMetaLegends from "../../../store/staking/metalegends/reducer";
 
 const MetaLegends = () => {
 
@@ -54,6 +56,20 @@ const MetaLegends = () => {
   const [rewardDetails, setRewardDetails] = useState([]);
   const [rewardPerHour, setRewardPerHour] = useState(0);
 
+
+  const dispatch = useDispatch();
+
+  const { tokenStaked } = useSelector((state) => ({
+    tokenStaked: state.StakingMetaLegends.tokenStaked
+  }));
+
+  useEffect(() => {
+    if (tokenStaked && !tokenStaked.length) {
+      dispatch(stakedLoading());
+      setTokenIdsStaked(tokenStaked);
+    }
+  }, [dispatch, tokenStaked]);
+
   const notif = (type, message, colorText='text-white') => {
     toast(message, {
       position: "top-right",
@@ -73,11 +89,11 @@ const MetaLegends = () => {
         <React.Fragment>
           <Row className="mb-4">
             <Col xl={10} lg={10} md={9} sm={8} xs={8}>
-              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-xs me-2" >
-                <i className="ri-lock-unlock-fill label-icon align-middle fs-16 me-2"></i> Unstake & Claim
+              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-xs me-2 disabled" >
+                <i className="ri-lock-unlock-fill label-icon align-middle fs-16 me-2"></i> Unstake & Claim All
               </Button>
-              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-xs " >
-                <i className=" ri-hand-coin-line label-icon align-middle fs-16 me-2"></i> Claim
+              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-xs" onClick={claimAll}>
+                <i className=" ri-hand-coin-line label-icon align-middle fs-16 me-2"></i> Claim All
               </Button>
             </Col>
             <Col xl={2} lg={2} md={3} sm={4} xs={4} style={{textAlign: "right"}}>
@@ -105,76 +121,21 @@ const MetaLegends = () => {
     );
   }
 
+  const claimAll = () => {
+    contractStaking.methods.claim(tokenIdsStaked).send({from: account}).then((res) => {
+      const amount = Number(res.events.Claimed.returnValues.amount) / Math.pow(10, 18);
+      const message = `${Number(amount).toFixed(3)} $SPAACE claimed`;
+      notif('success', message);
+    });
+  }
+
   const DisplayUnstaked = () => {
-    // if (displayMode === "list") {
-    //   return (
-    //     <Row>
-    //       <DisplayUnstakedNftList />
-    //     </Row>
-    //   )
-    // }
 
     return (
       <Row>
         <DisplayUnstakedNftGrid />
       </Row>
     )
-  }
-
-  const DisplayUnstakedNftList = () => {
-    return (
-      <Col lg={12}>
-        <Card>
-          <CardBody>
-            <div className="listjs-table" id="customerList">
-              <div className="table-responsive table-card mt-3 mb-1 center">
-                <table className="table align-middle table-nowrap" id="customerTable">
-                  <thead className="table-light">
-                  <tr>
-                    <th scope="col" style={{ width: "50px" }}>
-                      <div className="form-check">
-                        <input className="form-check-input" type="checkbox" id="checkAll" value="option" />
-                      </div>
-                    </th>
-                    <th></th>
-                    <th className="sort" data-sort="name">name</th>
-                  </tr>
-                  </thead>
-                  <tbody className="list form-check-all">
-                  {nftUnstaked.map((legend, key) => (
-                    <tr key={key}>
-                      <th scope="row">
-                        <div className="form-check">
-                          <input className="form-check-input" type="checkbox" name="chk_child" value="option1" />
-                        </div>
-                      </th>
-                      <td>
-                        <img key={key} className="avatar-xs rounded-3" src={legend.media.originalUrl} alt={`Legend #${legend.tokenId}`} />
-                      </td>
-                      <td>
-                        {legend.name}
-                      </td>
-                    </tr>
-                  ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="d-flex justify-content-end">
-                <div className="pagination-wrap hstack gap-2">
-                  <Link className="page-item pagination-prev disabled" to="#">
-                    Previous
-                  </Link>
-                  <ul className="pagination listjs-pagination mb-0"></ul>
-                  <Link className="page-item pagination-next" to="#">
-                    Next
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </CardBody>
-        </Card>
-      </Col>
-    );
   }
 
   const onSelectPfp = (e) => {
@@ -251,6 +212,8 @@ const MetaLegends = () => {
       .then((res: any) => {
         notif('success', `${tokenIdsSeleted.length} NFT ML Staked`);
         toast.info(CustomToastWithLink(res.transactionHash));
+        dispatch(stakedLoading());
+        reloadTokenStaked();
       })
       .catch((error) => {
         if (error.code === 4001 || error.message.includes("User denied transaction")) {
@@ -303,14 +266,38 @@ const MetaLegends = () => {
     );
   }
 
+  const reloadTokenStaked = () => {
+    if (contractStaking == null) {
+      return;
+    }
+    contractStaking.methods.tokenStakedByOwner(account).call()
+      .then((res) => {
+        setCountTokenStaked(res.length);
+        if (res.length > 0) {
+          setHasNftsStaked(true);
+          setTokenIdsStaked(res);
+          contractStaking.methods.getRewardAmount(account, res).call().then((res) => {
+            setAmountSpaace(Number(res) / Math.pow(10, 18));
+          });
+
+          contractStaking.methods.getRewardDetails(account).call().then((res) => {
+            setRewardDetails(res);
+          });
+
+          getNFTsMetadata(BLOCKCHAIN, NETWORK, CONTRACT_ML, res).then((tokensStaked) => {
+            setNFTsStaked(tokensStaked);
+          });
+        }
+      });
+  }
+
   useEffect(() => {
     getWeb3Data(StakingContract, CHAIN_ID).then((res) => {
       setContractStaking(res[0]);
       setAccount(res[1]);
       const contract = res[0];
       const account = res[1];
-      contract.methods.rewardsPerHour().call()
-        .then((res) => setRewardPerHour(res));
+      contract.methods.rewardsPerHour().call().then((res) => setRewardPerHour(res));
       contract.methods.tokenStakedByOwner(account).call()
         .then((res) => {
           setCountTokenStaked(res.length);
@@ -325,8 +312,8 @@ const MetaLegends = () => {
               setRewardDetails(res);
             });
 
-            getNFTsMetadata(BLOCKCHAIN, NETWORK, CONTRACT_ML, res).then((tokens) => {
-              setNFTsStaked(tokens);
+            getNFTsMetadata(BLOCKCHAIN, NETWORK, CONTRACT_ML, res).then((tokensStaked) => {
+              setNFTsStaked(tokensStaked);
             });
           }
         });

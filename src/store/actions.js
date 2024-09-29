@@ -4,7 +4,6 @@ export * from "./layouts/action";
 export * from "./auth/register/actions";
 export * from "./auth/login/actions";
 export * from "./auth/forgetpwd/actions";
-export * from "./auth/profile/actions";
 //calendar
 export * from "./calendar/actions";
 //chat
@@ -15,7 +14,7 @@ export * from "./projects/action";
 export * from "./ecommerce/action";
 // Task
 export * from "./tasks/action";
-//Form advanced 
+//Form advanced
 export * from './formAdvanced/action';
 // Crypto
 export * from "./crypto/action";
@@ -41,3 +40,7 @@ export * from "./todos/action"
 export * from "./job/action";
 //API Key
 export * from "./apikey/action";
+
+// used
+export * from "./auth/profile/actions";
+export * from "./staking/metalegends/actions";

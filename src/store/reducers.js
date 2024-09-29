@@ -7,7 +7,6 @@ import Layout from "./layouts/reducer";
 import Login from "./auth/login/reducer";
 import Account from "./auth/register/reducer";
 import ForgetPassword from "./auth/forgetpwd/reducer";
-import Profile from "./auth/profile/reducer";
 
 //Calendar
 import Calendar from "./calendar/reducer";
@@ -53,11 +52,15 @@ import FileManager from "./fileManager/reducer"
 // To do
 import Todos from "./todos/reducer"
 
-//Job 
+//Job
 import Jobs from "./job/reducer";
 
 //API Key
 import APIKey from "./apikey/reducer";
+
+// Used
+import Profile from "./auth/profile/reducer";
+import StakingMetaLegends from "./staking/metalegends/reducer";
 
 const rootReducer = combineReducers({
     // public
@@ -65,7 +68,6 @@ const rootReducer = combineReducers({
     Login,
     Account,
     ForgetPassword,
-    Profile,
     Calendar,
     chat,
     Projects,
@@ -83,7 +85,11 @@ const rootReducer = combineReducers({
     FileManager,
     Todos,
     Jobs,
-    APIKey
+    APIKey,
+
+    // used
+    Profile,
+    StakingMetaLegends,
 });
 
 export default rootReducer;

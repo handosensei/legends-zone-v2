@@ -5,7 +5,6 @@ import LayoutSaga from "./layouts/saga";
 import AccountSaga from "./auth/register/saga";
 import AuthSaga from "./auth/login/saga";
 import ForgetSaga from "./auth/forgetpwd/saga";
-import ProfileSaga from "./auth/profile/saga";
 
 //calendar
 import calendarSaga from "./calendar/saga";
@@ -51,6 +50,9 @@ import jobSaga from "./job/saga";
 //API Key
 import APIKeysaga from "./apikey/saga";
 
+import ProfileSaga from "./auth/profile/saga";
+import StakingMLSaga from "./staking/metalegends/saga";
+
 export default function* rootSaga() {
   yield all([
     //public
@@ -58,7 +60,6 @@ export default function* rootSaga() {
     fork(AccountSaga),
     fork(AuthSaga),
     fork(ForgetSaga),
-    fork(ProfileSaga),
     fork(chatSaga),
     fork(projectSaga),
     fork(taskSaga),
@@ -76,5 +77,9 @@ export default function* rootSaga() {
     fork(todos),
     fork(jobSaga),
     fork(APIKeysaga),
+
+    // used
+    fork(ProfileSaga),
+    fork(StakingMLSaga),
   ]);
 }
