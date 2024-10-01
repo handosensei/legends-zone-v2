@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Alert,
   Button,
-  ButtonGroup,
-  Card,
-  CardBody,
-  CardHeader,
   Col,
   Container,
-  Input,
   Modal, ModalBody,
   ModalHeader,
   Row, Spinner
@@ -19,7 +13,7 @@ import {Link} from "react-router-dom";
 import "./unstaked.css";
 import {getWeb3Data} from "../../../Components/Common/LibWeb3";
 
-import MlContract from "../../../contracts/testnet/meta-legends/MetaLegends.json";
+import MlContract from "../../../contracts/meta-legends/MetaLegends.json";
 import StakingContract from "../../../contracts/staking-ml/MetaLifeStaking.json";
 import {getItemsFromByCollection, getNFTsMetadata} from "../../../client/ApiMetaLegends";
 import {toast, ToastContainer} from "react-toastify";
@@ -46,7 +40,6 @@ const MetaLegends = () => {
   const [nftUnstaked, setNftUnstaked] = useState([]);
   const [modal, setModal] = useState(false);
   const [hasNtfsStaked, setHasNftsStaked] = useState(false);
-  const [displayMode, setDisplayMode] = useState("grid");
   const [tokenIdsSeleted, setTokenIdsSelected] = useState([]);
   const [loading, setLoading] = useState(false);
   const [countTokenStaked, setCountTokenStaked] = useState(0);
@@ -56,7 +49,6 @@ const MetaLegends = () => {
   const [rewardDetails, setRewardDetails] = useState([]);
   const [rewardPerHour, setRewardPerHour] = useState(0);
   const [noStakingAlreadyLoad, setNoStakingAlreadyLoad] = useState(false);
-
 
   const dispatch = useDispatch();
 
@@ -108,7 +100,6 @@ const MetaLegends = () => {
         </React.Fragment>
       );
     }
-
     return (
       <Row>
         <div className="col-sm-12 text-center" height="100%">
@@ -247,41 +238,41 @@ const MetaLegends = () => {
     });
   }
 
-  const Loading = () => {
+  const UnstakedNFTsModal = () => {
     if (loading) {
       return (
-        <React.Fragment>
-          <Spinner size="sm" className="flex-shrink-0" />
-        </React.Fragment>
+        <Modal size="md" isOpen={modal} contentClassName="stakinginprogress">
+          <ModalHeader className="modal-title">
+            Staking Meta-Legends NFT in progress
+          </ModalHeader>
+          <ModalBody >
+            <div className="loader-overlay">
+              <Spinner color="primary" />
+            </div>
+          </ModalBody>
+        </Modal>
       );
     }
 
-    return (<React.Fragment></React.Fragment>);
-  }
-
-  const UnstakedNFTsModal = () => {
     return (
-      <React.Fragment>
-        <Modal size="xl" isOpen={modal} toggle={toogleModal}>
-          <ModalHeader className="modal-title" toggle={() => {toogleModal();}}>
-            Meta-Legends NFT unstaked
-          </ModalHeader>
-          <ModalBody>
-            <DisplayUnstaked />
-          </ModalBody>
-          <div className="modal-footer">
-            <Link to="#" className="btn btn-link link-success fw-medium" onClick={() => toogleModal()}><i className="ri-close-line me-1 align-middle"></i> Cancel</Link>
-            <Button color="primary" onClick={staking}>
-              <span className="d-flex align-items-center">
-                <Loading />
-                <span className="flex-grow-1 ms-2">
-                    Stake
-                </span>
+      <Modal size="xl" isOpen={modal} toggle={toogleModal} >
+        <ModalHeader className="modal-title" toggle={() => {toogleModal();}}>
+          Meta-Legends NFT unstaked
+        </ModalHeader>
+        <ModalBody>
+          <DisplayUnstaked />
+        </ModalBody>
+        <div className="modal-footer">
+          <Link to="#" className="btn btn-link link-success fw-medium" onClick={() => toogleModal()}><i className="ri-close-line me-1 align-middle"></i> Cancel</Link>
+          <Button color="primary" onClick={staking}>
+            <span className="d-flex align-items-center">
+              <span className="flex-grow-1 ms-2">
+                  Stake
               </span>
-            </Button>
-          </div>
-        </Modal>
-      </React.Fragment>
+            </span>
+          </Button>
+        </div>
+      </Modal>
     );
   }
 
@@ -341,7 +332,7 @@ const MetaLegends = () => {
       console.log(err);
     });
 
-    getWeb3Data(MlContract, CHAIN_ID).then((res) => {
+    getWeb3Data(MlContract[ENV_STAKING], CHAIN_ID).then((res) => {
       setContractMetaLegends(res[0]);
     }).catch((err) => {
       console.log(err);
