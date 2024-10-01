@@ -20,15 +20,14 @@ import "./unstaked.css";
 import {getWeb3Data} from "../../../Components/Common/LibWeb3";
 
 import MlContract from "../../../contracts/testnet/meta-legends/MetaLegends.json";
-import StakingContract from "../../../contracts/testnet/staking-ml/MetaLifeStaking.json";
+import StakingContract from "../../../contracts/staking-ml/MetaLifeStaking.json";
 import {getItemsFromByCollection, getNFTsMetadata} from "../../../client/ApiMetaLegends";
 import {toast, ToastContainer} from "react-toastify";
 import Information from './Information';
 import MLStaked from "./MLStaked";
 
 import { useSelector, useDispatch} from "react-redux";
-import {stakedLoading, stakedSuccess} from "../../../store/staking/metalegends/actions";
-import stakingMetaLegends from "../../../store/staking/metalegends/reducer";
+import {stakedLoading} from "../../../store/staking/metalegends/actions";
 
 const MetaLegends = () => {
 
@@ -39,6 +38,7 @@ const MetaLegends = () => {
   const CHAIN_ID = process.env.REACT_APP_STAKING_CHAIN_ID;
   const CONTRACT_ML = process.env.REACT_APP_STAKING_CONTRACT_ML;
   const CONTRACT_STAKING = process.env.REACT_APP_STAKING_CONTRACT_STAKING;
+  const ENV_STAKING = process.env.REACT_APP_STAKING_ENV;
 
   const [contractStaking, setContractStaking] = useState(null);
   const [contractMetaLegends, setContractMetaLegends] = useState(null);
@@ -55,6 +55,7 @@ const MetaLegends = () => {
   const [amountSpaace, setAmountSpaace] = useState(0);
   const [rewardDetails, setRewardDetails] = useState([]);
   const [rewardPerHour, setRewardPerHour] = useState(0);
+  const [noStakingAlreadyLoad, setNoStakingAlreadyLoad] = useState(false);
 
 
   const dispatch = useDispatch();
@@ -64,9 +65,10 @@ const MetaLegends = () => {
   }));
 
   useEffect(() => {
-    if (tokenStaked && !tokenStaked.length) {
+    if ((tokenStaked && !tokenStaked.length) && !noStakingAlreadyLoad) {
       dispatch(stakedLoading());
       setTokenIdsStaked(tokenStaked);
+      setNoStakingAlreadyLoad(true);
     }
   }, [dispatch, tokenStaked]);
 
@@ -89,7 +91,7 @@ const MetaLegends = () => {
         <React.Fragment>
           <Row className="mb-4">
             <Col xl={10} lg={10} md={9} sm={8} xs={8}>
-              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-xs me-2 disabled" >
+              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-xs me-2" onClick={unstakeAll}>
                 <i className="ri-lock-unlock-fill label-icon align-middle fs-16 me-2"></i> Unstake & Claim All
               </Button>
               <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-xs" onClick={claimAll}>
@@ -127,6 +129,23 @@ const MetaLegends = () => {
       const message = `${Number(amount).toFixed(3)} $SPAACE claimed`;
       notif('success', message);
     });
+  }
+
+  const unstakeAll = () => {
+    contractStaking.methods.claimAndUnstake(tokenIdsStaked).send({from: account})
+      .then((res) => {
+        const amount = Number(res.events.Claimed.returnValues.amount) / Math.pow(10, 18);
+        const message = `${Number(amount).toFixed(3)} $SPAACE claimed`;
+        notif('success', message);
+        notif('success', `${tokenIdsStaked.length} NFT unstaked`);
+        setHasNftsStaked(false);
+        setAmountSpaace(0);
+        setCountTokenStaked(0);
+        dispatch(stakedLoading());
+      })
+      .catch((error) => {
+        notif('danger', error.message);
+      })
   }
 
   const DisplayUnstaked = () => {
@@ -292,7 +311,8 @@ const MetaLegends = () => {
   }
 
   useEffect(() => {
-    getWeb3Data(StakingContract, CHAIN_ID).then((res) => {
+    const stakingContract = StakingContract[ENV_STAKING];
+    getWeb3Data(stakingContract, CHAIN_ID).then((res) => {
       setContractStaking(res[0]);
       setAccount(res[1]);
       const contract = res[0];
