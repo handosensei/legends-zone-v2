@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Card, CardBody, Col, Row} from "reactstrap";
 import {getLegends} from "../client/ApiMetaLegends";
+import {notif} from "./Common/Notification";
 
 const CardMetaLegend = () => {
 
@@ -12,6 +13,8 @@ const CardMetaLegend = () => {
       setIsLoading(true);
       getLegends().then((result) => {
         setLegends(result);
+      }).catch((error) => {
+        notif('danger', error.message);
       })
     }
   }, []);

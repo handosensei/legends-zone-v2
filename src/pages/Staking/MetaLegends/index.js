@@ -16,7 +16,8 @@ import {getWeb3Data} from "../../../Components/Common/LibWeb3";
 import MlContract from "../../../contracts/meta-legends/MetaLegends.json";
 import StakingContract from "../../../contracts/staking-ml/MetaLifeStaking.json";
 import {getItemsFromByCollection, getNFTsMetadata} from "../../../client/ApiMetaLegends";
-import {toast, ToastContainer} from "react-toastify";
+import {notif} from "../../../Components/Common/Notification";
+import {toast} from "react-toastify";
 import Information from './Information';
 import MLStaked from "./MLStaked";
 
@@ -63,14 +64,6 @@ const MetaLegends = () => {
       setNoStakingAlreadyLoad(true);
     }
   }, [dispatch, tokenStaked]);
-
-  const notif = (type, message, colorText='text-white') => {
-    toast(message, {
-      position: "top-right",
-      hideProgressBar: true,
-      className: `bg-${type} text-white`
-    });
-  }
 
   function toogleModal() {
     setModal(!modal);
@@ -359,7 +352,6 @@ const MetaLegends = () => {
 
         </Container>
       </div>
-      <ToastContainer />
     </React.Fragment>
   );
 }
