@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 // //Dashboard
-// import DashboardJob from "../pages/DashboardJob/";
+
 // import DashboardCrypto from "../pages/DashboardCrypto";
 
 // import DashboardNFT from "../pages/DashboardNFT";
@@ -255,7 +255,6 @@ const authProtectedRoutes = [
   // { path: "/dashboard-crypto", component: <DashboardCrypto /> },
 
   // { path: "/dashboard-nft", component: <DashboardNFT /> },
-  // { path : "/dashboard-job", component : <DashboardJob /> },
   // { path: "/apps-calendar", component: <Calendar /> },
   // { path: "/apps-ecommerce-products", component: <EcommerceProducts /> },
   // { path: "/apps-ecommerce-product-details", component: <EcommerceProductDetail /> },
