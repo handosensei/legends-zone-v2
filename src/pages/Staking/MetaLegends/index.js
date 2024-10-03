@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Button,
   Col,
@@ -7,22 +7,24 @@ import {
   ModalHeader,
   Row, Spinner
 } from "reactstrap";
-import BreadCrumb from "../../../Components/Common/BreadCrumb";
 import {Link} from "react-router-dom";
+import {toast} from "react-toastify";
+import {useSelector, useDispatch} from "react-redux";
 
-import "./unstaked.css";
-import {getWeb3Data} from "../../../Components/Common/LibWeb3";
+import BreadCrumb from "../../../Components/Common/BreadCrumb";
+import {notif} from "../../../Components/Common/Notification";
 
 import MlContract from "../../../contracts/meta-legends/MetaLegends.json";
 import StakingContract from "../../../contracts/staking-ml/MetaLifeStaking.json";
 import {getItemsFromByCollection, getNFTsMetadata} from "../../../client/ApiMetaLegends";
-import {notif} from "../../../Components/Common/Notification";
-import {toast} from "react-toastify";
+import {getWeb3Data} from "../../../Components/Common/LibWeb3";
+
 import Information from './Information';
 import MLStaked from "./MLStaked";
 
-import { useSelector, useDispatch} from "react-redux";
 import {stakedLoading} from "../../../store/staking/metalegends/actions";
+
+import "./unstaked.css";
 
 const MetaLegends = () => {
 
@@ -50,8 +52,21 @@ const MetaLegends = () => {
   const [rewardDetails, setRewardDetails] = useState([]);
   const [rewardPerHour, setRewardPerHour] = useState(0);
   const [noStakingAlreadyLoad, setNoStakingAlreadyLoad] = useState(false);
-
   const dispatch = useDispatch();
+
+  const ref = useRef([]);
+
+  const Unchecked = () => {
+    for (let i = 0; i < ref.current.length; i++) {
+      ref.current[i].checked = false;
+    }
+  }
+
+  const Checked = () => {
+    for (let i = 0; i < ref.current.length; i++) {
+      ref.current[i].checked = true;
+    }
+  }
 
   const { tokenStaked } = useSelector((state) => ({
     tokenStaked: state.StakingMetaLegends.tokenStaked
@@ -133,12 +148,11 @@ const MetaLegends = () => {
   }
 
   const DisplayUnstaked = () => {
-
     return (
       <Row>
         <DisplayUnstakedNftGrid />
       </Row>
-    )
+    );
   }
 
   const onSelectPfp = (e) => {
@@ -151,7 +165,7 @@ const MetaLegends = () => {
         tokenIds.splice(index, 1);
       }
     }
-     setTokenIdsSelected(tokenIds);
+    setTokenIdsSelected(tokenIds);
   }
 
   const DisplayUnstakedNftGrid = () => {
@@ -159,12 +173,13 @@ const MetaLegends = () => {
       <React.Fragment>
         {nftUnstaked.map((legend, key) => (
           <Col key={key} xs={4} sm={4} md={3} lg={2} xl={2} xxl={2}>
-              <input type="checkbox" name="tokenIds"
-                     id={`legend#${legend.tokenId}`} className="visually-hidden" value={legend.tokenId}
-                     onChange={onSelectPfp} />
-              <label htmlFor={`legend#${legend.tokenId}`}>
-                <img className="img-fluid" src={legend.media.thumbnailUrl ?? legend.media.originalUrl} alt="" />
-              </label>
+            <input ref={(element) => { ref.current[key] = element}}
+              type="checkbox" name="tokenIds"
+              id={`legend-${legend.tokenId}`} className="visually-hidden" value={legend.tokenId}
+              onChange={onSelectPfp} />
+            <label htmlFor={`legend-${legend.tokenId}`}>
+              <img className="img-fluid" src={legend.media.thumbnailUrl ?? legend.media.originalUrl} alt="" />
+            </label>
           </Col>
         ))}
       </React.Fragment>
@@ -257,13 +272,9 @@ const MetaLegends = () => {
         </ModalBody>
         <div className="modal-footer">
           <Link to="#" className="btn btn-link link-success fw-medium" onClick={() => toogleModal()}><i className="ri-close-line me-1 align-middle"></i> Cancel</Link>
-          <Button color="primary" onClick={staking}>
-            <span className="d-flex align-items-center">
-              <span className="flex-grow-1 ms-2">
-                  Stake
-              </span>
-            </span>
-          </Button>
+          <Button color="primary" className="btn-sm waves-effect waves-light w-xs me-2" onClick={Checked} >Select all</Button>
+          <Button color="primary" className="btn-sm waves-effect waves-light w-xs me-2" onClick={Unchecked} >Unselect all</Button>
+          <Button color="primary" className="btn-sm waves-effect waves-light w-xs me-2" onClick={staking} >Stake</Button>
         </div>
       </Modal>
     );
