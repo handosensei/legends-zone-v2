@@ -3,6 +3,7 @@ import {Card, CardBody, Col, Modal, Row} from "reactstrap";
 import {getVehicles} from "../client/ApiMetaLegends";
 import LinkProjectFileUrl from "./LinkProjectFileUrl";
 import Player from "./Player";
+import {notif} from "./Common/Notification";
 
 const CardOgVehicle = () => {
 
@@ -86,15 +87,14 @@ const CardOgVehicle = () => {
       setClassNamePlayer('d-none');
     }
 
-    const fetchData = async () => {
-      const result = await getVehicles();
-      setPerkOgVehicles(result);
-      setIsLoading(true);
-    }
-
     if (sessionStorage.getItem("authUser")) {
-      const obj = JSON.parse(sessionStorage.getItem("authUser"));
-      fetchData(obj.wallet.toLowerCase());
+      getVehicles().then((result) => {
+        setPerkOgVehicles(result);
+        setIsLoading(true);
+      })
+      .catch((error) => {
+        notif('danger', error.message);
+      });
     }
   }, []);
 

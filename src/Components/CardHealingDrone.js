@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Card, CardBody, Col, Row} from "reactstrap";
 import {getHealingDrones} from "../client/ApiMetaLegends";
 import LinkProjectFileUrl from "./LinkProjectFileUrl";
+import {notif} from "./Common/Notification";
 
 const CardHealingDrone = () => {
 
@@ -48,14 +49,18 @@ const CardHealingDrone = () => {
 
   useEffect(() => {
 
-    const fetchData = async () => {
-      const result = await getHealingDrones();
-      setDrones(result);
+    const fetchData = () => {
+      getHealingDrones()
+        .then((res) => {
+          setDrones(res);
+        })
+        .catch((error) => {
+          notif('danger', error.message);
+        });
     }
 
     if (sessionStorage.getItem("authUser")) {
-      const obj = JSON.parse(sessionStorage.getItem("authUser"));
-      fetchData(obj.wallet.toLowerCase());
+      fetchData();
     }
   }, []);
 

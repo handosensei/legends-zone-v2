@@ -4,6 +4,7 @@ import {getPerkOgPets} from "../client/ApiMetaLegends";
 import Player from "./Player";
 import 'video.js/dist/video-js.css';
 import LinkProjectFileUrl from "./LinkProjectFileUrl";
+import {notif} from "./Common/Notification";
 
 const CardOgPet = () => {
 
@@ -83,15 +84,19 @@ const CardOgPet = () => {
 
   useEffect(() => {
 
-    const fetchData = async () => {
-      const result = await getPerkOgPets();
-      setPerkOgPets(result);
-      setIsLoading(true);
+    const fetchData = () => {
+      getPerkOgPets()
+        .then((result) => {
+          setPerkOgPets(result);
+          setIsLoading(true);
+        })
+        .catch((error) => {
+          notif('danger', error.message);
+        });
     }
 
     if (sessionStorage.getItem("authUser")) {
-      const obj = JSON.parse(sessionStorage.getItem("authUser"));
-      fetchData(obj.wallet.toLowerCase());
+      fetchData();
     }
   }, []);
 

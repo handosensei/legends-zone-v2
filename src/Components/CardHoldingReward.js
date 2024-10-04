@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Card, CardBody, Col, Row} from "reactstrap";
 import {getLZAssets} from "../client/ApiMetaLegends";
+import {notif} from "./Common/Notification";
 
 const CardHoldingReward = () => {
 
@@ -45,14 +46,17 @@ const CardHoldingReward = () => {
   };
 
   useEffect( () => {
-    const fetchData = async () => {
-      getLZAssets().then((resLzAssets) => {
-        setLzAssets(resLzAssets);
-      })
+    const fetchData = () => {
+      getLZAssets()
+        .then((resLzAssets) => {
+          setLzAssets(resLzAssets);
+        })
+        .catch((error) => {
+          notif('danger', error.message);
+        });
     }
     if (sessionStorage.getItem("authUser")) {
-      const obj = JSON.parse(sessionStorage.getItem("authUser"));
-      fetchData(obj.wallet.toLowerCase());
+      fetchData();
     }
   }, []);
 

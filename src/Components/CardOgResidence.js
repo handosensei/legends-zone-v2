@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Card, CardBody, Col, Row} from "reactstrap";
 import {getResidences} from "../client/ApiMetaLegends";
+import {notif} from "./Common/Notification";
 
 const CardOgResidence = () => {
 
@@ -52,15 +53,15 @@ const CardOgResidence = () => {
 
   useEffect(() => {
 
-    const fetchData = async () => {
-      const result = await getResidences();
-      setPerkOgResidences(result);
-      setIsLoading(true);
-    }
-
     if (sessionStorage.getItem("authUser")) {
-      const obj = JSON.parse(sessionStorage.getItem("authUser"));
-      fetchData(obj.wallet.toLowerCase());
+      getResidences()
+        .then((result) => {
+          setPerkOgResidences(result);
+          setIsLoading(true);
+        })
+        .catch((error) => {
+          notif('danger', error.message);
+        });
     }
   }, []);
 

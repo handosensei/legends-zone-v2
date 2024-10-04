@@ -6,6 +6,7 @@ import {
   getLZAssets,
   getUniversalWeaponSkins
 } from "../client/ApiMetaLegends";
+import {notif} from "./Common/Notification";
 
 const CardSpecial = () => {
 
@@ -132,23 +133,34 @@ const CardSpecial = () => {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      getHonoraries().then((resHonoraries) => {
+    const fetchData = () => {
+      getHonoraries()
+        .then((resHonoraries) => {
         setHonoraries(resHonoraries);
-      });
+        })
+        .catch((error) => {
+          notif('danger', error.message);
+        });
 
-      getUniversalWeaponSkins().then((resUniversalWeaponSkins) => {
-        setUniversalWeaponSkins(resUniversalWeaponSkins);
-      });
+      getUniversalWeaponSkins()
+        .then((resUniversalWeaponSkins) => {
+          setUniversalWeaponSkins(resUniversalWeaponSkins);
+        })
+        .catch((error) => {
+          notif('danger', error.message);
+        });
 
-      getCouncilStones().then((resCouncilStones) => {
-        setCouncilStones(resCouncilStones);
-      });
+      getCouncilStones()
+        .then((resCouncilStones) => {
+          setCouncilStones(resCouncilStones);
+        })
+        .catch((error) => {
+          notif('danger', error.message);
+        });
     }
 
     if (sessionStorage.getItem("authUser")) {
-      const obj = JSON.parse(sessionStorage.getItem("authUser"));
-      fetchData(obj.wallet.toLowerCase());
+      fetchData();
     }
   }, []);
 

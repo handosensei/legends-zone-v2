@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import Player from "./Player";
 import 'video.js/dist/video-js.css';
 import LinkProjectFileUrl from "./LinkProjectFileUrl";
+import {notif} from "./Common/Notification";
 
 const CardPerkArmor = () => {
 
@@ -88,15 +89,15 @@ const CardPerkArmor = () => {
       setClassNamePlayer('d-none');
     }
 
-    const fetchData = async () => {
-      const result = await getPerkArmors();
-      setPerkArmors(result);
-      setIsLoading(true);
-    }
-
     if (sessionStorage.getItem("authUser")) {
-      const obj = JSON.parse(sessionStorage.getItem("authUser"));
-      fetchData(obj.wallet.toLowerCase());
+      getPerkArmors()
+        .then((result) => {
+          setPerkArmors(result);
+          setIsLoading(true);
+        })
+        .catch((error) => {
+          notif('danger', error.message);
+        });
     }
   }, []);
 
