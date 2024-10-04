@@ -23,3 +23,7 @@ input[type=checkbox] + label>img {
 .stakinginprogress{
     height: 250px;
 }
+
+label.staked {
+    margin-bottom: 0;
+}

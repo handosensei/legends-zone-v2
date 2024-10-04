@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import {
-  Button,
+  Button, Card, CardBody, CardFooter,
   Col,
   Container,
   Modal, ModalBody,
@@ -20,11 +20,11 @@ import {getItemsFromByCollection, getNFTsMetadata} from "../../../client/ApiMeta
 import {getWeb3Data} from "../../../Components/Common/LibWeb3";
 
 import Information from './Information';
-import MLStaked from "./MLStaked";
 
 import {stakedLoading} from "../../../store/staking/metalegends/actions";
 
 import "./unstaked.css";
+import moment from "moment/moment";
 
 const MetaLegends = () => {
 
@@ -43,7 +43,7 @@ const MetaLegends = () => {
   const [nftUnstaked, setNftUnstaked] = useState([]);
   const [modal, setModal] = useState(false);
   const [hasNtfsStaked, setHasNftsStaked] = useState(false);
-  const [tokenIdsSeleted, setTokenIdsSelected] = useState([]);
+  const [tokenIdsSelected, setTokenIdsSelected] = useState([]);
   const [loading, setLoading] = useState(false);
   const [countTokenStaked, setCountTokenStaked] = useState(0);
   const [tokenIdsStaked, setTokenIdsStaked] = useState([]);
@@ -52,9 +52,14 @@ const MetaLegends = () => {
   const [rewardDetails, setRewardDetails] = useState([]);
   const [rewardPerHour, setRewardPerHour] = useState(0);
   const [noStakingAlreadyLoad, setNoStakingAlreadyLoad] = useState(false);
+  const [tokenIdsToUnstake, setTokenIdsToUnstake] = useState([]);
   const dispatch = useDispatch();
 
   const ref = useRef([]);
+
+  const { tokenStaked } = useSelector((state) => ({
+    tokenStaked: state.StakingMetaLegends.tokenStaked
+  }));
 
   const Unchecked = () => {
     for (let i = 0; i < ref.current.length; i++) {
@@ -68,18 +73,6 @@ const MetaLegends = () => {
     }
   }
 
-  const { tokenStaked } = useSelector((state) => ({
-    tokenStaked: state.StakingMetaLegends.tokenStaked
-  }));
-
-  useEffect(() => {
-    if ((tokenStaked && !tokenStaked.length) && !noStakingAlreadyLoad) {
-      dispatch(stakedLoading());
-      setTokenIdsStaked(tokenStaked);
-      setNoStakingAlreadyLoad(true);
-    }
-  }, [dispatch, tokenStaked]);
-
   function toogleModal() {
     setModal(!modal);
     setTokenIdsSelected([]);
@@ -89,22 +82,50 @@ const MetaLegends = () => {
     if (hasNtfsStaked) {
       return (
         <React.Fragment>
+          <Row className="mb-3">
+            <Col xl={10} lg={10} md={9} sm={8} xs={8}>
+              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-lg" onClick={unstakeSelected}>
+                <i className="ri-lock-unlock-fill label-icon align-middle fs-16 me-2"></i> Unstake
+              </Button>
+            </Col>
+          </Row>
           <Row className="mb-4">
             <Col xl={10} lg={10} md={9} sm={8} xs={8}>
-              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-xs me-2" onClick={unstakeAll}>
-                <i className="ri-lock-unlock-fill label-icon align-middle fs-16 me-2"></i> Unstake & Claim All
+              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-lg me-3" onClick={unstakeAll}>
+                <i className="ri-lock-unlock-fill label-icon align-middle fs-16 me-2"></i> Unstake All
               </Button>
-              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-xs" onClick={claimAll}>
+              <Button color="primary" className="btn-label btn-sm waves-effect waves-light w-lg" onClick={claimAll}>
                 <i className=" ri-hand-coin-line label-icon align-middle fs-16 me-2"></i> Claim All
               </Button>
             </Col>
             <Col xl={2} lg={2} md={3} sm={4} xs={4} style={{textAlign: "right"}}>
-              <Button color="secondary" className="btn-label btn-sm waves-effect waves-light w-xs" onClick={toogleModal}>
+              <Button color="secondary" className="btn-label btn-sm waves-effect waves-light w-md" onClick={toogleModal}>
                 <i className="mdi mdi-diamond-stone label-icon align-middle fs-16 me-2"></i> Stake more
               </Button>
             </Col>
           </Row>
-          <MLStaked NFTsStaked={NFTsStaked} rewardDetails={rewardDetails} rewardsPerHour={rewardPerHour}/>
+
+          <Row>
+            {NFTsStaked.map((nft, key) => (
+              <Col xs={6} sm={4} md={3} xl={2} xxl={1} key={key}>
+                <Card>
+                  <CardBody>
+                    <h6>ML <span className="text-secondary">#{nft.tokenId}</span></h6>
+                  </CardBody>
+                  <input type="checkbox" name="tokenIdsStakedSelect"
+                         id={`legend-select-${nft.tokenId}`} className="visually-hidden" value={nft.tokenId}
+                         onChange={onSelectStakedNFT} />
+                  <label htmlFor={`legend-select-${nft.tokenId}`} className="staked">
+                    <img className="img-fluid" src={nft.image.thumbnailUrl ?? nft.image.originalUrl} alt={`Legend #${nft.tokenId}`} />
+                  </label>
+                  <CardFooter>
+                    <h6 className="mb-1 text-muted">Earn</h6>
+                    <Earn tokenId={nft.tokenId} />
+                  </CardFooter>
+                </Card>
+              </Col>
+            ))}
+          </Row>
         </React.Fragment>
       );
     }
@@ -113,12 +134,31 @@ const MetaLegends = () => {
         <div className="col-sm-12 text-center" height="100%">
           <h3 className="mt-5">No Meta-Legends NFT staked ...</h3>
           <p className="m-5">
-            <Button color="secondary" className="btn-label waves-effect waves-light w-lg" onClick={toogleModal}>
+            <Button color="secondary" className="btn-lg btn-label waves-effect waves-light w-lg" onClick={toogleModal}>
               <i className="mdi mdi-diamond-stone label-icon align-middle fs-16 me-2"></i> Stake now
             </Button>
           </p>
         </div>
       </Row>
+    );
+  }
+
+  const Earn = ({tokenId}) => {
+    let earn = 0;
+    rewardDetails.forEach((reward) => {
+      if (reward.tokenId == tokenId) {
+        const now = moment().unix();
+        const stakingStartTime = Number(reward.stakingStartTime);
+        const ratio = Number(rewardPerHour) / Math.pow(10, 18);
+
+        earn = ((now - stakingStartTime) * ratio) / 3600;
+      }
+    });
+
+    return (
+      <React.Fragment>
+        <h6 className="mb-1">{Number(earn).toFixed(3) } $SPAACE</h6>
+      </React.Fragment>
     );
   }
 
@@ -131,12 +171,26 @@ const MetaLegends = () => {
   }
 
   const unstakeAll = () => {
-    contractStaking.methods.claimAndUnstake(tokenIdsStaked).send({from: account})
+    if (!tokenIdsStaked.length) {
+      return;
+    }
+    unstake(tokenIdsStaked);
+  }
+
+  const unstakeSelected = () => {
+    if (!tokenIdsToUnstake.length) {
+      return;
+    }
+    unstake(tokenIdsToUnstake);
+  }
+
+  const unstake = (tokenIds) => {
+    contractStaking.methods.claimAndUnstake(tokenIds).send({from: account})
       .then((res) => {
         const amount = Number(res.events.Claimed.returnValues.amount) / Math.pow(10, 18);
         const message = `${Number(amount).toFixed(3)} $SPAACE claimed`;
         notif('success', message);
-        notif('success', `${tokenIdsStaked.length} NFT unstaked`);
+        notif('success', `${tokenIds.length} NFT unstaked`);
         setHasNftsStaked(false);
         setAmountSpaace(0);
         setCountTokenStaked(0);
@@ -144,19 +198,11 @@ const MetaLegends = () => {
       })
       .catch((error) => {
         notif('danger', error.message);
-      })
+      });
   }
 
-  const DisplayUnstaked = () => {
-    return (
-      <Row>
-        <DisplayUnstakedNftGrid />
-      </Row>
-    );
-  }
-
-  const onSelectPfp = (e) => {
-    const tokenIds = tokenIdsSeleted;
+  const onSelectUnstakedNFT = (e) => {
+    const tokenIds = tokenIdsSelected;
     if (!tokenIds.includes(e.target.value)) {
       tokenIds.push(e.target.value);
     } else {
@@ -168,6 +214,19 @@ const MetaLegends = () => {
     setTokenIdsSelected(tokenIds);
   }
 
+  const onSelectStakedNFT = (e) => {
+    const tokenIds = tokenIdsToUnstake;
+    if (!tokenIds.includes(e.target.value)) {
+      tokenIds.push(e.target.value);
+    } else {
+      const index = tokenIds.indexOf(e.target.value);
+      if (index > -1) {
+        tokenIds.splice(index, 1);
+      }
+    }
+    setTokenIdsToUnstake(tokenIds);
+  }
+
   const DisplayUnstakedNftGrid = () => {
     return (
       <React.Fragment>
@@ -176,8 +235,8 @@ const MetaLegends = () => {
             <input ref={(element) => { ref.current[key] = element}}
               type="checkbox" name="tokenIds"
               id={`legend-${legend.tokenId}`} className="visually-hidden" value={legend.tokenId}
-              onChange={onSelectPfp} />
-            <label htmlFor={`legend-${legend.tokenId}`}>
+              onChange={onSelectUnstakedNFT} />
+            <label htmlFor={`legend-${legend.tokenId}`} >
               <img className="img-fluid" src={legend.media.thumbnailUrl ?? legend.media.originalUrl} alt="" />
             </label>
           </Col>
@@ -187,7 +246,7 @@ const MetaLegends = () => {
   }
 
   const staking = async () => {
-    if (tokenIdsSeleted.length === 0) {
+    if (tokenIdsSelected.length === 0) {
       return;
     }
     const isApproved = await contractMetaLegends.methods.isApprovedForAll(account, CONTRACT_STAKING).call();
@@ -226,9 +285,9 @@ const MetaLegends = () => {
 
   const stake = async () => {
     setLoading(true);
-    contractStaking.methods.stake(tokenIdsSeleted).send({ from: account })
+    contractStaking.methods.stake(tokenIdsSelected).send({ from: account })
       .then((res: any) => {
-        notif('success', `${tokenIdsSeleted.length} NFT ML Staked`);
+        notif('success', `${tokenIdsSelected.length} NFT ML Staked`);
         toast.info(CustomToastWithLink(res.transactionHash));
         dispatch(stakedLoading());
         reloadTokenStaked();
@@ -268,7 +327,9 @@ const MetaLegends = () => {
           Meta-Legends NFT unstaked
         </ModalHeader>
         <ModalBody>
-          <DisplayUnstaked />
+          <Row>
+            <DisplayUnstakedNftGrid />
+          </Row>
         </ModalBody>
         <div className="modal-footer">
           <Link to="#" className="btn btn-link link-success fw-medium" onClick={() => toogleModal()}><i className="ri-close-line me-1 align-middle"></i> Cancel</Link>
@@ -304,6 +365,14 @@ const MetaLegends = () => {
         }
       });
   }
+
+  useEffect(() => {
+    if ((tokenStaked && !tokenStaked.length) && !noStakingAlreadyLoad) {
+      dispatch(stakedLoading());
+      setTokenIdsStaked(tokenStaked);
+      setNoStakingAlreadyLoad(true);
+    }
+  }, [dispatch, tokenStaked]);
 
   useEffect(() => {
     const stakingContract = StakingContract[ENV_STAKING];
