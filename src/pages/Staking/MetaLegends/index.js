@@ -191,10 +191,8 @@ const MetaLegends = () => {
         const message = `${Number(amount).toFixed(3)} $SPAACE claimed`;
         notif('success', message);
         notif('success', `${tokenIds.length} NFT unstaked`);
-        setHasNftsStaked(false);
-        setAmountSpaace(0);
-        setCountTokenStaked(0);
         dispatch(stakedLoading());
+        reloadTokenStaked();
       })
       .catch((error) => {
         notif('danger', error.message);
