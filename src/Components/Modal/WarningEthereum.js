@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
-import IMG_NETWORKS_POLYGON from "../../assets/images/metalegends/networks_polygon.png";
+import IMG_NETWORKS_ETHEREUM from "../../assets/images/metalegends/networks_ethereum.png";
 import Web3 from "web3";
 
-const WarningPolygon = () => {
+const WarningEthereum = () => {
 
   const [modalInformation, setModalInformation] = useState(false);
 
@@ -11,10 +11,10 @@ const WarningPolygon = () => {
     setModalInformation(true);
   }
 
-  const networkIsValid = async () => {
+  const networkIsValid = () => {
     const web3 = new Web3(window.ethereum);
     web3.eth.net.getId().then((networkId) => {
-      if (networkId !== 137) {
+      if (networkId !== 1) {
         toggleChangeNetworkNotification();
       }
     });
@@ -31,9 +31,9 @@ const WarningPolygon = () => {
         Warning !
       </ModalHeader>
       <ModalBody className="text-center">
-        <p className="text-white">Select "Polygon" network on top right corner. You could log in again to mint reward.</p>
+        <p className="text-white">Select "Ethereum" network on top right corner. You could log in again to mint reward.</p>
         <figure className="figure mt-5">
-          <img width="350" className="figure-img img-thumbnail img-fluid rounded m-2" src={IMG_NETWORKS_POLYGON} alt="Polygon" />
+          <img width="350" className="figure-img img-thumbnail img-fluid rounded m-2" src={IMG_NETWORKS_ETHEREUM} alt="Ethereum" />
         </figure>
       </ModalBody>
     </Modal>
@@ -41,4 +41,4 @@ const WarningPolygon = () => {
   );
 }
 
-export default WarningPolygon;
+export default WarningEthereum;
