@@ -227,6 +227,7 @@ import ProfileEdit from '../pages/Profile/edit';
 import Vehicle from "../pages/Claim/Vehicles";
 import Residence from "../pages/Claim/Residences";
 import Armor from "../pages/Claim/Armors";
+import Land from "../pages/Claim/Lands";
 import DarkRewards from "../pages/Claim/DarkRewards";
 import BadgeRewards from "../pages/Claim/BadgeRewards";
 import StakingMetaLegends from "../pages/Staking/MetaLegends";
@@ -239,6 +240,7 @@ const authProtectedRoutes = [
   { path: "/claim/og-pets", component: <Claim /> },
   { path: "/claim/og-vehicles", component: <Vehicle /> },
   { path: "/claim/og-residences", component: <Residence /> },
+  { path: "/claim/og-lands", component: <Land /> },
   { path: "/claim/dark-rewards", component: <DarkRewards /> },
   { path: "/claim/badge-rewards", component: <BadgeRewards /> },
   { path: "/progress", component: <Progress /> },

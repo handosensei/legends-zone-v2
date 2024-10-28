@@ -127,6 +127,12 @@ const Navdata = () => {
                     link: "/claim/og-residences",
                     parentId: "claim-perks"
                 },
+                {
+                    id: "oglands",
+                    label: "OG Lands",
+                    link: "/claim/og-lands",
+                    parentId: "claim-perks"
+                },
             ]
         }, {
             id: "badge-rewards",
