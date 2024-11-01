@@ -7,6 +7,7 @@ import {loginUser} from "../../store/auth/login/actions";
 import {logoutUser} from "../../store/actions";
 import {isHolder, upsertUser} from "../../client/ApiMetaLegends";
 import logoSm from "../../assets/images/head-logo.svg";
+import {notif} from "../../Components/Common/Notification";
 
 const evmNetworks = [
   {
@@ -116,12 +117,15 @@ const DynamicElement = ({props}) => {
           eventsCallbacks: {
             onAuthSuccess: async (args) => {
               const walletAddress = args.user.verifiedCredentials[0].address.toLowerCase();
-              const response = await isHolder(walletAddress);
-              if (response.isHolderOfCollection) {
-                onConnectWallet(args['authToken']);
-              } else {
-                setDisplayNoHolderMessage(true);
-              }
+              isHolder(walletAddress).then((res) => {
+                if (res.isHolderOfCollection) {
+                  onConnectWallet(args['authToken']);
+                } else {
+                  setDisplayNoHolderMessage(true);
+                }
+              }).catch((error) => {
+                notif('danger', error.message);
+              });
             },
             onLogout: (args) => {
               dispatch(logoutUser());
