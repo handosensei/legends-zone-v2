@@ -4,7 +4,6 @@ import BreadCrumb from "../../Components/Common/BreadCrumb";
 import AssetStaked from "./AssetStaked";
 import BadgeReward from "./BadgeReward";
 import AssetUnstaked from "./AssetUnstaked";
-import HoldingReward from "./HoldingReward";
 import LegendaryStone from './LegendaryStone';
 import {getRewardsEstimate} from "../../client/ApiMetaLegends";
 
