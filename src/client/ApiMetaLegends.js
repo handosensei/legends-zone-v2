@@ -135,6 +135,11 @@ export const getResidences = async () => {
   return get(url);
 }
 
+export const getLands = async () => {
+  const url = `${apiUrl}og-lands`;
+  return get(url);
+}
+
 export const usernameIsAvailable = async (username) => {
   const url = `${apiUrl}users/username/${username}/is-available`;
   return get(url);
