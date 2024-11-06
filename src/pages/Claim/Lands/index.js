@@ -12,7 +12,7 @@ import {
   Row
 } from "reactstrap";
 
-
+import LAND_CONTRACT from '../../../contracts/lands/MetaLifeLand.json';
 import WarningEthereum from "../../../Components/Modal/WarningEthereum";
 import Faq from "./Faq";
 
@@ -41,10 +41,13 @@ import LAND_CYB_3 from "../../../assets/images/metalegends/land/CYBER-AREA-3.png
 import LAND_ROU_1 from "../../../assets/images/metalegends/land/ROUGH-AREA-1.png";
 import LAND_ROU_2 from "../../../assets/images/metalegends/land/ROUGH-AREA-2.png";
 import LAND_ROU_3 from "../../../assets/images/metalegends/land/ROUGH-AREA-3.png";
-import CountUp from "react-countup";
+
 import Allowlist from "./Allowlist";
+import MlContract from "../../../contracts/meta-legends/MetaLegends.json";
 
 const Lands = () => {
+  const CHAIN_ID = process.env.REACT_APP_LAND_CHAIN_ID;
+  const LAND_ENV = process.env.REACT_APP_LAND_ENV;
 
   const LANDS_IMG = {
     celestial: {
@@ -86,6 +89,9 @@ const Lands = () => {
 
   const [lands, setLands] = useState([]);
   const [landSelected, setLandSelected] = useState([1,2,3]);
+  const [contract, setContract] = useState(null);
+  const [account, setAccount] = useState(null);
+
 
 
   const ButtonAdd = ({remaining}) => {
@@ -96,13 +102,24 @@ const Lands = () => {
   }
 
   useEffect(() => {
-    getLands().then(res => setLands(res));
+    if (lands.length === 0) {
+      getLands().then(res => setLands(res));
+    }
+
+    if (account === null) {
+      getWeb3Data(LAND_CONTRACT[LAND_ENV], CHAIN_ID).then((res) => {
+        setAccount(res[1]);
+        setContract(res[0]);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   });
 
   return (
     <React.Fragment>
 
-      <WarningEthereum />
+      {/*<WarningEthereum />*/}
 
       <div className="page-content">
         <Container fluid>
@@ -110,7 +127,7 @@ const Lands = () => {
           <Row>
             <Col xxl={8}>
               <Row>
-                <Allowlist />
+                <Allowlist contract={contract} account={account} />
               </Row>
               <Row>
                 {lands.map((land, key) => (
