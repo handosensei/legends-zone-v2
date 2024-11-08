@@ -217,6 +217,7 @@ import { Navigate } from "react-router-dom";
 
 import Login from "../pages/Authentication/Login";
 import Logout from "../pages/Authentication/Logout";
+import Lands from "../pages/Lands";
 
 import DashboardZone from '../pages/DashboardZone';
 import Progress from '../pages/Progress';
@@ -252,6 +253,8 @@ const authProtectedRoutes = [
   { path: "/staking/council-stones", component: <StakingCouncilStones /> },
 
   { path: "/sensei", component: <EnvParameters /> },
+
+  { path: "/lands", component: <Lands />},
 
   //
   // { path: "/dashboard-crypto", component: <DashboardCrypto /> },
@@ -432,6 +435,7 @@ const publicRoutes = [
   // Authentication Page
   { path: "/logout", component: <Logout /> },
   { path: "/login", component: <Login /> },
+  { path: "/lands", component: <Lands /> },
   // { path: "/forgot-password", component: <ForgetPasswordPage /> },
   // { path: "/register", component: <Register /> },
   //
