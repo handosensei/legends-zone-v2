@@ -154,32 +154,32 @@ const Navdata = () => {
         //         e.preventDefault();
         //         setIscurrentState('Claim Dark Rewards');
         //     },
-        }, {
-            id: "staking",
-            label: "Staking",
-            icon: "bx bxl-sketch",
-            link: "/#",
-            stateVariables: isStaking,
-            click: function (e) {
-                e.preventDefault();
-                setIsStaking(!isStaking);
-                setIscurrentState('Staking');
-                updateIconSidebar(e);
-            },
-            subItems: [
-                {
-                    id: "stakingmetalegends",
-                    label: "Meta Legends",
-                    link: "/staking/meta-legends",
-                    parentId: "staking"
-                },
-                {
-                    id: "stakingcouncilstones",
-                    label: "Council Stones",
-                    link: "/staking/council-stones",
-                    parentId: "staking"
-                }
-            ]
+        // }, {
+        //     id: "staking",
+        //     label: "Staking",
+        //     icon: "bx bxl-sketch",
+        //     link: "/#",
+        //     stateVariables: isStaking,
+        //     click: function (e) {
+        //         e.preventDefault();
+        //         setIsStaking(!isStaking);
+        //         setIscurrentState('Staking');
+        //         updateIconSidebar(e);
+        //     },
+        //     subItems: [
+        //         {
+        //             id: "stakingmetalegends",
+        //             label: "Meta Legends",
+        //             link: "/staking/meta-legends",
+        //             parentId: "staking"
+        //         },
+        //         {
+        //             id: "stakingcouncilstones",
+        //             label: "Council Stones",
+        //             link: "/staking/council-stones",
+        //             parentId: "staking"
+        //         }
+        //     ]
         },
     ];
 
