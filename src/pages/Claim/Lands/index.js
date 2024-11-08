@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Card, CardBody, CardHeader, Col, Container, Row} from "reactstrap";
+import {Button, Card, CardBody, CardHeader, Col, Container, Modal, Row} from "reactstrap";
 
 import LAND_CONTRACT from '../../../contracts/lands/MetaLifeLand.json';
 import Faq from "./Faq";
@@ -32,6 +32,8 @@ import LAND_ROU_3 from "../../../assets/images/metalegends/land/ROUGH-AREA-3.png
 
 import Allowlist from "./Allowlist";
 import {notif} from "../../../Components/Common/Notification";
+import Player from "../../../Components/Player";
+import Image from "quill/formats/image";
 
 const Lands = () => {
   const CHAIN_ID = process.env.REACT_APP_LAND_CHAIN_ID;
@@ -80,6 +82,8 @@ const Lands = () => {
   const [contract, setContract] = useState(null);
   const [account, setAccount] = useState(null);
   const [remaining, setRemaining] = useState(null);
+  const [modal, setModal] = useState(false);
+  const [picture, setPicture] = useState(null);
 
   const mint = () => {
     const nb = landSelected.length;
@@ -191,6 +195,17 @@ const Lands = () => {
       </table>
     );
   }
+  const openImg = (picture) => {
+    if (document.documentElement.clientWidth < 600) {
+      return;
+    }
+    toggleModal();
+    setPicture(picture);
+  }
+
+  const toggleModal = () => {
+    setModal(!modal);
+  }
 
   useEffect(() => {
     if (lands.length === 0) {
@@ -205,19 +220,22 @@ const Lands = () => {
         res[0].methods.allowlist(res[1]).call().then((res) => {
           setRemaining(res['total'] - res['claimed']);
         });
-
       }).catch((err) => {
         console.log(err);
       });
     }
-
-
   });
 
   return (
     <React.Fragment>
 
       {/*<WarningEthereum />*/}
+
+      <Modal size="lg" id="modal" isOpen={modal} toggle={() => toggleModal()}  >
+        <div className="ratio ratio-16x9 " style={{aspectRatio: 1 / 1}}>
+          <img src={picture} alt="" onClick={() => toggleModal()} />
+        </div>
+      </Modal>
 
       <div className="page-content">
         <Container fluid>
@@ -233,7 +251,8 @@ const Lands = () => {
                     <Card>
                       <CardHeader>{land.item.class.toUpperCase()} - area {land.item.area}</CardHeader>
                       <img className="img-fluid" src={LANDS_IMG[land.item.class][land.item.area]}
-                           alt={`Land ${land.item.class.toUpperCase()} - area ${land.item.area}`} />
+                        alt={`Land ${land.item.class.toUpperCase()} - area ${land.item.area}`}
+                        onClick={() => openImg(LANDS_IMG[land.item.class][land.item.area])}/>
                       <CardBody>
                         <div className="list-group-item d-flex justify-content-between align-items-center mb-2">
                           Available
