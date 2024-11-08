@@ -92,12 +92,53 @@ const Faq = () => {
           <h2 className="accordion-header" id="headingOne">
             <button
               className={classnames("accordion-button", { collapsed: !faq1 })} type="button" onClick={t_faq1} style={{ cursor: "pointer" }} >
-              Location Queue
+              Minting Phase Schedule
             </button>
           </h2>
           <Collapse isOpen={faq1} className="accordion-collapse" id="collapseOne" >
             <div className="accordion-body">
-              The queue for selecting locations opens late November and remains open indefinitely to ensure everyone has ample time to choose their preferred class and locations.
+              <p>
+                The queue for selecting locations opens at 15th November 19:00 UTC and remains open indefinitely to ensure everyone has ample time to choose their preferred class and locations.
+              </p>
+
+              <ul>
+                <li>
+                  <strong>Phase 0:</strong><br />
+                  <strong>Start:</strong> November 15, 2024, at 19:00 UTC<br />
+                  <strong>End:</strong> November 16, 2024, at 19:00 UTC
+                </li>
+                <li>
+                  <strong>Phase 1:</strong><br />
+                  <strong>Start:</strong> November 16, 2024, at 19:00 UTC<br />
+                  <strong>End:</strong> November 17, 2024, at 19:00 UTC
+                </li>
+                <li>
+                  <strong>Phase 2:</strong><br />
+                  <strong>Start:</strong> November 17, 2024, at 19:00 UTC<br />
+                  <strong>End:</strong> November 18, 2024, at 19:00 UTC
+                </li>
+                <li>
+                  <strong>Phase 3:</strong><br />
+                  <strong>Start:</strong> November 18, 2024, at 19:00 UTC<br />
+                  <strong>End:</strong> November 19, 2024, at 19:00 UTC
+                </li>
+                <li>
+                  <strong>Phase 4:</strong><br />
+                  <strong>Start:</strong> November 19, 2024, at 19:00 UTC<br />
+                  <strong>End:</strong> November 20, 2024, at 19:00 UTC
+                </li>
+                <li>
+                  <strong>Phase 5:</strong><br />
+                  <strong>Start:</strong> November 20, 2024, at 19:00 UTC<br />
+                  <strong>End:</strong> November 21, 2024, at 19:00 UTC
+                </li>
+                <li>
+                  <strong>Final Phase (Phase 6):</strong><br />
+                  <strong>Start:</strong> November 21, 2024, at 19:00 UTC<br />
+                  <strong>End:</strong> November 23, 2024, at 19:00 UTC
+                </li>
+              </ul>
+
             </div>
           </Collapse>
         </AccordionItem>
@@ -123,7 +164,7 @@ const Faq = () => {
           </h2>
           <Collapse isOpen={faq3} className="accordion-collapse" >
             <div className="accordion-body">
-              ML is divided into 700 land plots, with 534 minted initially.
+              ML is divided into 700 land plots, with 574 minted initially.
             </div>
           </Collapse>
         </AccordionItem>
