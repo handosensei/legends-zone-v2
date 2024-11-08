@@ -56,7 +56,7 @@ const Allowlist = ({contract, account}) => {
 
     return (
       <h5 className="fs-14 mb-0 text-danger">
-        <i className="fs-13 align-middle"></i> Close
+        <i className="fs-13 align-middle"></i> Wait
       </h5>
     )
   }

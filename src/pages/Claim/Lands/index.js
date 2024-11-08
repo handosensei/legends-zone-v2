@@ -32,8 +32,6 @@ import LAND_ROU_3 from "../../../assets/images/metalegends/land/ROUGH-AREA-3.png
 
 import Allowlist from "./Allowlist";
 import {notif} from "../../../Components/Common/Notification";
-import Player from "../../../Components/Player";
-import Image from "quill/formats/image";
 
 const Lands = () => {
   const CHAIN_ID = process.env.REACT_APP_LAND_CHAIN_ID;
@@ -84,6 +82,9 @@ const Lands = () => {
   const [remaining, setRemaining] = useState(null);
   const [modal, setModal] = useState(false);
   const [picture, setPicture] = useState(null);
+  const [currentTiers, setCurrentTiers] = useState(null);
+  const [holderTiers, setHolderTiers] = useState(null);
+
 
   const mint = () => {
     const nb = landSelected.length;
@@ -132,7 +133,7 @@ const Lands = () => {
   }
 
   const ButtonMint = () => {
-    if (landSelected.length === 0) {
+    if (landSelected.length === 0 || canMint === false) {
       return (
         <Button className="btn btn-light waves-effect"><i className="las la-hammer"></i> Mint</Button>
       );
@@ -147,7 +148,7 @@ const Lands = () => {
     if (landRemaining === 0) {
       return (<Button className="btn btn-soft-dark waves-effect waves-light btn-sm">Out of stock</Button>);
     }
-    if (remaining > landSelected.length) {
+    if (remaining > landSelected.length && canMint()) {
       return (<Button className="btn btn-primary btn-sm" onClick={() => selectLand(land)}>Add land</Button>);
     }
 
@@ -207,6 +208,16 @@ const Lands = () => {
     setModal(!modal);
   }
 
+  const canMint = () => {
+    if (remaining === 0) {
+      return false;
+    }
+    if (currentTiers < holderTiers) {
+      return false;
+    }
+    return true;
+  }
+
   useEffect(() => {
     if (lands.length === 0) {
       getLands().then(res => setLands(res));
@@ -214,12 +225,16 @@ const Lands = () => {
 
     if (account === null) {
       getWeb3Data(LAND_CONTRACT[LAND_ENV], CHAIN_ID).then((res) => {
-        setAccount(res[1]);
-        setContract(res[0]);
+        const contractML = res[0];
+        const holderAccount = res[1];
+        setAccount(holderAccount);
+        setContract(contractML);
 
-        res[0].methods.allowlist(res[1]).call().then((res) => {
+        contractML.methods.allowlist(holderAccount).call().then((res) => {
           setRemaining(res['total'] - res['claimed']);
         });
+        contractML.methods.getTiers().call().then((res) => setCurrentTiers(res));
+        contractML.methods.holderTiers(holderAccount).call().then((res) => setHolderTiers(res));
       }).catch((err) => {
         console.log(err);
       });

@@ -165,3 +165,8 @@ export const addLandWishes = async (payload) => {
   const url = `${apiUrl}land-wishes`;
   return post(url, payload);
 }
+
+export const getAllLandWishes = async () => {
+  const url = `${apiUrl}land-wishes`;
+  return get(url);
+}
