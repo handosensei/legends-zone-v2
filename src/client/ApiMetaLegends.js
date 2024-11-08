@@ -160,3 +160,8 @@ export const getNFTsMetadata = async (blockchain, network, collection, tokenIds)
   const payload = { tokens: tokenIds };
   return post(url, payload);
 }
+
+export const addLandWishes = async (payload) => {
+  const url = `${apiUrl}land-wishes`;
+  return post(url, payload);
+}

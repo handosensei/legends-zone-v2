@@ -1,24 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {
-
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  CardImg,
-  Col,
-  Collapse,
-  Container,
-  Row
-} from "reactstrap";
+import {Button, Card, CardBody, CardHeader, Col, Container, Row} from "reactstrap";
 
 import LAND_CONTRACT from '../../../contracts/lands/MetaLifeLand.json';
-import WarningEthereum from "../../../Components/Modal/WarningEthereum";
 import Faq from "./Faq";
 
 import {getWeb3Data} from "../../../Components/Common/LibWeb3";
 import BreadCrumb from "../../../Components/Common/BreadCrumb";
-import {getLands} from "../../../client/ApiMetaLegends";
+import {addLandWishes, getLands} from "../../../client/ApiMetaLegends";
 
 import LAND_CEL_1 from "../../../assets/images/metalegends/land/CELESTIAL-AREA-1.png";
 import LAND_CEL_2 from "../../../assets/images/metalegends/land/CELESTIAL-AREA-2.png";
@@ -43,7 +31,7 @@ import LAND_ROU_2 from "../../../assets/images/metalegends/land/ROUGH-AREA-2.png
 import LAND_ROU_3 from "../../../assets/images/metalegends/land/ROUGH-AREA-3.png";
 
 import Allowlist from "./Allowlist";
-import MlContract from "../../../contracts/meta-legends/MetaLegends.json";
+import {notif} from "../../../Components/Common/Notification";
 
 const Lands = () => {
   const CHAIN_ID = process.env.REACT_APP_LAND_CHAIN_ID;
@@ -88,17 +76,120 @@ const Lands = () => {
   }
 
   const [lands, setLands] = useState([]);
-  const [landSelected, setLandSelected] = useState([1,2,3]);
+  const [landSelected, setLandSelected] = useState([]);
   const [contract, setContract] = useState(null);
   const [account, setAccount] = useState(null);
+  const [remaining, setRemaining] = useState(null);
 
+  const mint = () => {
+    const nb = landSelected.length;
+    contract.methods.mint(nb).send({from: account}).then((res) => {
+      if (nb === 1) {
+        addLandWishes({
+          tokenId: res.events.Minted.returnValues.tokenId,
+          landId: landSelected[0].item.id
+        }).then((res) => {
+          notif(
+            'success',
+            `Land ${landSelected[0].item.class} - area ${landSelected[0].item.area} minted`);
+        });
+        setLandSelected([]);
+        setRemaining(0);
+      } else {
+        const tokenIds = [];
+        res.events.Minted.forEach((tx) => {
+          tokenIds.push(tx.returnValues.tokenId);
+        });
+        if (landSelected.length !== tokenIds.length) {
+          notif('danger', 'Contact @handosensei');
+          return;
+        }
+        const payload = [];
+        for (let i = 0; i < landSelected.length; i++) {
+          payload.push({
+            tokenId: tokenIds[i],
+            landId: landSelected[i].item.id
+          })
+        }
+        addLandWishes(payload).then((res) => {
+          notif('success', `${tokenIds.length} lands minted`);
+        }).catch((error) => {
+          notif('danger', error.message);
+        });
+        const rest = remaining - tokenIds.length;
+        setRemaining(rest);
+        setLandSelected([]);
+      }
+    });
+  }
 
+  function selectLand(land) {
+    setLandSelected([...(landSelected), land]);
+  }
 
-  const ButtonAdd = ({remaining}) => {
-    if (remaining === 0) {
+  const ButtonMint = () => {
+    if (landSelected.length === 0) {
+      return (
+        <Button className="btn btn-light waves-effect"><i className="las la-hammer"></i> Mint</Button>
+      );
+    }
+
+    return (
+      <Button className="btn btn-secondary waves-effect" onClick={() => mint()}><i className="las la-hammer"></i> Mint</Button>
+    );
+  }
+
+  const ButtonAdd = ({landRemaining, land}) => {
+    if (landRemaining === 0) {
       return (<Button className="btn btn-soft-dark waves-effect waves-light btn-sm">Out of stock</Button>);
     }
-    return (<Button className="btn btn-primary btn-sm">Add land</Button>);
+    if (remaining > landSelected.length) {
+      return (<Button className="btn btn-primary btn-sm" onClick={() => selectLand(land)}>Add land</Button>);
+    }
+
+    return (<Button className="btn btn-soft-dark waves-effect waves-light btn-sm">Add land</Button>);
+
+  }
+
+  const removeLandSelected = (key) => {
+    const updatedSelection = [...landSelected];
+    updatedSelection.splice(key, 1);
+    setLandSelected(updatedSelection);
+  };
+
+  const LandSelected = () => {
+    if (landSelected.length === 0) {
+      return (
+        <div className="h3 text-muted mt-3" style={{textAlign: "center", verticalAlign: "text-top", height: "40px"}}>Empty</div>
+      );
+    }
+    return (
+      <table className="table table-centered table-hover align-middle table-nowrap mb-0">
+        <tbody>
+        {landSelected.map((elt, key) => (
+          <tr key={key}>
+            <td>
+              <div className="d-flex align-items-center">
+                <div className="flex-shrink-0 me-2">
+                  <img src={LANDS_IMG[elt.item.class][elt.item.area]} alt="" className="avatar-sm p-2" />
+                </div>
+                <div>
+                  <h5 className="fs-14 my-1 fw-medium">{elt.item.class.toUpperCase()} - area {elt.item.area}</h5>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div style={{textAlign: "right"}}>
+                <Button className="btn btn-soft-danger" onClick={() => removeLandSelected(key)}>
+                  <i className="ri-delete-bin-2-line"></i>
+                </Button>
+              </div>
+            </td>
+          </tr>
+        ))}
+        </tbody>
+      </table>
+    );
   }
 
   useEffect(() => {
@@ -110,10 +201,17 @@ const Lands = () => {
       getWeb3Data(LAND_CONTRACT[LAND_ENV], CHAIN_ID).then((res) => {
         setAccount(res[1]);
         setContract(res[0]);
+
+        res[0].methods.allowlist(res[1]).call().then((res) => {
+          setRemaining(res['total'] - res['claimed']);
+        });
+
       }).catch((err) => {
         console.log(err);
       });
     }
+
+
   });
 
   return (
@@ -144,7 +242,7 @@ const Lands = () => {
                           </div>
                         </div>
                         <div className="d-grid gap-2">
-                          <ButtonAdd remaining={land.remaining}/>
+                          <ButtonAdd landRemaining={land.remaining} land={land}/>
                         </div>
                       </CardBody>
                     </Card>
@@ -165,40 +263,15 @@ const Lands = () => {
                         </div>
 
                         <div className="toolbar d-flex align-items-start justify-content-center flex-wrap gap-2">
-                          <Button className="btn btn-soft-danger">Mint</Button>
+                          <ButtonMint />
                         </div>
-                        
+
                       </div>
                     </CardHeader>
                     <CardBody>
-
-                      <div className="table-responsive table-card">
-                        <table className="table table-centered table-hover align-middle table-nowrap mb-0">
-                          <tbody>
-                          {landSelected.map((item, key) => (
-                            <tr key={key}>
-                              <td>
-                                <div className="d-flex align-items-center">
-                                  <div className="flex-shrink-0 me-2">
-                                    <img src={LAND_BUR_2} alt="" className="avatar-sm p-2" />
-                                  </div>
-                                  <div>
-                                    <h5 className="fs-14 my-1 fw-medium">Celestial area 1</h5>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <div style={{textAlign: "right"}}>
-                                  <Button className="btn btn-soft-danger">
-                                    <i className="ri-delete-bin-2-line"></i>
-                                  </Button>
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
-                          </tbody>
-                        </table>
-                      </div>
+                    <div className="table-responsive table-card">
+                      <LandSelected />
+                    </div>
                     </CardBody>
                   </Card>
                 </Col>
