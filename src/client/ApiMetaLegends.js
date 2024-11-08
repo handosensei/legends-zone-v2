@@ -70,6 +70,11 @@ export const getPerkOgPets = async () => {
   return get(url);
 }
 
+export const getPerkOgLands = async () => {
+  const url = `${apiUrl}perk-og-lands`;
+  return get(url);
+}
+
 export const getEligibilityOgPets = async () => {
   const url = `${apiUrl}eligibility/og-pets`;
   return get(url);
