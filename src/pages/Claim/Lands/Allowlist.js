@@ -48,10 +48,18 @@ const Allowlist = ({contract, account}) => {
   }
 
   const Status = () => {
-    if (holderTiers <= tiers) {
+    if (holderTiers <= tiers && remaining > 0) {
       return <h5 className="fs-14 mb-0 text-success">
         <i className="fs-13 align-middle"></i> Open
       </h5>
+    }
+
+    if (remaining === 0) {
+      return (
+        <h5 className="fs-14 mb-0 text-danger">
+          <i className="fs-13 align-middle"></i> Minted
+        </h5>
+      )
     }
 
     return (
@@ -63,10 +71,6 @@ const Allowlist = ({contract, account}) => {
 
   const Queue = () => {
     if (contract == null) {
-      return;
-    }
-
-    if (remaining === 0) {
       return;
     }
 
@@ -133,12 +137,40 @@ const Allowlist = ({contract, account}) => {
   }
 
   const MintOn = () => {
-    if (holderTiers <= tiers && remaining > 0) {
-      return (
-        <>
-          <Mintable />
-        </>
-      );
+    if (holderTiers <= tiers) {
+      if (remaining > 0) {
+        return (
+          <>
+            <Mintable />
+          </>
+        );
+      }
+
+      if (remaining === 0) {
+        return (
+          <Card>
+            <CardBody>
+              <div className="d-flex align-items-center">
+                <div className="flex-grow-1">
+                  <p className={"text-uppercase fw-medium mb-0 text-muted"}>You're minted</p>
+                </div>
+              </div>
+
+              <div className="d-flex align-items-center">
+                <div className="flex-shrink-0">
+                  <i className="display-6 text-muted ri-emotion-happy-fill"></i>
+                </div>
+
+                <div className="flex-grow-1 ms-3">
+                  <h2 className="mb-0">
+                    <span className="fs-3 text-white-75">Congrats !</span>
+                  </h2>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+        )
+      }
     }
 
     return (

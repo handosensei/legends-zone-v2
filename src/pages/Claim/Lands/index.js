@@ -1,5 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Card, CardBody, CardHeader, Col, Container, Modal, Row} from "reactstrap";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Container,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  Row,
+  Spinner
+} from "reactstrap";
 
 import LAND_CONTRACT from '../../../contracts/lands/MetaLifeLand.json';
 import Faq from "./Faq";
@@ -32,6 +44,8 @@ import LAND_ROU_3 from "../../../assets/images/metalegends/land/ROUGH-AREA-3.png
 
 import Allowlist from "./Allowlist";
 import {notif} from "../../../Components/Common/Notification";
+import {Link} from "react-router-dom";
+import WarningEthereum from "../../../Components/Modal/WarningEthereum";
 
 const Lands = () => {
   const CHAIN_ID = process.env.REACT_APP_LAND_CHAIN_ID;
@@ -77,6 +91,7 @@ const Lands = () => {
 
   const [lands, setLands] = useState([]);
   const [landSelected, setLandSelected] = useState([]);
+  const [landMinted, setLandMinted] = useState([]);
   const [contract, setContract] = useState(null);
   const [account, setAccount] = useState(null);
   const [remaining, setRemaining] = useState(null);
@@ -84,10 +99,13 @@ const Lands = () => {
   const [picture, setPicture] = useState(null);
   const [currentTiers, setCurrentTiers] = useState(null);
   const [holderTiers, setHolderTiers] = useState(null);
-
+  const [loading, setLoading] = useState(false);
+  const [mintModal, setMintModal] = useState(false);
 
   const mint = () => {
     const nb = landSelected.length;
+    setLoading(true);
+    setMintModal(true);
     contract.methods.mint(nb).send({from: account}).then((res) => {
       if (nb === 1) {
         addLandWishes({
@@ -98,8 +116,6 @@ const Lands = () => {
             'success',
             `Land ${landSelected[0].item.class} - area ${landSelected[0].item.area} minted`);
         });
-        setLandSelected([]);
-        setRemaining(0);
       } else {
         const tokenIds = [];
         res.events.Minted.forEach((tx) => {
@@ -123,9 +139,56 @@ const Lands = () => {
         });
         const rest = remaining - tokenIds.length;
         setRemaining(rest);
+        setLandMinted(landSelected);
         setLandSelected([]);
       }
+      setLoading(false);
+    }).catch((error) => {
+      setMintModal(false);
+      notif('danger', error.message);
     });
+  }
+
+  const toggleMintModal = () => {
+    setMintModal(!mintModal);
+  }
+
+  const MintModal = () => {
+    if (loading) {
+      return (
+        <Modal size="md" isOpen={mintModal} contentClassName="stakinginprogress">
+          <ModalHeader className="modal-title">
+            Mint NFT Land in progress
+          </ModalHeader>
+          <ModalBody >
+            <div className="loader-overlay">
+              <Spinner color="primary" />
+            </div>
+          </ModalBody>
+        </Modal>
+      );
+    }
+
+    return (
+      <Modal size="xl" isOpen={mintModal} toggle={toggleMintModal} >
+        <ModalBody className="text-center">
+          <h5 className="fs-16">
+            Congrats ! {landMinted.length} {landMinted.length === 1 ? 'Land' : 'Lands'} minted
+          </h5>
+          <ListLandMinted />
+        </ModalBody>
+      </Modal>
+    );
+  }
+
+  const ListLandMinted = () => {
+    return (
+      <figure className="figure mt-5">
+        {landMinted.map((elt, key) => (
+          <img key={key} width="200" className="figure-img img-thumbnail img-fluid rounded m-2" src={LANDS_IMG[elt.item.class][elt.item.area]} alt="" />
+        ))}
+      </figure>
+    );
   }
 
   function selectLand(land) {
@@ -244,7 +307,9 @@ const Lands = () => {
   return (
     <React.Fragment>
 
-      {/*<WarningEthereum />*/}
+      <WarningEthereum />
+
+      <MintModal />
 
       <Modal size="lg" id="modal" isOpen={modal} toggle={() => toggleModal()}  >
         <div className="ratio ratio-16x9 " style={{aspectRatio: 1 / 1}}>

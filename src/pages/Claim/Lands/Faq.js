@@ -103,39 +103,25 @@ const Faq = () => {
 
               <ul>
                 <li>
-                  <strong>Phase 0:</strong><br />
-                  <strong>Start:</strong> November 15, 2024, at 19:00 UTC<br />
-                  <strong>End:</strong> November 16, 2024, at 19:00 UTC
+                  <strong>Phase 0:</strong> November 15, 2024, at 19:00 UTC
                 </li>
                 <li>
-                  <strong>Phase 1:</strong><br />
-                  <strong>Start:</strong> November 16, 2024, at 19:00 UTC<br />
-                  <strong>End:</strong> November 17, 2024, at 19:00 UTC
+                  <strong>Phase 1:</strong> November 16, 2024, at 19:00 UTC
                 </li>
                 <li>
-                  <strong>Phase 2:</strong><br />
-                  <strong>Start:</strong> November 17, 2024, at 19:00 UTC<br />
-                  <strong>End:</strong> November 18, 2024, at 19:00 UTC
+                  <strong>Phase 2:</strong> November 17, 2024, at 19:00 UTC
                 </li>
                 <li>
-                  <strong>Phase 3:</strong><br />
-                  <strong>Start:</strong> November 18, 2024, at 19:00 UTC<br />
-                  <strong>End:</strong> November 19, 2024, at 19:00 UTC
+                  <strong>Phase 3:</strong> November 18, 2024, at 19:00 UTC
                 </li>
                 <li>
-                  <strong>Phase 4:</strong><br />
-                  <strong>Start:</strong> November 19, 2024, at 19:00 UTC<br />
-                  <strong>End:</strong> November 20, 2024, at 19:00 UTC
+                  <strong>Phase 4:</strong> November 19, 2024, at 19:00 UTC
                 </li>
                 <li>
-                  <strong>Phase 5:</strong><br />
-                  <strong>Start:</strong> November 20, 2024, at 19:00 UTC<br />
-                  <strong>End:</strong> November 21, 2024, at 19:00 UTC
+                  <strong>Phase 5:</strong> November 20, 2024, at 19:00 UTC
                 </li>
                 <li>
-                  <strong>Final Phase (Phase 6):</strong><br />
-                  <strong>Start:</strong> November 21, 2024, at 19:00 UTC<br />
-                  <strong>End:</strong> November 23, 2024, at 19:00 UTC
+                  <strong>Final Phase (Phase 6):</strong> November 21, 2024, at 19:00 UTC
                 </li>
               </ul>
 
