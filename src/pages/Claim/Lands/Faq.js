@@ -11,69 +11,72 @@ const Faq = () => {
   const [faq5, setFaq5] = useState(false);
   const [faq6, setFaq6] = useState(false);
   const [faq7, setFaq7] = useState(false);
+  const [faq8, setFaq8] = useState(false);
+  const [faq9, setFaq9] = useState(false);
+  const [faq10, setFaq10] = useState(false);
+  const [faq11, setFaq11] = useState(false);
+
+  const t_faqCloseAll = () => {
+    setFaq1(false);
+    setFaq2(false);
+    setFaq3(false);
+    setFaq4(false);
+    setFaq5(false);
+    setFaq6(false);
+    setFaq7(false);
+    setFaq8(false);
+    setFaq9(false);
+    setFaq10(false);
+    setFaq11(false);
+  }
 
   const t_faq1 = () => {
+    t_faqCloseAll();
     setFaq1(!faq1);
-    setFaq2(false);
-    setFaq3(false);
-    setFaq4(false);
-    setFaq5(false);
-    setFaq6(false);
-    setFaq7(false);
   };
   const t_faq2 = () => {
-    setFaq1(false);
+    t_faqCloseAll();
     setFaq2(!faq2);
-    setFaq3(false);
-    setFaq4(false);
-    setFaq5(false);
-    setFaq6(false);
-    setFaq7(false);
+
   };
   const t_faq3 = () => {
-    setFaq1(false);
-    setFaq2(false);
+    t_faqCloseAll();
     setFaq3(!faq3);
-    setFaq4(false);
-    setFaq5(false);
-    setFaq6(false);
-    setFaq7(false);
+
   };
   const t_faq4 = () => {
-    setFaq1(false);
-    setFaq2(false);
-    setFaq3(false);
+    t_faqCloseAll();
     setFaq4(!faq4);
-    setFaq5(false);
-    setFaq6(false);
-    setFaq7(false);
+
   };
   const t_faq5 = () => {
-    setFaq1(false);
-    setFaq2(false);
-    setFaq3(false);
-    setFaq4(false);
+    t_faqCloseAll();
     setFaq5(!faq5);
-    setFaq6(false);
-    setFaq7(false);
+
   };
   const t_faq6 = () => {
-    setFaq1(false);
-    setFaq2(false);
-    setFaq3(false);
-    setFaq4(false);
-    setFaq5(false);
+    t_faqCloseAll();
     setFaq6(!faq6);
-    setFaq7(false);
   };
   const t_faq7 = () => {
-    setFaq1(false);
-    setFaq2(false);
-    setFaq3(false);
-    setFaq4(false);
-    setFaq5(false);
-    setFaq6(false);
+    t_faqCloseAll();
     setFaq7(!faq7)
+  };
+  const t_faq8 = () => {
+    t_faqCloseAll();
+    setFaq8(!faq8)
+  };
+  const t_faq9 = () => {
+    t_faqCloseAll();
+    setFaq9(!faq9)
+  };
+  const t_faq10 = () => {
+    t_faqCloseAll();
+    setFaq10(!faq10)
+  };
+  const t_faq11 = () => {
+    t_faqCloseAll();
+    setFaq11(!faq11)
   };
 
   const [open, setOpen] = useState('1');
@@ -150,7 +153,7 @@ const Faq = () => {
           </h2>
           <Collapse isOpen={faq3} className="accordion-collapse" >
             <div className="accordion-body">
-              ML is divided into 700 land plots, with 574 minted initially.
+              Meta Life (ML) consists of 700 land plots, with an initial 574 plots minted.
             </div>
           </Collapse>
         </AccordionItem>
@@ -163,7 +166,7 @@ const Faq = () => {
           </h2>
           <Collapse isOpen={faq4} className="accordion-collapse" >
             <div className="accordion-body">
-              Each plot is 3x3 in size, with potential future mechanisms for splitting.
+              Each plot is 3x3 in size, with potential future options for subdivision.
             </div>
           </Collapse>
         </AccordionItem>
@@ -176,7 +179,7 @@ const Faq = () => {
           </h2>
           <Collapse isOpen={faq5} className="accordion-collapse" >
             <div className="accordion-body">
-              There are equal supplies for each class. Land value is determined by its usage and location.
+              Each class has an equal supply. Land value is influenced by its usage and location.
             </div>
           </Collapse>
         </AccordionItem>
@@ -189,7 +192,7 @@ const Faq = () => {
           </h2>
           <Collapse isOpen={faq6} className="accordion-collapse" >
             <div className="accordion-body">
-              Every Meta Legends land class has three sub-categories for their lands: Normal, Sacred and Legendary, with Guardians roaming the Legendary Lands.
+              Each Meta Legends land class has three sub-categories: Normal, Sacred, and Legendary, with Guardians protecting the Legendary Lands.
             </div>
           </Collapse>
         </AccordionItem>
@@ -197,16 +200,69 @@ const Faq = () => {
           <h2 className="accordion-header" id="headingThree">
             <button
               className={classnames("accordion-button", { collapsed: !faq7 })} type="button" onClick={t_faq7} style={{ cursor: "pointer" }} >
-              Lands
+              Art Direction
             </button>
           </h2>
           <Collapse isOpen={faq7} className="accordion-collapse" >
             <div className="accordion-body">
-              ML Lands are part of a larger ecosystem featuring maps created by the community, alongside areas curated by the ML team to ensure a diverse mix of experiences.
-              We aim to partially emulate Otherside's approach by providing a dev kit and onboarding people experienced with 3D and Unreal Engine. Free courses for enthusiasts will be available, similar to our previous offerings on skin creation, 3D basics, and Unreal Engine basics.
+              Each land type has unique aesthetics. For example, Celestial Lands exude luxury, while Burner Lands feature dark themes with burning lava.
             </div>
           </Collapse>
         </AccordionItem>
+        <AccordionItem>
+          <h2 className="accordion-header" id="headingThree">
+            <button
+              className={classnames("accordion-button", { collapsed: !faq8 })} type="button" onClick={t_faq8} style={{ cursor: "pointer" }} >
+              Land vs. City
+            </button>
+          </h2>
+          <Collapse isOpen={faq8} className="accordion-collapse" >
+            <div className="accordion-body">
+              A land plot is not a city; it is a space where you can build.
+            </div>
+          </Collapse>
+        </AccordionItem>
+
+        <AccordionItem>
+          <h2 className="accordion-header" id="headingThree">
+            <button
+              className={classnames("accordion-button", { collapsed: !faq9 })} type="button" onClick={t_faq9} style={{ cursor: "pointer" }} >
+              Development
+            </button>
+          </h2>
+          <Collapse isOpen={faq9} className="accordion-collapse" >
+            <div className="accordion-body">
+              Our approach will partially emulate Otherside’s strategy by providing a development kit and onboarding people experienced in 3D and Unreal Engine. Free courses for enthusiasts will be available, similar to our previous offerings on skin creation, 3D basics, and Unreal Engine fundamentals.
+            </div>
+          </Collapse>
+        </AccordionItem>
+        <AccordionItem>
+          <h2 className="accordion-header" id="headingThree">
+            <button
+              className={classnames("accordion-button", { collapsed: !faq10 })} type="button" onClick={t_faq10} style={{ cursor: "pointer" }} >
+              Selection
+            </button>
+          </h2>
+          <Collapse isOpen={faq10} className="accordion-collapse" >
+            <div className="accordion-body">
+              You can choose a class and general location (three main locations per class). The exact number and rarity (Normal, Sacred, or Legendary) are random.
+            </div>
+          </Collapse>
+        </AccordionItem>
+        <AccordionItem>
+          <h2 className="accordion-header" id="headingThree">
+            <button
+              className={classnames("accordion-button", { collapsed: !faq11 })} type="button" onClick={t_faq11} style={{ cursor: "pointer" }} >
+              Supply Cap
+            </button>
+          </h2>
+          <Collapse isOpen={faq11} className="accordion-collapse" >
+            <div className="accordion-body">
+              The supply is capped by the smart contract. Out of respect for early adopters, we won’t increase the total supply. Future expansions will involve these existing plots or custom curated experiences.
+            </div>
+          </Collapse>
+        </AccordionItem>
+
       </Accordion>
     </div>
   );
