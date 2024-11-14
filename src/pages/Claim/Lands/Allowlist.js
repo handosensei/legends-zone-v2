@@ -19,6 +19,8 @@ const Allowlist = ({contract, account}) => {
       setEligibility(res['total']);
       setMinted(res['claimed']);
       setRemaining(res['total'] - res['claimed']);
+    }).catch((err) => {
+      console.log(err);
     });
 
     return (
@@ -54,7 +56,7 @@ const Allowlist = ({contract, account}) => {
       </h5>
     }
 
-    if (remaining === 0) {
+    if (eligibility > 0 && eligibility === minted) {
       return (
         <h5 className="fs-14 mb-0 text-danger">
           <i className="fs-13 align-middle"></i> Minted
@@ -64,7 +66,7 @@ const Allowlist = ({contract, account}) => {
 
     return (
       <h5 className="fs-14 mb-0 text-danger">
-        <i className="fs-13 align-middle"></i> Wait
+        <i className="fs-13 align-middle"></i>
       </h5>
     )
   }
@@ -74,11 +76,17 @@ const Allowlist = ({contract, account}) => {
       return;
     }
 
-    contract.methods.getTiers().call().then((res) => setTiers(res));
-    contract.methods.holderTiers(account).call().then((res) => {
-      setHolderTiers(res);
-      contract.methods.opening(res).call().then((res) => {
-        setOpenAt(res*1000);
+    contract.methods.getTiers().call()
+      .then((res) => setTiers(res))
+      .catch((err) => console.log(err));
+    contract.methods.holderTiers(account).call()
+      .then((res) => {
+        setHolderTiers(res);
+        contract.methods.opening(res).call().then((res) => {
+          setOpenAt(res*1000);
+        })
+      .catch((err) => {
+        console.log(err);
       });
     });
 
@@ -146,7 +154,7 @@ const Allowlist = ({contract, account}) => {
         );
       }
 
-      if (remaining === 0) {
+      if (eligibility > 0 && eligibility === minted) {
         return (
           <Card>
             <CardBody>
@@ -173,29 +181,31 @@ const Allowlist = ({contract, account}) => {
       }
     }
 
-    return (
-      <Card>
-        <CardBody>
-          <div className="d-flex align-items-center">
-            <div className="flex-grow-1">
-              <p className={"text-uppercase fw-medium mb-0 text-muted"}>Open at</p>
-            </div>
-          </div>
-
-          <div className="d-flex align-items-center">
-            <div className="flex-shrink-0">
-              <i className="display-6 text-muted ri-calendar-check-line"></i>
+    if (eligibility > 0) {
+      return (
+        <Card>
+          <CardBody>
+            <div className="d-flex align-items-center">
+              <div className="flex-grow-1">
+                <p className={"text-uppercase fw-medium mb-0 text-muted"}>Open at</p>
+              </div>
             </div>
 
-            <div className="flex-grow-1 ms-3">
-              <h2 className="mb-0">
-                <span className="fs-5 text-white-75">{moment(openAt).format('lll')}</span>
-              </h2>
+            <div className="d-flex align-items-center">
+              <div className="flex-shrink-0">
+                <i className="display-6 text-muted ri-calendar-check-line"></i>
+              </div>
+
+              <div className="flex-grow-1 ms-3">
+                <h2 className="mb-0">
+                  <span className="fs-5 text-white-75">{moment(openAt).format('lll')}</span>
+                </h2>
+              </div>
             </div>
-          </div>
-        </CardBody>
-      </Card>
-    );
+          </CardBody>
+        </Card>
+      );
+    }
   }
 
   const Mintable = () => {

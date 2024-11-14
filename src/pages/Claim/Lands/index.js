@@ -44,7 +44,6 @@ import LAND_ROU_3 from "../../../assets/images/metalegends/land/ROUGH-AREA-3.png
 
 import Allowlist from "./Allowlist";
 import {notif} from "../../../Components/Common/Notification";
-import {Link} from "react-router-dom";
 import WarningEthereum from "../../../Components/Modal/WarningEthereum";
 
 const Lands = () => {
@@ -259,6 +258,7 @@ const Lands = () => {
       </table>
     );
   }
+
   const openImg = (picture) => {
     if (document.documentElement.clientWidth < 600) {
       return;
@@ -292,14 +292,21 @@ const Lands = () => {
         const holderAccount = res[1];
         setAccount(holderAccount);
         setContract(contractML);
-
-        contractML.methods.allowlist(holderAccount).call().then((res) => {
-          setRemaining(res['total'] - res['claimed']);
-        });
-        contractML.methods.getTiers().call().then((res) => setCurrentTiers(res));
-        contractML.methods.holderTiers(holderAccount).call().then((res) => setHolderTiers(res));
       }).catch((err) => {
         console.log(err);
+      });
+    }
+    if (holderTiers === null && contract != null) {
+      contract.methods.holderTiers(account).call().then((res) => setHolderTiers(res));
+    }
+    if (currentTiers === null && contract != null) {
+      contract.methods.getTiers().call().then((res) => {
+        setCurrentTiers(res)
+      }).catch((err) => console.log(err));
+    }
+    if (remaining === null && contract != null) {
+      contract.methods.allowlist(account).call().then((res) => {
+        setRemaining(res['total'] - res['claimed']);
       });
     }
   });
