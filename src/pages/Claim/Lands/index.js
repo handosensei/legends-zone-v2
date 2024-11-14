@@ -48,8 +48,8 @@ import {Link} from "react-router-dom";
 import WarningEthereum from "../../../Components/Modal/WarningEthereum";
 
 const Lands = () => {
-  const CHAIN_ID = process.env.REACT_APP_LAND_CHAIN_ID;
-  const LAND_ENV = process.env.REACT_APP_LAND_ENV;
+  const CHAIN_ID = 1;
+  const LAND_ENV = "mainnet";
 
   const LANDS_IMG = {
     celestial: {
