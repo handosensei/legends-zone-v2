@@ -233,6 +233,7 @@ import DarkRewards from "../pages/Claim/DarkRewards";
 import BadgeRewards from "../pages/Claim/BadgeRewards";
 import StakingMetaLegends from "../pages/Staking/MetaLegends";
 import StakingCouncilStones from "../pages/Staking/CouncilStones";
+import LandImage from "../pages/LandImage";
 
 const authProtectedRoutes = [
 
@@ -436,6 +437,7 @@ const publicRoutes = [
   { path: "/logout", component: <Logout /> },
   { path: "/login", component: <Login /> },
   { path: "/lands", component: <Lands /> },
+  { path: "/lands/:id/image", component: <LandImage /> },
   // { path: "/forgot-password", component: <ForgetPasswordPage /> },
   // { path: "/register", component: <Register /> },
   //

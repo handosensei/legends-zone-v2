@@ -124,7 +124,7 @@ const Faq = () => {
                   <strong>Phase 5:</strong> November 20, 2024, at 19:00 UTC
                 </li>
                 <li>
-                  <strong>Final Phase (Phase 6):</strong> November 21, 2024, at 19:00 UTC
+                  <strong>Final Phase (Phase 6):</strong> November 22, 2024, at 19:00 UTC
                 </li>
               </ul>
 
