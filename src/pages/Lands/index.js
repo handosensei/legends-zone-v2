@@ -46,7 +46,7 @@ const Lands = () => {
                             <td>{landWish.land.class.toUpperCase()}</td>
                             <td>Area {landWish.land.area}</td>
                             <td>{landWish.user.wallet}</td>
-                            <td><Link to="#" className="link-success">OpenSea <i className="ri-arrow-right-line align-middle"></i></Link></td>
+                            <td><Link to={`https://opensea.io/assets/ethereum/0x9e1578dacae780fb0abc40fb8d793b12aa4f7332/${landWish.tokenId}`} className="link-success">OpenSea <i className="ri-arrow-right-line align-middle"></i></Link></td>
                           </tr>
                         ))}
                         </tbody>

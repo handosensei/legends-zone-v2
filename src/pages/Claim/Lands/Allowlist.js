@@ -95,7 +95,7 @@ const Allowlist = ({contract, account}) => {
         <CardBody>
           <div className="d-flex align-items-center">
             <div className="flex-grow-1">
-              <p className={"text-uppercase fw-medium mb-0 text-muted"}>Your queue position</p>
+              <p className={"text-uppercase fw-medium mb-0 text-muted"}>Your phase position</p>
             </div>
             <div className="flex-shrink-0">
               <Status />
@@ -124,7 +124,7 @@ const Allowlist = ({contract, account}) => {
         <CardBody>
           <div className="d-flex align-items-center">
             <div className="flex-grow-1">
-              <p className={"text-uppercase fw-medium mb-0 text-muted"}>Current queue</p>
+              <p className={"text-uppercase fw-medium mb-0 text-muted"}>Current phase</p>
             </div>
           </div>
 
