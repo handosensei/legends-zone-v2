@@ -141,6 +141,8 @@ const Lands = () => {
         setLandMinted(landSelected);
         setLandSelected([]);
       }
+      setLandMinted(landSelected);
+      setLandSelected([]);
       setLoading(false);
     }).catch((error) => {
       setMintModal(false);
