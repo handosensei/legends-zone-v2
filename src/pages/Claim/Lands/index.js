@@ -107,10 +107,10 @@ const Lands = () => {
     setMintModal(true);
     contract.methods.mint(nb).send({from: account}).then((res) => {
       if (nb === 1) {
-        addLandWishes({
+        addLandWishes([{
           tokenId: res.events.Minted.returnValues.tokenId,
           landId: landSelected[0].item.id
-        }).then((res) => {
+        }]).then((res) => {
           notif(
             'success',
             `Land ${landSelected[0].item.class} - area ${landSelected[0].item.area} minted`);
