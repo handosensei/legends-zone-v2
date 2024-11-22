@@ -70,11 +70,6 @@ export const getPerkOgPets = async () => {
   return get(url);
 }
 
-export const getPerkOgLands = async () => {
-  const url = `${apiUrl}perk-og-lands`;
-  return get(url);
-}
-
 export const getEligibilityOgPets = async () => {
   const url = `${apiUrl}eligibility/og-pets`;
   return get(url);
@@ -140,11 +135,6 @@ export const getResidences = async () => {
   return get(url);
 }
 
-export const getLands = async () => {
-  const url = `${apiUrl}og-lands`;
-  return get(url);
-}
-
 export const usernameIsAvailable = async (username) => {
   const url = `${apiUrl}users/username/${username}/is-available`;
   return get(url);
@@ -166,17 +156,19 @@ export const getNFTsMetadata = async (blockchain, network, collection, tokenIds)
   return post(url, payload);
 }
 
-export const addLandWishes = async (payload) => {
-  const url = `${apiUrl}land-wishes`;
-  return post(url, payload);
-}
 
-export const getLandWishes = async (id) => {
-  const url = `${apiUrl}land-wishes/${id}`;
+// LAND ----------------------------------------------------------------------------
+export const getLands = async () => {
+  const url = `${apiUrl}lands`;
   return get(url);
 }
 
-export const getAllLandWishes = async () => {
-  const url = `${apiUrl}land-wishes`;
+export const addLandMinted = async (payload) => {
+  const url = `${apiUrl}lands/minted`;
+  return post(url, payload);
+}
+
+export const getPerkOgLands = async () => {
+  const url = `${apiUrl}perk-og-lands`;
   return get(url);
 }

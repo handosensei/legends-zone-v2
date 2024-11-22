@@ -253,8 +253,6 @@ const authProtectedRoutes = [
 
   { path: "/sensei", component: <EnvParameters /> },
 
-  { path: "/lands", component: <Lands />},
-
   //
   // { path: "/dashboard-crypto", component: <DashboardCrypto /> },
 

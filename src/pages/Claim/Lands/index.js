@@ -18,7 +18,7 @@ import Faq from "./Faq";
 
 import {getWeb3Data} from "../../../Components/Common/LibWeb3";
 import BreadCrumb from "../../../Components/Common/BreadCrumb";
-import {addLandWishes, getLands} from "../../../client/ApiMetaLegends";
+import {addLandMinted, getLands} from "../../../client/ApiMetaLegends";
 
 import LAND_CEL_1 from "../../../assets/images/metalegends/land/CELESTIAL-AREA-1.png";
 import LAND_CEL_2 from "../../../assets/images/metalegends/land/CELESTIAL-AREA-2.png";
@@ -107,7 +107,7 @@ const Lands = () => {
     setMintModal(true);
     contract.methods.mint(nb).send({from: account}).then((res) => {
       if (nb === 1) {
-        addLandWishes([{
+        addLandMinted([{
           tokenId: res.events.Minted.returnValues.tokenId,
           landId: landSelected[0].item.id
         }]).then((res) => {
@@ -131,7 +131,7 @@ const Lands = () => {
             landId: landSelected[i].item.id
           })
         }
-        addLandWishes(payload).then((res) => {
+        addLandMinted(payload).then((res) => {
           notif('success', `${tokenIds.length} lands minted`);
         }).catch((error) => {
           notif('danger', error.message);

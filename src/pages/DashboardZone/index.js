@@ -9,6 +9,7 @@ import CardOgResidence from "../../Components/CardOgResidence";
 import CardSpecial from "../../Components/CardSpecial";
 import CardHoldingReward from "../../Components/CardHoldingReward";
 import CardHealingDrone from "../../Components/CardHealingDrone";
+import CardOgLand from "../../Components/CardOgLand";
 import classnames from "classnames";
 
 const DashboardZone = () => {
@@ -40,6 +41,8 @@ const DashboardZone = () => {
         return <CardOgVehicle />;
       case '8':
         return <CardOgResidence />;
+      case '9':
+        return <CardOgLand />;
     }
   }
 
@@ -93,6 +96,11 @@ const DashboardZone = () => {
                       OG Residences
                     </NavLink>
                   </NavItem>
+                  <NavItem>
+                    <NavLink style={{ cursor: "pointer" }} className={classnames({ active: justifyTab === "9", })} onClick={() => { justifyToggle("9"); }} >
+                      OG Lands
+                    </NavLink>
+                  </NavItem>
                 </Nav>
 
                 <TabContent activeTab={justifyTab} className="text-muted">
@@ -125,6 +133,10 @@ const DashboardZone = () => {
                   </TabPane>
 
                   <TabPane tabId="8">
+                    <TabContent />
+                  </TabPane>
+
+                  <TabPane tabId="9">
                     <TabContent />
                   </TabPane>
                 </TabContent>
