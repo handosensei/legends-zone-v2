@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 
 
 const Land = () => {
-  const [activeVideo, setActiveVideo] = useState(VIDEO1);
+  const [activeVideo, setActiveVideo] = useState(VIDEO2);
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -49,20 +49,6 @@ const Land = () => {
           }}
         >
           <button
-            onClick={() => handleVideoChange(VIDEO1)}
-            style={{
-              padding: "5px 10px",
-              backgroundColor: activeVideo === VIDEO1 ? "#007BFF" : "#ddd",
-              color: activeVideo === VIDEO1 ? "#fff" : "#000",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              fontSize: "12px",
-            }}
-          >
-            Biome
-          </button>
-          <button
             onClick={() => handleVideoChange(VIDEO2)}
             style={{
               padding: "5px 10px",
@@ -76,6 +62,21 @@ const Land = () => {
           >
             Land
           </button>
+          <button
+            onClick={() => handleVideoChange(VIDEO1)}
+            style={{
+              padding: "5px 10px",
+              backgroundColor: activeVideo === VIDEO1 ? "#007BFF" : "#ddd",
+              color: activeVideo === VIDEO1 ? "#fff" : "#000",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              fontSize: "12px",
+            }}
+          >
+            Biome
+          </button>
+
         </div>
       </div>
     </div>
