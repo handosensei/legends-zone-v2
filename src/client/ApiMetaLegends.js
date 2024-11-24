@@ -168,6 +168,10 @@ export const addLandMinted = async (payload) => {
   return post(url, payload);
 }
 
+export const getLandMinted = async (tokenId) => {
+  return get(`${apiUrl}lands/minted/${tokenId}`);
+}
+
 export const getPerkOgLands = async () => {
   const url = `${apiUrl}perk-og-lands`;
   return get(url);

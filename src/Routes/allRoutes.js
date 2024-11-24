@@ -433,7 +433,7 @@ const publicRoutes = [
   // Authentication Page
   { path: "/logout", component: <Logout /> },
   { path: "/login", component: <Login /> },
-  { path: "/lands/:id", component: <LandContent /> },
+  { path: "/lands/:tokenId", component: <LandContent /> },
   // { path: "/forgot-password", component: <ForgetPasswordPage /> },
   // { path: "/register", component: <Register /> },
   //
